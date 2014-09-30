@@ -87,11 +87,7 @@ public class Janela extends JFrame {
     private JMenu criarMenu() throws IOException {
         final JMenu menu = new JMenu("Menu");
         menu.setMnemonic(KeyEvent.VK_M);
-        JMenu jm = new JMenu("Candeeiros");
-        jm.add(criarItemVerCandeeiros());
-        menu.add(jm);
-        JMenu jm2 = new JMenu("Empresas");
-        menu.add(jm2);
+        
         menu.addSeparator();
         menu.add(criarItemSair());
         return menu;
@@ -161,7 +157,9 @@ public class Janela extends JFrame {
         bu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fechar();
+                
+                JanelaSimulador jd = new JanelaSimulador(null);
+                Janela.this.dispose();
             }
         });
 
