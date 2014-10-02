@@ -7,7 +7,6 @@
 package trabalhofsiap;
 
 import fsiap.ui.Janela;
-import fsiap.ui.JanelaSimulador;
 import java.io.IOException;
 
 /**

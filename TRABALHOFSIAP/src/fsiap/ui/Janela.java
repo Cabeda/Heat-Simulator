@@ -36,10 +36,6 @@ public class Janela extends JFrame {
      */
     private String fechar = "nao";
 
-    /**
-     * A Posição da janela.
-     */
-    private static final int JANELA_POSICAO_X = 700, JANELA_POSICAO_Y = 200;
 
     /**
      * Cria a Janela com o menu.
@@ -71,9 +67,9 @@ public class Janela extends JFrame {
         });
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(450, 230);
+        setSize(670, 270);
         setResizable(false);
-        setLocation(JANELA_POSICAO_X, JANELA_POSICAO_Y);
+        setLocationRelativeTo(null);
         setVisible(true);
 
     }
