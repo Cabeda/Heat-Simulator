@@ -5,18 +5,19 @@
  */
 package fsiap.ui;
 
-import java.awt.Component;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.Icon;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 
@@ -34,55 +35,37 @@ public class JanelaSimulador extends JDialog {
     public JanelaSimulador(JFrame pai) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores");
-
-        GridLayout gl = new GridLayout(1, 1);
-        setLayout(gl);
+        
+        JPanel jp = new JPanel();
+        jp.setLayout(new BorderLayout());
+        getContentPane().add(jp);
+        
 
         JTabbedPane jt = new JTabbedPane();
 
-//ImageIcon icon = createImageIcon("images/middle.gif");
-        JComponent panel1 = new JComponent() {
-
-            
-
-            @Override
-            public void setVisible(boolean aFlag) {
-                super.setVisible(true); //To change body of generated methods, choose Tools | Templates.
-            }
-            @Override
-            public Component add(Component comp) {
-                return super.add(panel1()); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            
-};
+        //ImageIcon icon = createImageIcon("images/middle.gif");
         
-        jt.addTab("Dimensões", panel1);
+        jt.addTab("Dimensões", panel1());
 
-        JComponent panel2 = panel2();
-        jt.addTab("Aberturas", panel2);
 
-        JComponent panel3 = panel3();
-        jt.addTab("Cobertura", panel3);
+        jt.addTab("Aberturas", panel2());
 
-        JComponent panel4 = panel4();
-        jt.addTab("Iluminação", panel4);
+        jt.addTab("Cobertura", panel3());
 
-        JComponent panel5 = panel5();
-        jt.addTab("Pessoas", panel5);
+        jt.addTab("Iluminação", panel4());
 
-        JComponent panel6 = panel6();
-        jt.addTab("Aparelhos", panel6);
+        jt.addTab("Pessoas", panel5());
 
-        JComponent panel7 = panel7();
-        jt.addTab("Temperatura", panel7);
+        jt.addTab("Aparelhos", panel6());
 
-        JComponent panel8 = panel8();
-        jt.addTab("Resultado", panel8);
+        jt.addTab("Temperatura", panel7());
 
-        add(jt);
+        jt.addTab("Resultado", panel8());
+        jt.repaint();
+
+        jp.add(jt, BorderLayout.CENTER);
         jt.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-
+        jt.repaint();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -99,30 +82,89 @@ public class JanelaSimulador extends JDialog {
     }
 
     protected JPanel panel1() {
-        JPanel p1 = new JPanel();
-        p1.setLayout(new GridLayout(6, 1));
+                JPanel panel1 = new JPanel();
+		panel1.setLayout( new GridLayout(6,1) );
 
-        JLabel lbl1 = new JLabel();
-        lbl1.setHorizontalAlignment(JLabel.CENTER);
-        lbl1.add(new JTextField("Dimensões do Ambiente"));
+		JLabel label1 = new JLabel( "Comprimento:" );
+		label1.setBounds( 10, 15, 150, 20 );
+		panel1.add( label1 );
 
-        JLabel lbl2 = new JLabel();
-        lbl2.setHorizontalAlignment(JLabel.CENTER);
-        lbl2.add(new JTextField("Comprimento"));
+		JTextField field1 = new JTextField();
+		field1.setBounds( 10, 35, 150, 20 );
+		panel1.add( field1 );
 
-        p1.add(lbl1);
-        p1.setVisible(true);
-        return p1;
+		JLabel label2 = new JLabel( "Largura:" );
+		label2.setBounds( 10, 60, 150, 20 );
+		panel1.add( label2 );
+                
+                JTextField field2 = new JTextField();
+		field2.setBounds( 10, 35, 150, 20 );
+		panel1.add( field2 );
+                
+                JLabel label3 = new JLabel( "Altura:" );
+		label2.setBounds( 10, 60, 150, 20 );
+		panel1.add( label3 );
+                
+                JTextField field3 = new JTextField();
+		field3.setBounds( 10, 35, 150, 20 );
+		panel1.add( field3 );
+                
+                JLabel label4 = new JLabel( "Area:" );
+		label2.setBounds( 10, 60, 150, 20 );
+		panel1.add( label4 );
+                
+                JTextField field4 = new JTextField();
+		field4.setBounds( 10, 35, 150, 20 );
+		panel1.add( field4 );
+                
+                JButton btnMoveRight1 = new JButton(">>");
+                        btnMoveRight1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //tabbedPane.setSelectedIndex(1);
+                }
+            }
+        );
+                        panel1.add(btnMoveRight1);
+                        btnMoveRight1.setAlignmentX(CENTER_ALIGNMENT);
+        return panel1;
     }
 
     protected JPanel panel2() {
-        JPanel p1 = new JPanel();
-        p1.setLayout(new GridLayout(6, 1));
-        JLabel lbl1 = new JLabel();
-        lbl1.add(new JTextField("Aberturas"));
+        JPanel panel1 = new JPanel();
+        panel1.setLayout( new GridLayout(4,0) );
+        
+        JLabel label1 = new JLabel( "Aberturas" );
+		label1.setBounds( 10, 15, 150, 20 );
+		panel1.add( label1 );
+        
+        JTextField field1 = new JTextField();
+        field1.setBounds( 10, 35, 150, 20 );
+        panel1.add( field1 );
+        
+                        JButton btnAdicionar= new JButton("Adicionar");
+                        btnAdicionar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                }
+            }
+        );
+                        panel1.add(btnAdicionar);
 
-        p1.add(lbl1);
-        return p1;
+        
+                        JButton btnMoveRight1 = new JButton(">>");
+                        btnMoveRight1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                }
+            }
+        );
+                        panel1.add(btnMoveRight1);
+                        btnMoveRight1.setAlignmentX(RIGHT_ALIGNMENT);
+                        
+        return panel1;
     }
 
     protected JPanel panel3() {
