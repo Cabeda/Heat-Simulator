@@ -108,24 +108,6 @@ public class Janela extends JFrame {
     }
 
     /**
-     * Criar item Ver Candeeiros
-     *
-     * @return item
-     */
-    private JMenuItem criarItemVerCandeeiros() {
-        JMenuItem item = new JMenuItem("Ver Candeeiros", KeyEvent.VK_V);
-        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_MASK));
-        item.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-        return item;
-    }
-
-    /**
      * Criar item Sair
      *
      * @return item
@@ -166,9 +148,9 @@ public class Janela extends JFrame {
         
         JPanel jp = new JPanel();
 
-        JLabel jl = new JLabel("     Deverá inserir as diferentes características do seu ambiente", SwingConstants.CENTER);
-        JLabel jl2 = new JLabel("           para ser calculada a capacidade recomendada para");
-        JLabel jl3 = new JLabel("       o seu ar condicionado.");
+        JLabel jl = new JLabel(" Deverá inserir as diferentes características do seu ambiente", SwingConstants.CENTER);
+        JLabel jl2 = new JLabel(" para ser calculada a capacidade recomendada para");
+        JLabel jl3 = new JLabel(" o seu ar condicionado.");
 
         jp.add(jl);
         jp.add(jl2);
