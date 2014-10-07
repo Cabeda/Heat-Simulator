@@ -11,24 +11,24 @@ package trabalhofsiap;
  */
 
 
-public class DimensaoController {
+public class DimController {
 
     private float comprimento, largura, altura, volume;
     
-    public DimensaoController() {
+    public DimController() {
         this.comprimento=0;
         this.largura=0;
         this.altura=0;
         this.volume=0;
     }
 
-    public DimensaoController(float comprimento, float largura, float altura) {
+    public DimController(float comprimento, float largura, float altura) {
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
     }
     
-    public DimensaoController(DimensaoController dc)
+    public DimController(DimController dc)
     {
         this.comprimento=dc.comprimento;
         this.largura=dc.largura;

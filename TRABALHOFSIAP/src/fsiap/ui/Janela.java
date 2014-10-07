@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-import trabalhofsiap.DimensaoController;
+import trabalhofsiap.DimController;
 
 /**
  *
@@ -138,8 +138,8 @@ public class Janela extends JFrame {
         bu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DimensaoController dc = new DimensaoController();
-                JanelaSimulador jd = new JanelaSimulador(null,dc);
+                DimController dc = new DimController();
+                JanelaSimu jd = new JanelaSimu(null,dc);
                 Janela.this.dispose();
             }
         });

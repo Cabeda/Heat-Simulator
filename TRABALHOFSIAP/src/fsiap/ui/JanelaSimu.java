@@ -23,14 +23,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import trabalhofsiap.Abertura;
-import trabalhofsiap.DimensaoController;
+import trabalhofsiap.Abertu;
+import trabalhofsiap.DimController;
 
 /**
  *
  * @author i130348
  */
-public class JanelaSimulador extends JDialog {
+public class JanelaSimu extends JDialog {
 
     /**
      * Fechar (S/N)
@@ -40,14 +40,14 @@ public class JanelaSimulador extends JDialog {
     private Dimension CAMPO_TAMANHO = new Dimension(200, 40);
 
     private JTextField field4;
-    private DimensaoController dc;
+    private DimController dc;
 
     private JScrollPane pdados;
     private JLabel wer;
 
     private JTabbedPane jt = new JTabbedPane();
 
-    public JanelaSimulador(JFrame pai,DimensaoController dc) {
+    public JanelaSimu(JFrame pai,DimController dc) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores");
 
@@ -228,9 +228,9 @@ public class JanelaSimulador extends JDialog {
                 
                 while(ja.getLista().isEmpty()){
                 if (ja.getLista()!=null) {
-                    List<Abertura> ls = ja.getLista();
+                    List<Abertu> ls = ja.getLista();
 
-                    for (Abertura s : ls) {
+                    for (Abertu s : ls) {
                         wer.setText(s.toString() + "\n");
                         System.out.println(s.toString() + "\n");
 

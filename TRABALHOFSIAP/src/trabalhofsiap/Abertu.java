@@ -9,18 +9,18 @@ package trabalhofsiap;
  *
  * @author Jecabeda
  */
-public class Abertura {
+public class Abertu {
         private String material,tipo;
         private int altura, largura;
 
-    public Abertura(String nome) {
+    public Abertu(String nome) {
         this.altura=0;
         this.largura=0;
         this.material="";
         this.tipo="";
     }
 
-    public Abertura() {
+    public Abertu() {
     }
 
   
