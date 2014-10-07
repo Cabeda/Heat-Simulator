@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.colorchooser.AbstractColorChooserPanel;
 import trabalhofsiap.Abertu;
 import trabalhofsiap.DimController;
 
@@ -37,7 +38,7 @@ public class JanelaSimu extends JDialog {
      */
     private String fechar = "nao";
     private Dimension LABEL_TAMANHO2 = new JLabel("Dimensóes do ambiente ").getPreferredSize();
-    private Dimension CAMPO_TAMANHO = new Dimension(200, 40);
+    private Dimension CAMPO_TAMANHO = new Dimension(200, 20);
 
     private JTextField field4;
     private DimController dc;
@@ -56,16 +57,13 @@ public class JanelaSimu extends JDialog {
         jp.setLayout(new BorderLayout());
         getContentPane().add(jp);
 
-        //ImageIcon icon = createImageIcon("images/middle.gif");
         jt.addTab("Dimensões", panel1());
+        
+        jt.addTab("Limites", panel5());
 
         jt.addTab("Aberturas", panel2());
 
-        jt.addTab("Cobertura", panel3());
-
-        jt.addTab("Iluminação", panel4());
-
-        jt.addTab("Pessoas", panel5());
+        jt.addTab("Pessoas", panel3());
 
         jt.addTab("Aparelhos", panel6());
 
@@ -85,7 +83,7 @@ public class JanelaSimu extends JDialog {
         });
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(670, 400);
+        setSize(585, 400);
         setResizable(true);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -98,12 +96,13 @@ public class JanelaSimu extends JDialog {
         panel.setLayout(new BorderLayout(10, 10));
 
         JPanel panel0 = new JPanel();
-        JLabel label0 = new JLabel("Dimensóes do ambiente", JLabel.CENTER);
+        JLabel label0 = new JLabel("Dimensões do ambiente", JLabel.CENTER);
         label0.setPreferredSize(LABEL_TAMANHO2);
         panel0.add(label0);
 
         JPanel panel1 = new JPanel();
         JLabel label1 = new JLabel("Comprimento:", JLabel.RIGHT);
+        JLabel l1 =  new JLabel("m",JLabel.LEFT);
         label1.setPreferredSize(LABEL_TAMANHO2);
         JTextField field1 = new JTextField();
         field1.setPreferredSize(CAMPO_TAMANHO);
@@ -118,61 +117,41 @@ public class JanelaSimu extends JDialog {
         );
         panel1.add(label1);
         panel1.add(field1);
-
+        panel1.add(l1);
+        
         JPanel panel2 = new JPanel();
         JLabel label2 = new JLabel("Largura:", JLabel.RIGHT);
+        JLabel l2 =  new JLabel("m",JLabel.LEFT);
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
         field2.setPreferredSize(CAMPO_TAMANHO);
-        field2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dc.setLargura(Float.parseFloat(field2.getText()));
-                revalidate();
-            }
-        }
-        );
+        
         panel2.add(label2);
         panel2.add(field2);
-
+        panel2.add(l2);
+        
         JPanel panel3 = new JPanel();
         JLabel label3 = new JLabel("Altura:", JLabel.RIGHT);
+        JLabel l3 =  new JLabel("m",JLabel.LEFT);
         label3.setPreferredSize(LABEL_TAMANHO2);
         JTextField field3 = new JTextField();
         field3.setPreferredSize(CAMPO_TAMANHO);
-        field3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("olá");
-                dc.setAltura(Float.parseFloat(field3.getText()));
-                revalidate();
-   
-            }
-        }
-        );
+       
         panel3.add(label3);
         panel3.add(field3);
+        panel3.add(l3);
 
         JPanel panel4 = new JPanel();
         JLabel label4 = new JLabel("Volume:", JLabel.RIGHT);
+        JLabel l4 =  new JLabel("m³",JLabel.LEFT);
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(CAMPO_TAMANHO);
         field4.setEditable(false);
-        field4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                field4.setText("ANTONIO");
-
-                revalidate();
-
-            }
-        }
-        );
-
+        
         panel4.add(label4);
         panel4.add(field4);
+        panel4.add(l4);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
@@ -184,6 +163,7 @@ public class JanelaSimu extends JDialog {
         }
         );
         btnMoveRight1.setPreferredSize(CAMPO_TAMANHO);
+        btnMoveRight1.setAlignmentX(RIGHT_ALIGNMENT);
         panel5.add(btnMoveRight1);
 
         panel.add(panel0, BorderLayout.NORTH);
@@ -265,29 +245,32 @@ public class JanelaSimu extends JDialog {
     }
 
     protected JPanel panel3() {
-
+        
         JPanel panel = new JPanel();
-        JPanel grid = new JPanel();
-        JPanel center = new JPanel(new BorderLayout());
-        panel.setLayout(new BorderLayout(10, 10));
-
+        
         JPanel panel1 = new JPanel();
-        JLabel label1 = new JLabel("Cobertura ", JLabel.CENTER);
+        JLabel label1 = new JLabel("Pessoas ", JLabel.CENTER);
         label1.setPreferredSize(LABEL_TAMANHO2);
         panel1.add(label1);
-
-        JPanel panel2 = new JPanel();
-        JScrollPane pdados = new JScrollPane();
-        pdados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        pdados.setPreferredSize(CAMPO_TAMANHO);
-        panel2.add(pdados);
-
+        
         JPanel panel3 = new JPanel();
-        JButton btnAdicionar = new JButton("Definir");
+        JLabel label3 = new JLabel("NºPessoas :", JLabel.RIGHT);
+       
+        label3.setPreferredSize(LABEL_TAMANHO2);
+        JTextField field3 = new JTextField();
+        field3.setPreferredSize(CAMPO_TAMANHO);
+       
+        panel3.add(label3);
+        panel3.add(field3);
+  
+
+    
+        JButton btnAdicionar = new JButton("Confirmar");
         btnAdicionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String a=field3.getText();
+                field3.setText(a+"Nova Pessoa\n");
             }
         }
         );
@@ -299,39 +282,88 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jt.setSelectedIndex(3);
+                jt.setSelectedIndex(4);
             }
         }
         );
         btnMoveRight1.setPreferredSize(CAMPO_TAMANHO);
-        panel5.add(btnMoveRight1);
+        panel5.add(btnMoveRight1, BorderLayout.EAST);
 
-        panel.add(panel1, BorderLayout.NORTH);
-        center.add(panel2, BorderLayout.CENTER);
-        center.add(panel3, BorderLayout.SOUTH);
-        grid.add(center);
-        panel.add(grid, BorderLayout.CENTER);
-        panel.add(panel5, BorderLayout.SOUTH);
+        panel.add(panel1);
+        panel.add(panel3);
+        panel.add(panel5);
+        
         return panel;
     }
 
-    protected JPanel panel4() {
-        JPanel p1 = new JPanel();
-        p1.setLayout(new GridLayout(6, 1));
-        JLabel lbl1 = new JLabel();
-
-        p1.add(lbl1);
-        return p1;
-    }
-
     protected JPanel panel5() {
-        JPanel p1 = new JPanel();
-        p1.setLayout(new GridLayout(6, 1));
-        JLabel lbl1 = new JLabel();
-        lbl1.add(new JTextField("Dimensiões do Ambiente"));
+         JPanel panel = new JPanel();
+        
+        JPanel panel1 = new JPanel();
+        JLabel label1 = new JLabel("Aparelhos ", JLabel.CENTER);
+        label1.setPreferredSize(LABEL_TAMANHO2);
+        panel1.add(label1);
+        
+        JPanel as = new JPanel(new GridLayout(2,0));
+        
+        JPanel panel3 = new JPanel();
+        JLabel label3 = new JLabel("Nº de Aparelhos :", JLabel.RIGHT);
+       
+        label3.setPreferredSize(LABEL_TAMANHO2);
+        JTextField field3 = new JTextField();
+        field3.setPreferredSize(CAMPO_TAMANHO);
+       
+        panel3.add(label3);
+        panel3.add(field3);
+        
+        JPanel panel4= new JPanel();
+        JLabel label4 = new JLabel("Potência Média :", JLabel.RIGHT);
+        JLabel la= new JLabel("Wh",JLabel.LEFT);
+        label4.setPreferredSize(LABEL_TAMANHO2);
+        JTextField field4 = new JTextField();
+        field4.setPreferredSize(CAMPO_TAMANHO);
+       
+        panel4.add(label4);
+        panel4.add(field4);
+        panel4.add(la);
+        
+        
+        
+  
 
-        p1.add(lbl1);
-        return p1;
+    
+        JButton btnAdicionar = new JButton("Confirmar");
+        btnAdicionar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String a=field3.getText();
+                field3.setText(a+"Novo Aparelho\n");
+            }
+        }
+        );
+        btnAdicionar.setPreferredSize(CAMPO_TAMANHO);
+        panel3.add(btnAdicionar);
+
+        JPanel panel5 = new JPanel();
+        JButton btnMoveRight1 = new JButton(">>");
+        btnMoveRight1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jt.setSelectedIndex(4);
+            }
+        }
+        );
+        btnMoveRight1.setPreferredSize(CAMPO_TAMANHO);
+        panel5.add(btnMoveRight1, BorderLayout.EAST);
+
+        as.add(panel3);
+        as.add(panel4,JPanel.LEFT_ALIGNMENT);
+        
+        panel.add(panel1,BorderLayout.NORTH);
+        panel.add(as,BorderLayout.CENTER);
+        panel.add(panel5,BorderLayout.SOUTH);
+        
+        return panel;
     }
 
     protected JPanel panel6() {

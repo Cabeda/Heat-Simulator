@@ -37,7 +37,7 @@ public class Janela extends JFrame {
      */
     private String fechar = "nao";
 
-    private Dimension TXT_TAMANHO = new Dimension(250, 90);
+    private Dimension TXT_TAMANHO = new Dimension(585,400);
 
     /**
      * Cria a Janela com o menu.
@@ -70,7 +70,7 @@ public class Janela extends JFrame {
         });
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(670, 270);
+        setSize(585, 400);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -131,7 +131,7 @@ public class Janela extends JFrame {
     private JPanel criarButtonOK() {
         
         JPanel jp2 = new JPanel();
-        JButton bu = new JButton("OK");
+        JButton bu = new JButton("Começar");
         bu.setSize(10, 5);
         jp2.add(bu, BorderLayout.CENTER);
         
@@ -151,8 +151,8 @@ public class Janela extends JFrame {
         
         JPanel jp = new JPanel();
         
-        JTextArea jt = new JTextArea("Deverá inserir as diferentes características do seu ambiente para ser calculada a capacidade recomendada parao seu ar condicionado.");
-        jt.setEditable(false);
+        JTextArea jt = new JTextArea("  Deverá inserir as diferentes características do seu\n   ambiente para ser calculada a capacidade recomendada parao seu ar condicionado.");
+        jt.setEditable(true);
         jt.setLineWrap(true);
         jt.setPreferredSize(TXT_TAMANHO);
         
