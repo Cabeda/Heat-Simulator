@@ -85,7 +85,7 @@ public class JanelaSimulador extends JDialog {
         });
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(670, 290);
+        setSize(670, 400);
         setResizable(true);
         setLocationRelativeTo(null);
         setVisible(true);
