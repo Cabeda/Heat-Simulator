@@ -7,7 +7,6 @@ package fsiap.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -24,9 +23,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
+import trabalhofsiap.DimensaoController;
 
 /**
  *
@@ -140,8 +138,8 @@ public class Janela extends JFrame {
         bu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                JanelaSimulador jd = new JanelaSimulador(null);
+                DimensaoController dc = new DimensaoController();
+                JanelaSimulador jd = new JanelaSimulador(null,dc);
                 Janela.this.dispose();
             }
         });

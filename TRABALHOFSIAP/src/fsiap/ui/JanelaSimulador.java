@@ -9,15 +9,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -27,8 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import trabalhofsiap.abertura;
-import trabalhofsiap.dimensaoController;
+import trabalhofsiap.Abertura;
+import trabalhofsiap.DimensaoController;
 
 /**
  *
@@ -41,27 +37,21 @@ public class JanelaSimulador extends JDialog {
      */
     private String fechar = "nao";
     private Dimension LABEL_TAMANHO2 = new JLabel("Dimensóes do ambiente ").getPreferredSize();
-    private Dimension Campo2_TAMANHO = new Dimension(250, 20);
-    private Dimension Campo3_TAMANHO = new Dimension(250, 40);
-    private Dimension Scroll_TAMANHO = new Dimension(250, 90);
-    private Dimension BTN_TAMANHO = new Dimension(200, 40);
+    private Dimension CAMPO_TAMANHO = new Dimension(200, 40);
 
     private JTextField field4;
-    private boolean flag1 = false;
-    private boolean flag2 = false;
-    private boolean flag3 = false;
+    private DimensaoController dc;
 
     private JScrollPane pdados;
     private JLabel wer;
 
-    private dimensaoController dc = new dimensaoController();
-
     private JTabbedPane jt = new JTabbedPane();
 
-    public JanelaSimulador(JFrame pai) {
+    public JanelaSimulador(JFrame pai,DimensaoController dc) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores");
 
+        this.dc=dc;
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
         getContentPane().add(jp);
@@ -116,13 +106,13 @@ public class JanelaSimulador extends JDialog {
         JLabel label1 = new JLabel("Comprimento:", JLabel.RIGHT);
         label1.setPreferredSize(LABEL_TAMANHO2);
         JTextField field1 = new JTextField();
-        field1.setPreferredSize(Campo2_TAMANHO);
+        field1.setPreferredSize(CAMPO_TAMANHO);
         field1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dc.setComprimento(Float.parseFloat(field1.getText()));
                 revalidate();
-                flag1 = true;
+                
             }
         }
         );
@@ -133,13 +123,12 @@ public class JanelaSimulador extends JDialog {
         JLabel label2 = new JLabel("Largura:", JLabel.RIGHT);
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
-        field2.setPreferredSize(Campo2_TAMANHO);
+        field2.setPreferredSize(CAMPO_TAMANHO);
         field2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dc.setLargura(Float.parseFloat(field2.getText()));
                 revalidate();
-                flag2 = true;
             }
         }
         );
@@ -150,14 +139,14 @@ public class JanelaSimulador extends JDialog {
         JLabel label3 = new JLabel("Altura:", JLabel.RIGHT);
         label3.setPreferredSize(LABEL_TAMANHO2);
         JTextField field3 = new JTextField();
-        field3.setPreferredSize(Campo2_TAMANHO);
+        field3.setPreferredSize(CAMPO_TAMANHO);
         field3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("olá");
                 dc.setAltura(Float.parseFloat(field3.getText()));
                 revalidate();
-                flag3 = true;
+   
             }
         }
         );
@@ -168,7 +157,7 @@ public class JanelaSimulador extends JDialog {
         JLabel label4 = new JLabel("Volume:", JLabel.RIGHT);
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
-        field4.setPreferredSize(Campo2_TAMANHO);
+        field4.setPreferredSize(CAMPO_TAMANHO);
         field4.setEditable(false);
         field4.addActionListener(new ActionListener() {
             @Override
@@ -194,7 +183,7 @@ public class JanelaSimulador extends JDialog {
             }
         }
         );
-        btnMoveRight1.setPreferredSize(Campo2_TAMANHO);
+        btnMoveRight1.setPreferredSize(CAMPO_TAMANHO);
         panel5.add(btnMoveRight1);
 
         panel.add(panel0, BorderLayout.NORTH);
@@ -222,7 +211,7 @@ public class JanelaSimulador extends JDialog {
         JPanel panel2 = new JPanel();
         pdados = new JScrollPane();
         pdados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        pdados.setPreferredSize(Scroll_TAMANHO);
+        pdados.setPreferredSize(CAMPO_TAMANHO);
         JPanel jdados = new JPanel(new FlowLayout());
         wer = new JLabel("olá");
         jdados.add(wer);
@@ -235,13 +224,13 @@ public class JanelaSimulador extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                janelaAbertura ja = new janelaAbertura();
+                JanelaAbertura ja = new JanelaAbertura();
                 
                 while(ja.getLista().isEmpty()){
                 if (ja.getLista()!=null) {
-                    List<abertura> ls = ja.getLista();
+                    List<Abertura> ls = ja.getLista();
 
-                    for (abertura s : ls) {
+                    for (Abertura s : ls) {
                         wer.setText(s.toString() + "\n");
                         System.out.println(s.toString() + "\n");
 
@@ -251,7 +240,7 @@ public class JanelaSimulador extends JDialog {
 
             }
         });
-        btnAdicionar.setPreferredSize(Campo2_TAMANHO);
+        btnAdicionar.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(btnAdicionar);
 
         JPanel panel5 = new JPanel();
@@ -263,7 +252,7 @@ public class JanelaSimulador extends JDialog {
             }
         }
         );
-        btnMoveRight1.setPreferredSize(Campo2_TAMANHO);
+        btnMoveRight1.setPreferredSize(CAMPO_TAMANHO);
         panel5.add(btnMoveRight1);
 
         panel.add(panel1, BorderLayout.NORTH);
@@ -290,7 +279,7 @@ public class JanelaSimulador extends JDialog {
         JPanel panel2 = new JPanel();
         JScrollPane pdados = new JScrollPane();
         pdados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        pdados.setPreferredSize(Scroll_TAMANHO);
+        pdados.setPreferredSize(CAMPO_TAMANHO);
         panel2.add(pdados);
 
         JPanel panel3 = new JPanel();
@@ -302,7 +291,7 @@ public class JanelaSimulador extends JDialog {
             }
         }
         );
-        btnAdicionar.setPreferredSize(Campo2_TAMANHO);
+        btnAdicionar.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(btnAdicionar);
 
         JPanel panel5 = new JPanel();
@@ -314,7 +303,7 @@ public class JanelaSimulador extends JDialog {
             }
         }
         );
-        btnMoveRight1.setPreferredSize(Campo2_TAMANHO);
+        btnMoveRight1.setPreferredSize(CAMPO_TAMANHO);
         panel5.add(btnMoveRight1);
 
         panel.add(panel1, BorderLayout.NORTH);
