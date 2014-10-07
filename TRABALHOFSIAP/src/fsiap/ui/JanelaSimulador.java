@@ -7,11 +7,17 @@ package fsiap.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -21,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import trabalhofsiap.abertura;
+import trabalhofsiap.dimensaoController;
 
 /**
  *
@@ -37,6 +45,16 @@ public class JanelaSimulador extends JDialog {
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
     private Dimension BTN_TAMANHO = new Dimension(200, 40);
+
+    private JTextField field4;
+    private boolean flag1 = false;
+    private boolean flag2 = false;
+    private boolean flag3 = false;
+
+    private JScrollPane pdados;
+    private JLabel wer;
+
+    private dimensaoController dc = new dimensaoController();
 
     private JTabbedPane jt = new JTabbedPane();
 
@@ -99,6 +117,15 @@ public class JanelaSimulador extends JDialog {
         label1.setPreferredSize(LABEL_TAMANHO2);
         JTextField field1 = new JTextField();
         field1.setPreferredSize(Campo2_TAMANHO);
+        field1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dc.setComprimento(Float.parseFloat(field1.getText()));
+                revalidate();
+                flag1 = true;
+            }
+        }
+        );
         panel1.add(label1);
         panel1.add(field1);
 
@@ -107,6 +134,15 @@ public class JanelaSimulador extends JDialog {
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
         field2.setPreferredSize(Campo2_TAMANHO);
+        field2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dc.setLargura(Float.parseFloat(field2.getText()));
+                revalidate();
+                flag2 = true;
+            }
+        }
+        );
         panel2.add(label2);
         panel2.add(field2);
 
@@ -115,15 +151,37 @@ public class JanelaSimulador extends JDialog {
         label3.setPreferredSize(LABEL_TAMANHO2);
         JTextField field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
+        field3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("olá");
+                dc.setAltura(Float.parseFloat(field3.getText()));
+                revalidate();
+                flag3 = true;
+            }
+        }
+        );
         panel3.add(label3);
         panel3.add(field3);
 
         JPanel panel4 = new JPanel();
-        JLabel label4 = new JLabel("Area:", JLabel.RIGHT);
+        JLabel label4 = new JLabel("Volume:", JLabel.RIGHT);
         label4.setPreferredSize(LABEL_TAMANHO2);
-        JTextField field4 = new JTextField();
+        field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
         field4.setEditable(false);
+        field4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                field4.setText("ANTONIO");
+
+                revalidate();
+
+            }
+        }
+        );
+
         panel4.add(label4);
         panel4.add(field4);
 
@@ -162,9 +220,13 @@ public class JanelaSimulador extends JDialog {
         panel1.add(label1);
 
         JPanel panel2 = new JPanel();
-        JScrollPane pdados = new JScrollPane();
+        pdados = new JScrollPane();
         pdados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         pdados.setPreferredSize(Scroll_TAMANHO);
+        JPanel jdados = new JPanel(new FlowLayout());
+        wer = new JLabel("olá");
+        jdados.add(wer);
+        pdados.add(jdados);
         panel2.add(pdados);
 
         JPanel panel3 = new JPanel();
@@ -173,9 +235,22 @@ public class JanelaSimulador extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                janelaAbertura ja = new janelaAbertura();
+                
+                while(ja.getLista().isEmpty()){
+                if (ja.getLista()!=null) {
+                    List<abertura> ls = ja.getLista();
+
+                    for (abertura s : ls) {
+                        wer.setText(s.toString() + "\n");
+                        System.out.println(s.toString() + "\n");
+
+                    }
+                }
+                }
+
             }
-        }
-        );
+        });
         btnAdicionar.setPreferredSize(Campo2_TAMANHO);
         panel3.add(btnAdicionar);
 

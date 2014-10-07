@@ -6,6 +6,7 @@
 package fsiap.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
@@ -36,6 +39,7 @@ public class Janela extends JFrame {
      */
     private String fechar = "nao";
 
+    private Dimension TXT_TAMANHO = new Dimension(250, 90);
 
     /**
      * Cria a Janela com o menu.
@@ -53,11 +57,12 @@ public class Janela extends JFrame {
 
         //ImageIcon i = new ImageIcon("xxxxxxx.jpg");
         //add(new JLabel(i));
-        GridLayout gl = new GridLayout(2, 1);
+        BorderLayout gl = new BorderLayout();
         setLayout(gl);
 
-        add(criarTexto());
-        add(criarButtonOK());
+        add(new JLabel(" "), BorderLayout.NORTH);
+        add(criarTexto(), BorderLayout.CENTER);
+        add(criarButtonOK(), BorderLayout.SOUTH);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -147,14 +152,13 @@ public class Janela extends JFrame {
     private JPanel criarTexto() {
         
         JPanel jp = new JPanel();
-
-        JLabel jl = new JLabel(" Deverá inserir as diferentes características do seu ambiente", SwingConstants.CENTER);
-        JLabel jl2 = new JLabel(" para ser calculada a capacidade recomendada para");
-        JLabel jl3 = new JLabel(" o seu ar condicionado.");
-
-        jp.add(jl);
-        jp.add(jl2);
-        jp.add(jl3);
+        
+        JTextArea jt = new JTextArea("Deverá inserir as diferentes características do seu ambiente para ser calculada a capacidade recomendada parao seu ar condicionado.");
+        jt.setEditable(false);
+        jt.setLineWrap(true);
+        jt.setPreferredSize(TXT_TAMANHO);
+        
+        jp.add(jt);
      
         return jp;
     }
