@@ -224,7 +224,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JanelaAbertura ja = new JanelaAbertura();
+                JanelaAber ja = new JanelaAber();
                 
                 while(ja.getLista().isEmpty()){
                 if (ja.getLista()!=null) {
