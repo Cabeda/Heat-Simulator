@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
-import trabalhofsiap.DimController;
+import trabalhofsiap.SimController;
 
 /**
  *
@@ -138,7 +138,7 @@ public class Janela extends JFrame {
         bu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DimController dc = new DimController();
+                SimController dc = new SimController();
                 JanelaSimu jd = new JanelaSimu(null,dc);
                 Janela.this.dispose();
             }
@@ -152,7 +152,7 @@ public class Janela extends JFrame {
         JPanel jp = new JPanel();
         
         JTextArea jt = new JTextArea("  Deverá inserir as diferentes características do seu\n   ambiente para ser calculada a capacidade recomendada parao seu ar condicionado.");
-        jt.setEditable(true);
+        jt.setEditable(false);
         jt.setLineWrap(true);
         jt.setPreferredSize(TXT_TAMANHO);
         
