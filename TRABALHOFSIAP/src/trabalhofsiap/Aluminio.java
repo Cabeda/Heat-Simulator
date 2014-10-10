@@ -9,15 +9,13 @@ package trabalhofsiap;
  *
  * @author Jecabeda
  */
-public class Madeira {
-    
-   private final double capTermica;
-   private final String nome;
-
-       //Medida em c/J KG K
-    public Madeira() {
-        capTermica= 2330;
-        nome="Madeira";
+public class Aluminio {
+     //Medida em c/J KG K
+    private final double capTermica;
+    private final String nome;
+    public Aluminio() {
+        nome="Alumínio";
+        capTermica= 900;
     }
 
     public double getCapTermica() {
@@ -26,11 +24,5 @@ public class Madeira {
 
     public String getNome() {
         return nome;
-    }
-    
-    
-
-   
-   
-    
+    }   
 }

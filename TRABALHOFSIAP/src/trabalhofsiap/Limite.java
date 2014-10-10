@@ -59,6 +59,11 @@ public class Limite {
     public void setLargura(int largura) {
         this.largura = largura;
     }
+
+    @Override
+    public String toString() {
+        return  "Material:" + material + ", Tipo:" + tipo + ", Altura:" + altura + ", Largura:" + largura ;
+    }
         
         
     

@@ -19,8 +19,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import trabalhofsiap.Abertu;
+import trabalhofsiap.Ar;
+import trabalhofsiap.Betao;
 import trabalhofsiap.Limite;
+import trabalhofsiap.Madeira;
+import trabalhofsiap.SimController;
+import trabalhofsiap.Vidro;
 
 /**
  *
@@ -41,15 +45,18 @@ public class JanelaLim extends JFrame{
     private JTextField field4,field3, field6;
     private JComboBox field1, field2;
     private List<Limite> lista  = new ArrayList();
+    private Madeira ma = new Madeira();
+    private Betao be=new Betao();
+    private Vidro vi = new Vidro();
+    private Ar a= new Ar();
+        private SimController dc;
     
-    public JanelaLim(){
+    public JanelaLim(SimController dc, JanelaSimu js){
 
         super("Dados de limites da sala");
 
        
-
-        //ImageIcon i = new ImageIcon("xxxxxxx.jpg");
-        //add(new JLabel(i));
+        this.dc=dc;
         BorderLayout gl = new BorderLayout();
         setLayout(gl);
 
@@ -80,7 +87,7 @@ public class JanelaLim extends JFrame{
         JPanel panel1 = new JPanel();
         JLabel label1 = new JLabel("Tipo de limite:", JLabel.RIGHT);
         label1.setPreferredSize(LABEL_TAMANHO2);
-        String opcoes[]={"Teto","Parede"};
+        String opcoes[]={"Tecto","Parede"};
         field1 = new JComboBox(opcoes);
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
@@ -91,7 +98,7 @@ public class JanelaLim extends JFrame{
         JPanel panel2 = new JPanel();
         JLabel label2 = new JLabel("Material:", JLabel.RIGHT);
         label2.setPreferredSize(LABEL_TAMANHO2);
-        String opcoes2[]={"Madeira","Vidro","Plastico","Cimento", "Tijolo"};
+        String opcoes2[]={ma.getNome(),vi.getNome(),be.getNome(), a.getNome()};
         field2 = new JComboBox(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
         field2.setSelectedIndex(-1);
@@ -137,7 +144,7 @@ public class JanelaLim extends JFrame{
                 lim.setLargura(Integer.parseInt(field4.getText()));
                 lim.setMaterial((String)field1.getSelectedItem());
                 lim.setTipo((String) field2.getSelectedItem());
-                lista.add(lim);
+                dc.addLim(lim);
                 dispose();
             }
         }

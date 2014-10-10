@@ -138,8 +138,7 @@ public class Janela extends JFrame {
         bu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimController dc = new SimController();
-                JanelaSimu jd = new JanelaSimu(null,dc);
+                JanelaSimu jd = new JanelaSimu(null);
                 Janela.this.dispose();
             }
         });

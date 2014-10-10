@@ -5,19 +5,21 @@
  */
 package trabalhofsiap;
 
+
+
 /**
  *
  * @author Jecabeda
  */
-public class Madeira {
-    
-   private final double capTermica;
-   private final String nome;
+public class Betao {
+    private final double capTermica;
+    private final String nome;
 
-       //Medida em c/J KG K
-    public Madeira() {
-        capTermica= 2330;
-        nome="Madeira";
+       //Medida em c/J KG K (a 25ºC)
+
+    public Betao() {
+        this.capTermica =3350;
+        this.nome="Betão";
     }
 
     public double getCapTermica() {
@@ -28,9 +30,5 @@ public class Madeira {
         return nome;
     }
     
-    
-
-   
-   
     
 }

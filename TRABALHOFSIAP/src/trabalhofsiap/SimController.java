@@ -18,10 +18,11 @@ public class SimController {
 
     private float comprimento, largura, altura, volume, potenciaMedia;
     int numPessoas, temperatura, numAparelhos;
-    private List<Limite> listaLim  = new ArrayList();
-    private List<Abertu> listaAber  = new ArrayList();
+    private List<Limite> listaLim;
+    private List<Abertu> listaAber;
+    private int cint,cint2;
 
-    public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperatura, int numAparelhos) {
+    public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperatura, int numAparelhos, List<Limite> listaLim, List<Abertu> listaAber) {
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
@@ -30,6 +31,10 @@ public class SimController {
         this.numPessoas = numPessoas;
         this.temperatura = temperatura;
         this.numAparelhos = numAparelhos;
+        this.listaAber=listaAber;
+        this.listaLim=listaLim;
+        this.cint=0;
+        this.cint2=0;
     }
     
     public SimController() {
@@ -38,6 +43,10 @@ public class SimController {
         this.altura=0;
         this.volume=0;
         this.numPessoas=0;
+        this.listaAber=new ArrayList();
+        this.listaLim=new ArrayList();
+        this.cint=0;
+        this.cint2=0;
     }
     
     public SimController(SimController dc)
@@ -45,10 +54,13 @@ public class SimController {
         this.comprimento=dc.comprimento;
         this.largura=dc.largura;
         this.altura=dc.largura;
+        this.volume=dc.volume;
         this.numPessoas=dc.numPessoas;
         this.temperatura = dc.temperatura;
         this.numAparelhos = dc.numAparelhos;
         this.potenciaMedia = dc.potenciaMedia;
+        this.listaAber=dc.listaAber;
+        this.listaLim=dc.listaLim;
         
     }
 
@@ -83,6 +95,14 @@ public class SimController {
 
     public int getNumAparelhos() {
         return numAparelhos;
+    }
+
+    public List<Limite> getListaLim() {
+        return listaLim;
+    }
+
+    public List<Abertu> getListaAber() {
+        return listaAber;
     }
 
     
@@ -124,6 +144,42 @@ public class SimController {
         this.numAparelhos = numAparelhos;
     }
 
+    public void addLim(Limite listaLim) {
+        
+        (this.listaLim).add(listaLim);
+        cint++;
+    }
+
+    public void addAber(Abertu listaAber) {
+        (this.listaAber).add(listaAber);
+        
+    }
+    
+    public void altLim(Limite listaLim2) {
+        for (Limite listaLim1 : listaLim) {
+                if(listaLim1.equals(listaLim2)){
+                    listaLim1.setAltura(listaLim2.getAltura());
+                    listaLim1.setLargura(listaLim2.getLargura());
+                    listaLim1.setMaterial(listaLim2.getMaterial());
+                    listaLim1.setTipo(listaLim2.getTipo());
+                }
+        }
+        
+    }
+    
+    public void altAber(Abertu listaAber2) {
+        for (Abertu listaLim1 : listaAber) {
+                if(listaLim1.equals(listaAber2)){
+                    listaLim1.setAltura(listaAber2.getAltura());
+                    listaLim1.setLargura(listaAber2.getLargura());
+                    listaLim1.setMaterial(listaAber2.getMaterial());
+                    listaLim1.setTipo(listaAber2.getTipo());
+                }
+        }
+        
+    }
+    
+
     @Override
     public String toString() {
         return  "Comprimento:" + comprimento + ", Largura:" + largura + ", Altura:"
@@ -136,6 +192,25 @@ public class SimController {
         String x ="";
         
         return x;
+    }
+
+    public String ultimoLim() {
+        if(listaLim.size()!=0)
+        {
+            Limite lim= listaLim.get(listaLim.size()-1);
+        return lim.toString();
+        }else
+        return "Sem limite";
+    }
+
+    public String ultimoAber() {
+         if(listaLim.size()!=0)
+        {
+        Abertu aber = listaAber.get(listaAber.size());
+        return aber.toString();
+        }else
+        return "Sem abertura";
+       
     }
     
     

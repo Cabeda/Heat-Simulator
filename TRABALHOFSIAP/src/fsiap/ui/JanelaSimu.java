@@ -13,7 +13,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.control.Tab;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -25,8 +29,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.colorchooser.AbstractColorChooserPanel;
 import trabalhofsiap.Abertu;
+import trabalhofsiap.Limite;
 import trabalhofsiap.SimController;
 
 /**
@@ -35,9 +39,12 @@ import trabalhofsiap.SimController;
  */
 public class JanelaSimu extends JDialog {
 
+    private List<Limite> listaLim  = new ArrayList();
+    private List<Abertu> listaAber  = new ArrayList();
     /**
      * Fechar (S/N)
      */
+    public Icon icon = new ImageIcon("icon_device_settings.gif");
     private String fechar = "nao";
     private String resultado="";
     private Dimension LABEL_TAMANHO2 = new JLabel("Temperatura pretendida na sala ").getPreferredSize();
@@ -46,18 +53,18 @@ public class JanelaSimu extends JDialog {
     private Dimension RESULTADO_TAMANHO = new Dimension(300,50);
 
     private JTextField field4;
-    private SimController dc;
+    private SimController dc = new SimController();
 
-    private JScrollPane pdados;
-    private JLabel wer;
+    public JScrollPane pdadosLim;
+    public JPanel jpanel2;
 
     private JTabbedPane jt = new JTabbedPane();
 
-    public JanelaSimu(JFrame pai,SimController dc) {
+    public JanelaSimu(JFrame pai) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores");
 
-        this.dc=dc;
+
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
         getContentPane().add(jp);
@@ -65,7 +72,7 @@ public class JanelaSimu extends JDialog {
         jt.addTab("Dimensões", panel1());
         
         jt.addTab("Limites", panel5());
-
+        
         jt.addTab("Aberturas", panel2());
 
         jt.addTab("Pessoas", panel3());
@@ -203,15 +210,12 @@ public class JanelaSimu extends JDialog {
         label1.setPreferredSize(LABEL_TAMANHO2);
         panel1.add(label1);
 
-        JPanel panel2 = new JPanel();
-        pdados = new JScrollPane();
-        pdados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        pdados.setPreferredSize(SCROLL_TAMANHO);
-        JPanel jdados = new JPanel(new FlowLayout());
-        wer = new JLabel("olá");
-        jdados.add(wer);
-        pdados.add(jdados);
-        panel2.add(pdados);
+        jpanel2 = new JPanel();
+        
+        
+     
+
+       
 
         JPanel panel3 = new JPanel();
         JButton btnAdicionar = new JButton("Adicionar");
@@ -219,22 +223,11 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JanelaAber ja = new JanelaAber();
-                
-                while(ja.getLista().isEmpty()){
-                if (ja.getLista()!=null) {
-                    List<Abertu> ls = ja.getLista();
-
-                    for (Abertu s : ls) {
-                        wer.setText(s.toString() + "\n");
-                        System.out.println(s.toString() + "\n");
-
-                    }
-                }
-                }
-
+                JanelaAber ja = new JanelaAber(dc, JanelaSimu.this);
+                revalidate();
             }
         });
+        
         btnAdicionar.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(btnAdicionar);
 
@@ -251,7 +244,7 @@ public class JanelaSimu extends JDialog {
         panel5.add(btnMoveRight1);
 
         panel.add(panel1, BorderLayout.NORTH);
-        center.add(panel2, BorderLayout.CENTER);
+        center.add(jpanel2, BorderLayout.CENTER);
         center.add(panel3, BorderLayout.SOUTH);
         grid.add(center);
         panel.add(grid, BorderLayout.CENTER);
@@ -329,14 +322,11 @@ public class JanelaSimu extends JDialog {
         panel1.add(label1);
 
         JPanel panel2 = new JPanel();
-        pdados = new JScrollPane();
-        pdados.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        pdados.setPreferredSize(SCROLL_TAMANHO);
-        JPanel jdados = new JPanel(new FlowLayout());
-        wer = new JLabel("olá");
-        jdados.add(wer);
-        pdados.add(jdados);
-        panel2.add(pdados);
+        pdadosLim = new JScrollPane();
+        pdadosLim.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        pdadosLim.setPreferredSize(SCROLL_TAMANHO);
+
+        panel2.add(pdadosLim);
 
         JPanel panel3 = new JPanel();
         JButton btnAdicionar = new JButton("Adicionar");
@@ -344,8 +334,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JanelaLim lim = new JanelaLim();
-                
+                JanelaLim lim = new JanelaLim(dc, JanelaSimu.this);                
                 
                 
             }

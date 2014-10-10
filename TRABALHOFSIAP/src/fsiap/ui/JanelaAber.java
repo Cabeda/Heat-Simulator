@@ -1,8 +1,8 @@
 package fsiap.ui;
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,6 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import trabalhofsiap.Abertu;
+import trabalhofsiap.Aluminio;
+import trabalhofsiap.Ar;
+import trabalhofsiap.Betao;
+import trabalhofsiap.Madeira;
+import trabalhofsiap.SimController;
+import trabalhofsiap.Vidro;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,27 +34,40 @@ import trabalhofsiap.Abertu;
  */
 public class JanelaAber extends JFrame {
 
-   /**
+    /**
      * Fechar (S/N)
      */
     private String fechar = "nao";
-    
+
     private Dimension LABEL_TAMANHO2 = new JLabel("Dimensóes do ambiente ").getPreferredSize();
     private Dimension Campo2_TAMANHO = new Dimension(250, 20);
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
     private Dimension BTN_TAMANHO = new Dimension(200, 40);
     private Abertu aber;
-    private JTextField field4,field3;
-    private JComboBox field1, field2;
-    private List<Abertu> lista  = new ArrayList();
-    
-    public JanelaAber(){
+    public JTextField field4, field3;
+    private boolean flag = true;
+    public JComboBox field1, field2;
+    private List<Abertu> lista = new ArrayList();
+    private SimController dc;
+    private JanelaSimu js;
+    private JButton btnMoveRight1;
+    private JanelaAber ja;
+    private Aluminio al = new Aluminio();
+    private Madeira ma = new Madeira();
+    private Betao be = new Betao();
+    private Vidro vi = new Vidro();
+    private Ar a = new Ar();
+    private JPanel jp;
+    private JLabel lbl;
+    private JButton btn;
+
+    public JanelaAber(SimController dc, JanelaSimu js) {
 
         super("Dados Abertura");
 
-       
-
+        this.dc = dc;
+        this.js = js;
         //ImageIcon i = new ImageIcon("xxxxxxx.jpg");
         //add(new JLabel(i));
         BorderLayout gl = new BorderLayout();
@@ -56,7 +75,6 @@ public class JanelaAber extends JFrame {
 
         add(new JLabel(" "), BorderLayout.NORTH);
         add(panel1());
-       
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -72,7 +90,7 @@ public class JanelaAber extends JFrame {
         setVisible(true);
 
     }
-    
+
     protected JPanel panel1() {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
@@ -81,18 +99,18 @@ public class JanelaAber extends JFrame {
         JPanel panel1 = new JPanel();
         JLabel label1 = new JLabel("Tipo de abertura:", JLabel.RIGHT);
         label1.setPreferredSize(LABEL_TAMANHO2);
-        String opcoes[]={"Porta","Janela"};
+        String opcoes[] = {"Porta", "Janela"};
         field1 = new JComboBox(opcoes);
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
-        
+
         panel1.add(label1);
         panel1.add(field1);
 
         JPanel panel2 = new JPanel();
         JLabel label2 = new JLabel("Material:", JLabel.RIGHT);
         label2.setPreferredSize(LABEL_TAMANHO2);
-        String opcoes2[]={"Madeira","Vidro","Plastico","Aluminio"};
+        String opcoes2[] = {ma.getNome(), vi.getNome(), al.getNome()};
         field2 = new JComboBox(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
         field2.setSelectedIndex(-1);
@@ -112,56 +130,35 @@ public class JanelaAber extends JFrame {
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
-        field4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              
-                    field4.setText("ANTONIO");
-                
-                revalidate();
-
-            }
-        }
-        );
 
         panel4.add(label4);
         panel4.add(field4);
 
         JPanel panel5 = new JPanel();
-        JButton btnMoveRight1 = new JButton("Confirmar");
-        btnMoveRight1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                aber = new Abertu();
-                
-                aber.setAltura(Integer.parseInt(field3.getText()));
-                aber.setLargura(Integer.parseInt(field4.getText()));
-                aber.setMaterial((String)field1.getSelectedItem());
-                aber.setTipo((String) field2.getSelectedItem());
-                lista.add(aber);
-                dispose();
-            }
-        }
-        );
-        btnMoveRight1.setPreferredSize(Campo2_TAMANHO);
-        panel5.add(btnMoveRight1);
+        System.out.println(flag);
 
-        grid.add(panel1);
-        grid.add(panel2);
-        grid.add(panel3);
-        grid.add(panel4);
-        panel.add(grid, BorderLayout.CENTER);
-        panel.add(panel5, BorderLayout.SOUTH);
-        return panel;
+        if (flag == true) {
+            System.out.println(flag);
+            flag = false;
+            btnMoveRight1 = new JButton("Confirmar");
+
+            btnMoveRight1.setPreferredSize(Campo2_TAMANHO);
+            panel5.add(btnMoveRight1);
+
+            grid.add(panel1);
+            grid.add(panel2);
+            grid.add(panel3);
+            grid.add(panel4);
+            panel.add(grid, BorderLayout.CENTER);
+            panel.add(panel5, BorderLayout.SOUTH);
+        }
+            return panel;
+        
     }
-   
     
-    public List<Abertu> getLista(){
-        lista.add(aber);
-   
+    public List<Abertu> getLista() {
+
         return lista;
     }
-    
-    
 
 }

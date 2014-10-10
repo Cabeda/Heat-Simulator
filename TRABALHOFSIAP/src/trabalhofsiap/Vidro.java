@@ -10,5 +10,23 @@ package trabalhofsiap;
  * @author Jecabeda
  */
 public class Vidro {
+
+    //Medida em c/J KG K
+    private final double capTermica;
+    private final String nome;
+    public Vidro() {
+        
+        capTermica= 820;
+        nome="Vidro";
+    }
+
+    public double getCapTermica() {
+        return capTermica;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+    
     
 }
