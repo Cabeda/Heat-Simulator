@@ -9,6 +9,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -44,30 +45,29 @@ public class JanelaAber extends JFrame {
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
     private Dimension BTN_TAMANHO = new Dimension(200, 40);
-    private Abertu aber;
     public JTextField field4, field3;
-    private boolean flag = true;
+    private boolean flag;
     public JComboBox field1, field2;
     private List<Abertu> lista = new ArrayList();
     private SimController dc;
     private JanelaSimu js;
-    private JButton btnMoveRight1;
-    private JanelaAber ja;
+    private int posi;
+
     private Aluminio al = new Aluminio();
     private Madeira ma = new Madeira();
     private Betao be = new Betao();
     private Vidro vi = new Vidro();
     private Ar a = new Ar();
-    private JPanel jp;
-    private JLabel lbl;
-    private JButton btn;
+    private Abertu alt;
 
-    public JanelaAber(SimController dc, JanelaSimu js) {
+    public JanelaAber(SimController dc, JanelaSimu js, boolean f, int po) {
 
         super("Dados Abertura");
 
         this.dc = dc;
         this.js = js;
+        this.flag = f;
+        this.posi = po;
         //ImageIcon i = new ImageIcon("xxxxxxx.jpg");
         //add(new JLabel(i));
         BorderLayout gl = new BorderLayout();
@@ -135,27 +135,111 @@ public class JanelaAber extends JFrame {
         panel4.add(field4);
 
         JPanel panel5 = new JPanel();
-        System.out.println(flag);
-
+        JButton btnMoveRight1 = new JButton("Confirmar");
+        
         if (flag == true) {
+       
+            flag = false;
+
+            btnMoveRight1.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Abertu aber = new Abertu();
+                    aber.setAltura(Double.parseDouble(field3.getText()));
+                    aber.setLargura(Double.parseDouble(field4.getText()));
+                    aber.setMaterial(field1.getSelectedItem().toString());
+                    aber.setTipo(field2.getSelectedItem().toString());
+                    dc.addAber(aber);
+                    posi = dc.getListaAber().size() - 1;
+                    dispose();
+                    JPanel a = new JPanel(new FlowLayout());
+                    JLabel b = new JLabel(aber.toString());
+                    JButton c = new JButton(js.icon);
+                    a.add(b);
+                    a.add(c);
+                    js.jpanel2.add(a);
+                    js.jpanel2.revalidate();
+                    js.pdadosLim.revalidate();
+                    js.pdadosLim.repaint();
+                    c.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+
+                            JanelaAber jan = new JanelaAber(dc, js, false, posi);
+                            Abertu aber = dc.getListaAber().get(posi);
+                            jan.field1.setSelectedItem(aber.getMaterial());
+                            jan.field2.setSelectedItem(aber.getTipo());
+                            jan.field3.setText("" + aber.getAltura());
+                            jan.field4.setText("" + aber.getLargura());
+
+                        }
+                    });
+
+                }
+            });
+        } else {
             System.out.println(flag);
             flag = false;
             btnMoveRight1 = new JButton("Confirmar");
+            btnMoveRight1.addActionListener(new ActionListener() {
+                
+                
+                
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Abertu aber = dc.getListaAber().get(posi);
+                    
+                    
+                    aber.setAltura(Double.parseDouble(field3.getText()));
+                    aber.setLargura(Double.parseDouble(field4.getText()));
+                    aber.setMaterial(field1.getSelectedItem().toString());
+                    aber.setTipo(field2.getSelectedItem().toString());
+                    js.revalidate();
+                    js.repaint();
+                    dispose();
+                    
+                    JPanel a = new JPanel(new FlowLayout());
+                    JLabel b = new JLabel(aber.toString());
+                    JButton c = new JButton(js.icon);
+                    c.addActionListener(new ActionListener() {
 
-            btnMoveRight1.setPreferredSize(Campo2_TAMANHO);
-            panel5.add(btnMoveRight1);
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
 
-            grid.add(panel1);
-            grid.add(panel2);
-            grid.add(panel3);
-            grid.add(panel4);
-            panel.add(grid, BorderLayout.CENTER);
-            panel.add(panel5, BorderLayout.SOUTH);
+                            JanelaAber jan = new JanelaAber(dc, js, false, posi);
+                            Abertu aber = dc.getListaAber().get(posi);
+                            jan.field1.setSelectedItem(aber.getMaterial());
+                            jan.field2.setSelectedItem(aber.getTipo());
+                            jan.field3.setText("" + aber.getAltura());
+                            jan.field4.setText("" + aber.getLargura());
+
+                        }
+                    });
+                    a.add(b);
+                    a.add(c);
+                    System.out.println(posi);
+                    js.jpanel2.remove(posi);
+                    js.jpanel2.add(a,posi);
+                    js.jpanel2.revalidate();
+
+                }
+            });
         }
-            return panel;
+
         
+        panel5.add(btnMoveRight1);
+        grid.add(panel1);
+        grid.add(panel2);
+        grid.add(panel3);
+        grid.add(panel4);
+        panel.add(grid, BorderLayout.CENTER);
+        panel.add(panel5, BorderLayout.SOUTH);
+
+        return panel;
     }
-    
+
     public List<Abertu> getLista() {
 
         return lista;

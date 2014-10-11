@@ -7,15 +7,12 @@ package fsiap.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.control.Tab;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -210,10 +207,11 @@ public class JanelaSimu extends JDialog {
         label1.setPreferredSize(LABEL_TAMANHO2);
         panel1.add(label1);
 
+//        pdadosLim = new JScrollPane();
+//        pdadosLim.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+//        pdadosLim.setPreferredSize(SCROLL_TAMANHO);
         jpanel2 = new JPanel();
-        
-        
-     
+        jpanel2.add(pdadosLim);
 
        
 
@@ -223,7 +221,8 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JanelaAber ja = new JanelaAber(dc, JanelaSimu.this);
+                JanelaAber ja = new JanelaAber(dc, JanelaSimu.this,true,0);
+                
                 revalidate();
             }
         });
@@ -244,7 +243,7 @@ public class JanelaSimu extends JDialog {
         panel5.add(btnMoveRight1);
 
         panel.add(panel1, BorderLayout.NORTH);
-        center.add(jpanel2, BorderLayout.CENTER);
+        center.add(pdadosLim, BorderLayout.CENTER);
         center.add(panel3, BorderLayout.SOUTH);
         grid.add(center);
         panel.add(grid, BorderLayout.CENTER);
@@ -582,4 +581,5 @@ JPanel panel = new JPanel();
         fechar = "sim";
     }
 
+   
 }

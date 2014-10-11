@@ -11,7 +11,7 @@ package trabalhofsiap;
  */
 public class Abertu {
         private String material,tipo;
-        private int altura, largura;
+        private double altura, largura;
 
     public Abertu(String nome) {
         this.altura=0;
@@ -24,11 +24,11 @@ public class Abertu {
     }
 
   
-    public void setLargura(int la) {
+    public void setLargura(double la) {
         this.largura=la;
     }
     
-    public void setAltura(int al) {
+    public void setAltura(double al) {
         this.altura=al;
     }
 
@@ -63,14 +63,14 @@ public class Abertu {
     /**
      * @return the altura
      */
-    public int getAltura() {
+    public double getAltura() {
         return altura;
     }
 
     /**
      * @return the largura
      */
-    public int getLargura() {
+    public double getLargura() {
         return largura;
     }
 
