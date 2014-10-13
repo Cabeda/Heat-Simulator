@@ -77,7 +77,7 @@ public class Abertu {
         @Override
     public String toString(){
 
-        return ""+this.altura+""+this.largura+""+this.material+""+this.tipo;
+        return ""+this.altura+"/"+this.largura+"/"+this.material+"/"+this.tipo;
     }    
     
 }

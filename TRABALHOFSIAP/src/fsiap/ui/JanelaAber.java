@@ -12,7 +12,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -47,7 +46,7 @@ public class JanelaAber extends JFrame {
     private Dimension Campo2_TAMANHO = new Dimension(250, 20);
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
-    private Dimension BTN_TAMANHO = new Dimension(200, 40);
+    private Dimension BTN_TAMANHO = new Dimension(40, 40);
     public JTextField field4, field3;
     private boolean flag;
     public JComboBox field1, field2;
@@ -155,10 +154,10 @@ public class JanelaAber extends JFrame {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-               /* if (field3.getText().equals("Insira Altura...")) {
-                    field3.setText("");
-                    field3.setForeground(Color.BLACK);
-                }*/
+                /* if (field3.getText().equals("Insira Altura...")) {
+                 field3.setText("");
+                 field3.setForeground(Color.BLACK);
+                 }*/
             }
 
             @Override
@@ -177,6 +176,50 @@ public class JanelaAber extends JFrame {
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
+        field4.setText("Insira Largura...");
+        field4.setForeground(Color.GRAY);
+        field4.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (field4.getText().equals("Insira Largura...")) {
+                    field4.setText("");
+                    field4.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (field4.getText().equals("Insira Largura...")) {
+                    field4.setText("");
+                    field4.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (field4.getText().equals("")) {
+                    field4.setText("Insira Largura...");
+                    field4.setForeground(Color.GRAY);
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                /* if (field3.getText().equals("Insira Altura...")) {
+                 field3.setText("");
+                 field3.setForeground(Color.BLACK);
+                 }*/
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (field4.getText().equals("")) {
+                    field4.setText("Insira Largura...");
+                    field4.setForeground(Color.GRAY);
+                }
+            }
+        });
 
         panel4.add(label4);
         panel4.add(field4);
@@ -203,12 +246,12 @@ public class JanelaAber extends JFrame {
                     JPanel a = new JPanel(new FlowLayout());
                     JLabel b = new JLabel(aber.toString());
                     JButton c = new JButton(js.icon);
+                    c.setPreferredSize(BTN_TAMANHO);
                     a.add(b);
                     a.add(c);
                     js.jpanel2.add(a);
                     js.jpanel2.revalidate();
-                    js.pdadosLim.revalidate();
-                    js.pdadosLim.repaint();
+          
                     c.addActionListener(new ActionListener() {
 
                         @Override
@@ -247,6 +290,7 @@ public class JanelaAber extends JFrame {
                     JPanel a = new JPanel(new FlowLayout());
                     JLabel b = new JLabel(aber.toString());
                     JButton c = new JButton(js.icon);
+                    c.setPreferredSize(BTN_TAMANHO);
                     c.addActionListener(new ActionListener() {
 
                         @Override

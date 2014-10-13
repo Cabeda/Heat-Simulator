@@ -12,13 +12,14 @@ package trabalhofsiap;
 public class Limite {
     
     private String material,tipo;
-        private int altura, largura;
+        private double altura, largura, espessura;
 
-    public Limite(String material, String tipo, int altura, int largura) {
+    public Limite(String material, String tipo, double altura, double largura, double espessura) {
         this.material = material;
         this.tipo = tipo;
         this.altura = altura;
         this.largura = largura;
+        this.espessura= espessura;
     }
 
     public Limite() {
@@ -26,21 +27,27 @@ public class Limite {
         this.tipo = "sem tipo";
         this.altura = 0;
         this.largura = 0;
+        this.espessura =0;
     }
 
     public String getMaterial() {
         return material;
     }
 
+    public double getEspessura() {
+        return espessura;
+    }
+
+    
     public String getTipo() {
         return tipo;
     }
 
-    public int getAltura() {
+    public double getAltura() {
         return altura;
     }
 
-    public int getLargura() {
+    public double getLargura() {
         return largura;
     }
 
@@ -52,17 +59,23 @@ public class Limite {
         this.tipo = tipo;
     }
 
-    public void setAltura(int altura) {
+    public void setAltura(double altura) {
         this.altura = altura;
     }
 
-    public void setLargura(int largura) {
+    public void setLargura(double largura) {
         this.largura = largura;
     }
 
+    public void setEspessura(double espessura) {
+        this.espessura = espessura;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return  "Material:" + material + ", Tipo:" + tipo + ", Altura:" + altura + ", Largura:" + largura ;
+        return  "" + material + "/" + tipo + "/" + altura + "/" + largura +"/" + espessura;
     }
         
         
