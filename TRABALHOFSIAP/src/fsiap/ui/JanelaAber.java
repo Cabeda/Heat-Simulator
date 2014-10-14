@@ -138,18 +138,18 @@ public class JanelaAber extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (field3.getText().equals("Insira Altura...")) {
+                /*if (field3.getText().equals("Insira Altura...")) {
                     field3.setText("");
                     field3.setForeground(Color.BLACK);
-                }
+                }*/
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (field3.getText().equals("")) {
+                /*if (field3.getText().equals("")) {
                     field3.setText("Insira Altura...");
                     field3.setForeground(Color.GRAY);
-                }
+                }*/
             }
 
             @Override
@@ -162,10 +162,10 @@ public class JanelaAber extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (field3.getText().equals("")) {
+                /*if (field3.getText().equals("")) {
                     field3.setText("Insira Altura...");
                     field3.setForeground(Color.GRAY);
-                }
+                }*/
             }
         });
         panel3.add(label3);
@@ -190,18 +190,18 @@ public class JanelaAber extends JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (field4.getText().equals("Insira Largura...")) {
+                /*if (field4.getText().equals("Insira Largura...")) {
                     field4.setText("");
                     field4.setForeground(Color.BLACK);
-                }
+                }*/
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (field4.getText().equals("")) {
+                /*if (field4.getText().equals("")) {
                     field4.setText("Insira Largura...");
                     field4.setForeground(Color.GRAY);
-                }
+                }*/
             }
 
             @Override
@@ -214,10 +214,10 @@ public class JanelaAber extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (field4.getText().equals("")) {
+                /*if (field4.getText().equals("")) {
                     field4.setText("Insira Largura...");
                     field4.setForeground(Color.GRAY);
-                }
+                }*/
             }
         });
 
@@ -251,7 +251,7 @@ public class JanelaAber extends JFrame {
                     a.add(c);
                     js.jpanel2.add(a);
                     js.jpanel2.revalidate();
-          
+
                     c.addActionListener(new ActionListener() {
 
                         @Override
@@ -259,6 +259,8 @@ public class JanelaAber extends JFrame {
 
                             JanelaAber jan = new JanelaAber(dc, js, false, posi);
                             Abertu aber = dc.getListaAber().get(posi);
+                            jan.field3.setForeground(Color.BLACK);
+                            jan.field4.setForeground(Color.BLACK);
                             jan.field1.setSelectedItem(aber.getMaterial());
                             jan.field2.setSelectedItem(aber.getTipo());
                             jan.field3.setText("" + aber.getAltura());
@@ -298,6 +300,8 @@ public class JanelaAber extends JFrame {
 
                             JanelaAber jan = new JanelaAber(dc, js, false, posi);
                             Abertu aber = dc.getListaAber().get(posi);
+                            jan.field3.setForeground(Color.BLACK);
+                            jan.field4.setForeground(Color.BLACK);
                             jan.field1.setSelectedItem(aber.getMaterial());
                             jan.field2.setSelectedItem(aber.getTipo());
                             jan.field3.setText("" + aber.getAltura());

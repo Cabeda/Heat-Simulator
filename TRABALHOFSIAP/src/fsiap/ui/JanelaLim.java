@@ -137,18 +137,18 @@ public class JanelaLim extends JFrame{
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (field3.getText().equals("Insira Altura...")) {
+                /*if (field3.getText().equals("Insira Altura...")) {
                     field3.setText("");
                     field3.setForeground(Color.BLACK);
-                }
+                }*/
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (field3.getText().equals("")) {
+                /*if (field3.getText().equals("")) {
                     field3.setText("Insira Altura...");
                     field3.setForeground(Color.GRAY);
-                }
+                }*/
             }
 
             @Override
@@ -161,10 +161,10 @@ public class JanelaLim extends JFrame{
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (field3.getText().equals("")) {
+                /*if (field3.getText().equals("")) {
                     field3.setText("Insira Altura...");
                     field3.setForeground(Color.GRAY);
-                }
+                }*/
             }
         });
         panel3.add(label3);
@@ -353,6 +353,9 @@ public class JanelaLim extends JFrame{
 
                             JanelaLim jan = new JanelaLim(dc, js, false, posi);
                             Limite lim = dc.getListaLim().get(posi);
+                            jan.field3.setForeground(Color.BLACK);
+                            jan.field4.setForeground(Color.BLACK);
+                            jan.field6.setForeground(Color.BLACK);
                             jan.field1.setSelectedItem(lim.getMaterial());
                             jan.field2.setSelectedItem(lim.getTipo());
                             jan.field3.setText("" + lim.getAltura());

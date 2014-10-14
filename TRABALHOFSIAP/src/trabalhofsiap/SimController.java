@@ -252,7 +252,12 @@ public class SimController {
             out.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" + "<h1>Parametros :</h1>\n" + "</div>\n" + "<hr>\n" + "</body></html>");
+                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" + "<h1>Par&acirc;metros :</h1>\n");
+            
+            
+            out.write("<h2>Dimens&otilde;es :</h2>"+"<h4>Comprimento : "+getComprimento()+" m</br>Altura : "+getAltura()+" m</br>Largura : "+getLargura()+" m</br>Volume : "+getVolume()+" m&sup3;</h4></div>\n");
+            out.write("<div align=\"left\">\n<h2>Limites</h2></div>\n");
+            out.write("<hr>\n</body></html>");
             out.close();
             
             Desktop.getDesktop().browse(fich.toURI());
