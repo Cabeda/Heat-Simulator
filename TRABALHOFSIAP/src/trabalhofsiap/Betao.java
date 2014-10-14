@@ -11,23 +11,13 @@ package trabalhofsiap;
  *
  * @author Jecabeda
  */
-public class Betao {
-    private final double capTermica;
-    private final String nome;
+public class Betao extends Material {
+
 
        //Medida em c/J KG K (a 25ºC)
 
     public Betao() {
-        this.capTermica =3350;
-        this.nome="Betão";
-    }
-
-    public double getCapTermica() {
-        return capTermica;
-    }
-
-    public String getNome() {
-        return nome;
+        super(3350, "Betão");
     }
     
     

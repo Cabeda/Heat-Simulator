@@ -9,20 +9,12 @@ package trabalhofsiap;
  *
  * @author Jecabeda
  */
-public class Aluminio {
+public class Aluminio extends Material {
      //Medida em c/J KG K
-    private final double capTermica;
-    private final String nome;
+    
     public Aluminio() {
-        nome="Alumínio";
-        capTermica= 900;
+        super( 900, "Aluminio");
     }
 
-    public double getCapTermica() {
-        return capTermica;
-    }
-
-    public String getNome() {
-        return nome;
-    }   
+    
 }

@@ -238,8 +238,8 @@ public class JanelaAber extends JFrame {
                     Abertu aber = new Abertu();
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
-                    aber.setMaterial(field1.getSelectedItem().toString());
-                    aber.setTipo(field2.getSelectedItem().toString());
+                    aber.setTipo(field1.getSelectedItem().toString());
+                    aber.setMaterialPeloNome(field2.getSelectedItem().toString());
                     dc.addAber(aber);
                     posi = dc.getListaAber().size() - 1;
                     dispose();
@@ -283,8 +283,8 @@ public class JanelaAber extends JFrame {
 
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
-                    aber.setMaterial(field1.getSelectedItem().toString());
-                    aber.setTipo(field2.getSelectedItem().toString());
+                    aber.setTipo(field1.getSelectedItem().toString());
+                    aber.setMaterialPeloNome(field2.getSelectedItem().toString());
                     js.revalidate();
                     js.repaint();
                     dispose();

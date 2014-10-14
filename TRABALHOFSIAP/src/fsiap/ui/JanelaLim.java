@@ -291,8 +291,8 @@ public class JanelaLim extends JFrame{
                     lim.setAltura(Double.parseDouble(field3.getText()));
                     lim.setLargura(Double.parseDouble(field4.getText()));
                     lim.setEspessura(Double.parseDouble(field6.getText()));
-                    lim.setMaterial(field1.getSelectedItem().toString());
-                    lim.setTipo(field2.getSelectedItem().toString());
+                    lim.setTipo(field1.getSelectedItem().toString());
+                    lim.setMaterialPeloNome(field2.getSelectedItem().toString());
                     dc.addLim(lim);
                     posi = dc.getListaLim().size() - 1;
                     dispose();
@@ -336,8 +336,8 @@ public class JanelaLim extends JFrame{
                     lim.setAltura(Double.parseDouble(field3.getText()));
                     lim.setLargura(Double.parseDouble(field4.getText()));
                     lim.setEspessura(Double.parseDouble(field6.getText()));
-                    lim.setMaterial(field1.getSelectedItem().toString());
-                    lim.setTipo(field2.getSelectedItem().toString());
+                    lim.setTipo(field1.getSelectedItem().toString());
+                    lim.setMaterialPeloNome(field2.getSelectedItem().toString());
                     js.revalidate();
                     js.repaint();
                     dispose();

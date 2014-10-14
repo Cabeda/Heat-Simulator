@@ -9,22 +9,13 @@ package trabalhofsiap;
  *
  * @author Jecabeda
  */
-public class Ar {
+public class Ar extends Material {
     //Medida em c/J KG K
-    private final double capTermica;
-    private final String nome;
+
     public Ar() {
-        nome="Ar";
-        capTermica= 993;
+        super(993, "Ar");
     }
 
-    public double getCapTermica() {
-        return capTermica;
-    }
-
-    public String getNome() {
-        return nome;
-    }
     
     
 }

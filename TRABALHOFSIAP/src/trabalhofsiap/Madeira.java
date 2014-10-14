@@ -9,29 +9,13 @@ package trabalhofsiap;
  *
  * @author Jecabeda
  */
-public class Madeira {
+public class Madeira extends Material {
     
-   private final double capTermica;
-   private final String nome;
 
        //Medida em c/J KG K
     public Madeira() {
-        capTermica= 2330;
-        nome="Madeira";
+        super(2330, "Madeira");
     }
-
-    public double getCapTermica() {
-        return capTermica;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-    
-    
-    
-
-   
-   
+      
     
 }

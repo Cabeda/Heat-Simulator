@@ -10,17 +10,34 @@ package trabalhofsiap;
  * @author Jecabeda
  */
 public class Abertu {
-        private String material,tipo;
+        private Material material;
+        private String tipo;
         private double altura, largura;
+        
+        private Aluminio al;
+        private Madeira ma;
+        private Betao be;
+        private Vidro vi;
+        private Ar a;
 
     public Abertu(String nome) {
         this.altura=0;
         this.largura=0;
-        this.material="";
-        this.tipo="";
+        this.material=new Material();
+        this.tipo="sem tipo";
+        this.al = new Aluminio() ;
+        this.ma = new Madeira();
+        this.be = new Betao();
+        this.vi = new Vidro();
+        this.a = new Ar();
     }
 
     public Abertu() {
+        this.al = new Aluminio() ;
+        this.ma = new Madeira();
+        this.be = new Betao();
+        this.vi = new Vidro();
+        this.a = new Ar();
     }
 
   
@@ -35,14 +52,14 @@ public class Abertu {
     /**
      * @return the material
      */
-    public String getMaterial() {
+    public Material getMaterial() {
         return material;
     }
 
     /**
      * @param material the material to set
      */
-    public void setMaterial(String material) {
+    public void setMaterial(Material material) {
         this.material = material;
     }
 
@@ -58,6 +75,29 @@ public class Abertu {
      */
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    
+        public void setMaterialPeloNome(String tipo) {
+        if(tipo==vi.getNome())
+        {
+            this.material=new Vidro();
+        } else{
+            if(tipo==be.getNome()){
+                this.material= new Betao();
+            } else{
+            if(tipo==al.getNome()){
+                this.material= new Aluminio();
+            } else{
+            if(tipo==a.getNome()){
+                this.material= new Ar();
+            } else{
+            if(tipo==ma.getNome()){
+                this.material= new Madeira();
+            }
+        }
+        }
+        }
+        }
     }
 
     /**
@@ -77,7 +117,7 @@ public class Abertu {
         @Override
     public String toString(){
 
-        return ""+this.altura+"/"+this.largura+"/"+this.material+"/"+this.tipo;
+        return ""+this.altura+"/"+this.largura+"/"+this.material.getNome()+"/"+this.tipo;
     }    
     
 }

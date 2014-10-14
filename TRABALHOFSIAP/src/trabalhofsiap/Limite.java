@@ -10,27 +10,43 @@ package trabalhofsiap;
  * @author Jecabeda
  */
 public class Limite {
-    
-    private String material,tipo;
-        private double altura, largura, espessura;
 
-    public Limite(String material, String tipo, double altura, double largura, double espessura) {
+    private String tipo;
+    private Material material;
+    private double altura, largura, espessura;
+    private Aluminio al ;
+    private Madeira ma;
+    private Betao be;
+    private Vidro vi;
+    private Ar a;
+
+    public Limite(Material material, String tipo, double altura, double largura, double espessura) {
         this.material = material;
         this.tipo = tipo;
         this.altura = altura;
         this.largura = largura;
-        this.espessura= espessura;
+        this.espessura = espessura;
+        this.al = new Aluminio() ;
+        this.ma = new Madeira();
+        this.be = new Betao();
+        this.vi = new Vidro();
+        this.a = new Ar();
     }
 
     public Limite() {
-        this.material = "sem material";
+        this.material = new Material();
         this.tipo = "sem tipo";
         this.altura = 0;
         this.largura = 0;
-        this.espessura =0;
+        this.espessura = 0;
+        this.al = new Aluminio() ;
+        this.ma = new Madeira();
+        this.be = new Betao();
+        this.vi = new Vidro();
+        this.a = new Ar();
     }
 
-    public String getMaterial() {
+    public Material getMaterial() {
         return material;
     }
 
@@ -38,7 +54,6 @@ public class Limite {
         return espessura;
     }
 
-    
     public String getTipo() {
         return tipo;
     }
@@ -51,12 +66,34 @@ public class Limite {
         return largura;
     }
 
-    public void setMaterial(String material) {
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setMaterial(Material material) {
         this.material = material;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setMaterialPeloNome(String tipo) {
+        if (tipo.equals(vi.getNome())) {
+            this.material = new Vidro();
+        } else {
+            if (tipo.equals(be.getNome())) {
+                this.material = new Betao();
+            } else {
+                if (tipo.equals(al.getNome())) {
+                    this.material = new Aluminio();
+                } else {
+                    if (tipo.equals(a.getNome())) {
+                        this.material = new Ar();
+                    } else {
+                        if (tipo.equals(ma.getNome())) {
+                            this.material = new Madeira();
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void setAltura(double altura) {
@@ -70,14 +107,10 @@ public class Limite {
     public void setEspessura(double espessura) {
         this.espessura = espessura;
     }
-    
-    
 
     @Override
     public String toString() {
-        return  "" + material + "/" + tipo + "/" + altura + "/" + largura +"/" + espessura;
+        return  material.getNome() + "/"+tipo + "/"+altura  + "/"+largura +"/"+ espessura;
     }
-        
-        
-    
+
 }
