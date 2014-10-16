@@ -19,21 +19,22 @@ import java.util.List;
  */
 public class SimController {
 
-    private float comprimento, largura, altura, volume, potenciaMedia;
-    int numPessoas, temperaturaEx, temperaturaInt, numAparelhos;
+    private float comprimento, largura, altura, areaTotal, potenciaMedia;
+    int numPessoas, temperaturaEx, temperaturaInt, temperaturaPre, numAparelhos;
     private List<Limite> listaLim;
     private List<Abertu> listaAber;
     private int cint, cint2;
 
-    public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperaturaEx, int temperaturaInt, int numAparelhos, List<Limite> listaLim, List<Abertu> listaAber) {
+    public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim, List<Abertu> listaAber) {
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
-        this.volume = volume;
+        this.areaTotal = volume;
         this.potenciaMedia = potenciaMedia;
         this.numPessoas = numPessoas;
         this.temperaturaEx = temperaturaEx;
         this.temperaturaInt = temperaturaInt;
+        this.temperaturaPre = temperaturaPre;
         this.numAparelhos = numAparelhos;
         this.listaAber = listaAber;
         this.listaLim = listaLim;
@@ -45,10 +46,11 @@ public class SimController {
         this.comprimento = 0;
         this.largura = 0;
         this.altura = 0;
-        this.volume = 0;
+        this.areaTotal = 0;
         this.numPessoas = 0;
         this.temperaturaEx = 0;
         this.temperaturaInt = 0;
+        this.temperaturaPre = 0;
         this.listaAber = new ArrayList();
         this.listaLim = new ArrayList();
         this.cint = 0;
@@ -59,9 +61,11 @@ public class SimController {
         this.comprimento = dc.comprimento;
         this.largura = dc.largura;
         this.altura = dc.largura;
-        this.volume = dc.volume;
+        this.areaTotal = dc.areaTotal;
         this.numPessoas = dc.numPessoas;
         this.temperaturaEx = dc.temperaturaEx;
+        this.temperaturaInt = dc.temperaturaInt;
+        this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         this.potenciaMedia = dc.potenciaMedia;
         this.listaAber = dc.listaAber;
@@ -89,9 +93,13 @@ public class SimController {
         return temperaturaInt;
     }
 
-    public float getVolume() {
+    public int getTemperaturaPre() {
+        return temperaturaPre;
+    }
 
-        return volume;
+    public float getAreaTotal() {
+
+        return areaTotal;
     }
 
     public int getNumPessoas() {
@@ -126,13 +134,13 @@ public class SimController {
         this.altura = altura;
     }
 
-    public void setVolume() {
-        volume = comprimento * largura * altura;
+    public void setAreaTotal() {
+        areaTotal = 2 * ((comprimento * largura) + (comprimento * altura) + (altura * largura));
 
     }
 
-    public void setVolume(float volume) {
-        this.volume = volume;
+    public void setAreaTotal(float volume) {
+        this.areaTotal = volume;
     }
 
     public void setNumPessoas(int numPessoas) {
@@ -145,6 +153,10 @@ public class SimController {
 
     public void setTemperaturaEx(int temperatura) {
         this.temperaturaEx = temperatura;
+    }
+
+    public void setTemperaturaPre(int temperaturaPre) {
+        this.temperaturaPre = temperaturaPre;
     }
 
     public void setTemperaturaInt(int temperaturaInt) {
@@ -202,7 +214,7 @@ public class SimController {
 //        }
 
         return "Comprimento:" + comprimento + ", Largura:" + largura + ", Altura:"
-                + "" + altura + ", Volume:" + volume + ", Potencia Media: "
+                + "" + altura + ", Volume:" + areaTotal + ", Potencia Media: "
                 + potenciaMedia + ", Numero de Pessoas:" + numPessoas + ", Temperatura:"
                 + "" + temperaturaEx + ", Numero de Aparelhos:" + numAparelhos + "Número de aberturas: "
                 + listaAber.size() + "Número de limites: " + listaLim.size();
@@ -253,21 +265,84 @@ public class SimController {
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" + "<h1>Par&acirc;metros :</h1>\n");
-            
-            
-            out.write("<h2>Dimens&otilde;es :</h2>"+"<h4>Comprimento : "+getComprimento()+" m</br>Altura : "+getAltura()+" m</br>Largura : "+getLargura()+" m</br>Volume : "+getVolume()+" m&sup3;</h4></div>\n");
-            out.write("<div align=\"left\">\n<h2>Limites</h2></div>\n");
+            out.write("<ul>\n" + "  <li><a href=\"dimensoes.html\">Dimensões</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"pat\">Outros</a></li>\n" + "</ul>");
+
             out.write("<hr>\n</body></html>");
             out.close();
+
+            File dim = new File("dimensoes.html");
+            BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
+
+            out2.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
+                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out2.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
+            out2.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+            out2.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"pat\">Outros</a></li>\n" + "</ul>");
+            out2.write("<h2>Dimens&otilde;es :</h2>" + "<h4>Comprimento : " + getComprimento() + " m</br>Altura : " + getAltura() + " m</br>Largura : " + getLargura() + " m</br>Volume : " + getAreaTotal() + " m&sup3;</h4>\n");
+            /*int i = 1;
+             for (Limite ls : listaLim) {
+             out.write("<h2>Limite : " + i + "</h2><h4>Tipo de Limite : " + ls.getTipo() + "</br>Tipo de Material : " + ls.getMaterial().getNome() + "</br>Altura : " + ls.getAltura() + "</br>Largura : " + ls.getLargura() + "</br>Espessura : " + ls.getEspessura() + "</h4></div>\n");
+             i++;
+             }
+             i=1;
+             for (Abertu ls : listaAber) {
+             out.write("<h2>Abertura : " + i + "</h2><h4>Tipo de Abertura : " + ls.getTipo() + "</br>Tipo de Material : " + ls.getMaterial().getNome() + "</br>Altura : " + ls.getAltura() + "</br>Largura : " + ls.getLargura() + "</h4></div>\n");
+             i++;
+             }
+             */
+
+            out2.write("<hr>\n</body></html>");
+            out2.close();
+
+            File lim = new File("limites.html");
+            BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
+
+            out3.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
+                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out3.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
+            out3.write("<title>Limites:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+            out3.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimensoes</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"pat\">Outros</a></li>\n" + "</ul>");
+            int i = 1;
+            for (Limite ls : listaLim) {
+                out3.write("<h2>Limite : " + i + "</h2><h4>Tipo de Limite : " + ls.getTipo() + "</br>Tipo de Material : " + ls.getMaterial().getNome() + "</br>Altura : " + ls.getAltura() + "</br>Largura : " + ls.getLargura() + "</br>Espessura : " + ls.getEspessura() + "</h4></div>\n");
+                i++;
+            }
+            out3.write("<hr>\n</body></html>");
+            out3.close();
+
+            File abe = new File("aberturas.html");
+            BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
+
+            out4.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
+                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out4.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
+            out4.write("<title>Aberturas:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+            out4.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimensoes</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"pat\">Outros</a></li>\n" + "</ul>");
+
+            i = 1;
+            out4.write("<table border=\"1\" style=\"width:50%\">\n<tr><td>Tipo</td>\n<td>Material</td>\n<td>Altura</td>\n<td>Largura</td>\n</tr>");
             
+            for (Abertu ls : listaAber) {
+                out4.write("<tr>\n<td>"+i+"</td>\n<td>"+ls.getTipo()+"</td>\n<td>"+ls.getMaterial().getNome()+"</td>\n<td>"+ls.getAltura()+"</td>\n<td>"+ls.getLargura()+"</td></tr>");
+                //out4.write("<h2>Abertura : " + i + "</h2><h4>Tipo de Abertura : " + ls.getTipo() + "</br>Tipo de Material : " + ls.getMaterial().getNome() + "</br>Altura : " + ls.getAltura() + "</br>Largura : " + ls.getLargura() + "</h4></div>\n");
+                i++;
+            }
+            out4.write("</table>");
+
+            out4.write("<hr>\n</body></html>");
+            out4.close();
+
             Desktop.getDesktop().browse(fich.toURI());
-            
+
         } catch (IOException e) {
             System.out.println("Erro - " + e.getLocalizedMessage());
         }
-
-      
-        
 
     }
 
