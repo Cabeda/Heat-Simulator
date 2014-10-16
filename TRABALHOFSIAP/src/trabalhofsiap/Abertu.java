@@ -12,7 +12,7 @@ package trabalhofsiap;
 public class Abertu {
         private Material material;
         private String tipo;
-        private double altura, largura;
+        private double altura, largura, espessura;
         
         private Aluminio al;
         private Madeira ma;
@@ -20,19 +20,12 @@ public class Abertu {
         private Vidro vi;
         private Ar a;
 
-    public Abertu(String nome) {
+public Abertu() {
         this.altura=0;
         this.largura=0;
+        this.espessura=0;
         this.material=new Material();
         this.tipo="sem tipo";
-        this.al = new Aluminio() ;
-        this.ma = new Madeira();
-        this.be = new Betao();
-        this.vi = new Vidro();
-        this.a = new Ar();
-    }
-
-    public Abertu() {
         this.al = new Aluminio() ;
         this.ma = new Madeira();
         this.be = new Betao();
@@ -55,6 +48,15 @@ public class Abertu {
     public Material getMaterial() {
         return material;
     }
+
+    public double getEspessura() {
+        return espessura;
+    }
+
+    public void setEspessura(double espessura) {
+        this.espessura = espessura;
+    }
+    
 
     /**
      * @param material the material to set
@@ -117,7 +119,7 @@ public class Abertu {
         @Override
     public String toString(){
 
-        return ""+this.altura+"/"+this.largura+"/"+this.material.getNome()+"/"+this.tipo;
+        return ""+this.altura+"/"+this.largura+"/"+this.material.getNome()+"/"+this.tipo+"/"+this.espessura;
     }    
     
 }

@@ -47,7 +47,7 @@ public class JanelaAber extends JFrame {
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
     private Dimension BTN_TAMANHO = new Dimension(40, 40);
-    public JTextField field4, field3;
+    public JTextField field4, field3, field6;
     private boolean flag;
     public JComboBox field1, field2;
     private List<Abertu> lista = new ArrayList();
@@ -124,50 +124,8 @@ public class JanelaAber extends JFrame {
         label3.setPreferredSize(LABEL_TAMANHO2);
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
-        field3.setText("Insira Altura...");
-        field3.setForeground(Color.GRAY);
-        field3.addMouseListener(new MouseListener() {
 
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (field3.getText().equals("Insira Altura...")) {
-                    field3.setText("");
-                    field3.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                /*if (field3.getText().equals("Insira Altura...")) {
-                    field3.setText("");
-                    field3.setForeground(Color.BLACK);
-                }*/
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                /*if (field3.getText().equals("")) {
-                    field3.setText("Insira Altura...");
-                    field3.setForeground(Color.GRAY);
-                }*/
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                /* if (field3.getText().equals("Insira Altura...")) {
-                 field3.setText("");
-                 field3.setForeground(Color.BLACK);
-                 }*/
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                /*if (field3.getText().equals("")) {
-                    field3.setText("Insira Altura...");
-                    field3.setForeground(Color.GRAY);
-                }*/
-            }
-        });
+        
         panel3.add(label3);
         panel3.add(field3);
 
@@ -176,53 +134,18 @@ public class JanelaAber extends JFrame {
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
-        field4.setText("Insira Largura...");
-        field4.setForeground(Color.GRAY);
-        field4.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (field4.getText().equals("Insira Largura...")) {
-                    field4.setText("");
-                    field4.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                /*if (field4.getText().equals("Insira Largura...")) {
-                    field4.setText("");
-                    field4.setForeground(Color.BLACK);
-                }*/
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                /*if (field4.getText().equals("")) {
-                    field4.setText("Insira Largura...");
-                    field4.setForeground(Color.GRAY);
-                }*/
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                /* if (field3.getText().equals("Insira Altura...")) {
-                 field3.setText("");
-                 field3.setForeground(Color.BLACK);
-                 }*/
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                /*if (field4.getText().equals("")) {
-                    field4.setText("Insira Largura...");
-                    field4.setForeground(Color.GRAY);
-                }*/
-            }
-        });
 
         panel4.add(label4);
         panel4.add(field4);
+        
+        JPanel panel6 = new JPanel();
+        JLabel label6= new JLabel("Espessura:", JLabel.RIGHT);
+        label6.setPreferredSize(LABEL_TAMANHO2);
+        field6 = new JTextField();
+        field6.setPreferredSize(Campo2_TAMANHO);
+
+        panel6.add(label6);
+        panel6.add(field6);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton("Confirmar");
@@ -259,12 +182,11 @@ public class JanelaAber extends JFrame {
 
                             JanelaAber jan = new JanelaAber(dc, js, false, posi);
                             Abertu aber = dc.getListaAber().get(posi);
-                            jan.field3.setForeground(Color.BLACK);
-                            jan.field4.setForeground(Color.BLACK);
-                            jan.field1.setSelectedItem(aber.getMaterial());
-                            jan.field2.setSelectedItem(aber.getTipo());
+                            jan.field1.setSelectedItem(aber.getTipo());
+                            jan.field2.setSelectedItem(aber.getMaterial().getNome());
                             jan.field3.setText("" + aber.getAltura());
                             jan.field4.setText("" + aber.getLargura());
+                            jan.field6.setText("" + aber.getEspessura());
 
                         }
                     });
@@ -272,7 +194,6 @@ public class JanelaAber extends JFrame {
                 }
             });
         } else {
-            System.out.println(flag);
             flag = false;
             btnMoveRight1 = new JButton("Confirmar");
             btnMoveRight1.addActionListener(new ActionListener() {
@@ -283,6 +204,7 @@ public class JanelaAber extends JFrame {
 
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
+                    aber.setEspessura(Double.parseDouble(field6.getText()));
                     aber.setTipo(field1.getSelectedItem().toString());
                     aber.setMaterialPeloNome(field2.getSelectedItem().toString());
                     js.revalidate();
@@ -300,12 +222,11 @@ public class JanelaAber extends JFrame {
 
                             JanelaAber jan = new JanelaAber(dc, js, false, posi);
                             Abertu aber = dc.getListaAber().get(posi);
-                            jan.field3.setForeground(Color.BLACK);
-                            jan.field4.setForeground(Color.BLACK);
                             jan.field1.setSelectedItem(aber.getMaterial());
                             jan.field2.setSelectedItem(aber.getTipo());
                             jan.field3.setText("" + aber.getAltura());
                             jan.field4.setText("" + aber.getLargura());
+                            jan.field6.setText("" + aber.getEspessura());
 
                         }
                     });
@@ -325,6 +246,7 @@ public class JanelaAber extends JFrame {
         grid.add(panel2);
         grid.add(panel3);
         grid.add(panel4);
+        grid.add(panel6);
         panel.add(grid, BorderLayout.CENTER);
         panel.add(panel5, BorderLayout.SOUTH);
 

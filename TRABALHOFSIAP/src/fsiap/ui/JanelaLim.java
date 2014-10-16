@@ -123,50 +123,6 @@ public class JanelaLim extends JFrame{
         label3.setPreferredSize(LABEL_TAMANHO2);
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
-        field3.setText("Insira Altura...");
-        field3.setForeground(Color.GRAY);
-        field3.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (field3.getText().equals("Insira Altura...")) {
-                    field3.setText("");
-                    field3.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                /*if (field3.getText().equals("Insira Altura...")) {
-                    field3.setText("");
-                    field3.setForeground(Color.BLACK);
-                }*/
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                /*if (field3.getText().equals("")) {
-                    field3.setText("Insira Altura...");
-                    field3.setForeground(Color.GRAY);
-                }*/
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                /* if (field3.getText().equals("Insira Altura...")) {
-                 field3.setText("");
-                 field3.setForeground(Color.BLACK);
-                 }*/
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                /*if (field3.getText().equals("")) {
-                    field3.setText("Insira Altura...");
-                    field3.setForeground(Color.GRAY);
-                }*/
-            }
-        });
         panel3.add(label3);
         panel3.add(field3);
 
@@ -175,50 +131,6 @@ public class JanelaLim extends JFrame{
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
-        field4.setText("Insira Largura...");
-        field4.setForeground(Color.GRAY);
-        field4.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (field4.getText().equals("Insira Largura...")) {
-                    field4.setText("");
-                    field4.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (field4.getText().equals("Insira Largura...")) {
-                    field4.setText("");
-                    field4.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (field4.getText().equals("")) {
-                    field4.setText("Insira Largura...");
-                    field4.setForeground(Color.GRAY);
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                /* if (field3.getText().equals("Insira Altura...")) {
-                 field3.setText("");
-                 field3.setForeground(Color.BLACK);
-                 }*/
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (field4.getText().equals("")) {
-                    field4.setText("Insira Largura...");
-                    field4.setForeground(Color.GRAY);
-                }
-            }
-        });
 
         panel4.add(label4);
         panel4.add(field4);
@@ -227,51 +139,7 @@ public class JanelaLim extends JFrame{
         JLabel label6 = new JLabel("Espessura:", JLabel.RIGHT);
         label6.setPreferredSize(LABEL_TAMANHO2);
         field6 = new JTextField();
-        field6.setPreferredSize(Campo2_TAMANHO);
-        field6.setText("Insira espessura...");
-        field6.setForeground(Color.GRAY);
-        field6.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (field6.getText().equals("Insira espessura...")) {
-                    field6.setText("");
-                    field6.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (field6.getText().equals("Insira espessura...")) {
-                    field6.setText("");
-                    field6.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (field6.getText().equals("")) {
-                    field6.setText("Insira espessura...");
-                    field6.setForeground(Color.GRAY);
-                }
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                /* if (field3.getText().equals("Insira Altura...")) {
-                 field3.setText("");
-                 field3.setForeground(Color.BLACK);
-                 }*/
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (field6.getText().equals("")) {
-                    field6.setText("Insira espessura...");
-                    field6.setForeground(Color.GRAY);
-                }
-            }
-        });
+        field6.setPreferredSize(Campo2_TAMANHO);      
 
         panel6.add(label6);
         panel6.add(field6);
@@ -324,7 +192,6 @@ public class JanelaLim extends JFrame{
                 }
             });
         } else {
-            System.out.println(flag);
             flag = false;
             btnMoveRight1 = new JButton("Confirmar");
             btnMoveRight1.addActionListener(new ActionListener() {

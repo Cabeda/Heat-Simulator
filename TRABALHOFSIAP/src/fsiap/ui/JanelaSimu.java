@@ -622,41 +622,11 @@ public class JanelaSimu extends JDialog {
 
         JPanel jp = new JPanel();
 
-        JTextArea jt = new JTextArea(resultado);
-        jt.setEditable(false);
-        jt.setLineWrap(true);
-        jt.setPreferredSize(RESULTADO_TAMANHO);
-
-        jp.add(jt);
-
-        JPanel panel4 = new JPanel();
-        JButton btnAdicionar = new JButton("Confirmar");
-        btnAdicionar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jt.setText(null);
-                jt.append(dc.toString());
-            }
-        }
-        );
-        panel4.add(btnAdicionar);
-
-        JPanel jp1 = new JPanel();
-
-        JTextArea jt1 = new JTextArea(resultado);
-        jt1.setEditable(false);
-        jt1.setLineWrap(true);
-        jt1.setPreferredSize(RESULTADO_TAMANHO);
-
-        jp1.add(jt1);
-
         JPanel panel5 = new JPanel();
         JButton btnCalcular = new JButton("Calcular");
         btnCalcular.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jt1.setText(null);
-                jt1.append(dc.calcular());
                 try {
                     dc.criarFicheiroHTML();
                 } catch (IOException ex) {
@@ -670,8 +640,6 @@ public class JanelaSimu extends JDialog {
 
         panel.add(panel0, BorderLayout.NORTH);
         grid.add(jp);
-        grid.add(panel4);
-        grid.add(jp1);
         grid.add(panel5);
         panel.add(grid, BorderLayout.CENTER);
 
