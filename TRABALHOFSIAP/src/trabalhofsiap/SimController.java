@@ -8,8 +8,12 @@ package trabalhofsiap;
 import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +27,7 @@ public class SimController {
     int numPessoas, temperaturaEx, temperaturaInt, temperaturaPre, numAparelhos;
     private List<Limite> listaLim;
     private List<Abertu> listaAber;
-    private int cint, cint2,lingua;
-    
+    private int cint, cint2, lingua;
 
     public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim, List<Abertu> listaAber) {
         this.comprimento = comprimento;
@@ -315,7 +318,7 @@ public class SimController {
             out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Numero</td>\n<td>Tipo</td>\n<td>Material</td>\n<td>Altura (m)</td>\n<td>Largura (m)</td>\n<td>Espessura (m)</td>\n</tr>");
 
             for (Abertu ls : listaAber) {
-                out4.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() +"\n<td>" + ls.getEspessura() + "</td></tr>");
+                out4.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
                 i++;
             }
             out4.write("</table>");
@@ -331,7 +334,7 @@ public class SimController {
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out5.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" + "<h1>Par&acirc;metros :</h1>\n");
-            out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n"+ "</ul>");
+            out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "</ul>");
             out5.write("<h4>N&uacute;mero de Pessoas : " + getNumPessoas() + "</h4>\n");
             out5.write("<h4>N&uacute;mero de Aparelhos : " + getNumAparelhos() + "</h4>\n");
             out5.write("<h4>Pot&ecirc;ncia m&eacute;dia dos Aparelhos : " + getPotenciaMedia() + " Wh</h4>\n");
@@ -349,7 +352,7 @@ public class SimController {
         }
 
     }
-    
+
     public void criarFicheiroHTMLEn() throws IOException {
 
         try {
@@ -418,7 +421,7 @@ public class SimController {
             out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Number</td>\n<td>Type</td>\n<td>Material</td>\n<td>Height (m)</td>\n<td>Width (m)</td>\n<td>Thickness(m)</td>\n</tr>");
 
             for (Abertu ls : listaAber) {
-                out4.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() +"\n<td>" + ls.getEspessura() + "</td></tr>");
+                out4.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
                 i++;
             }
             out4.write("</table>");
@@ -433,8 +436,8 @@ public class SimController {
             out5.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out5.write("<title>Others:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" );
-            out5.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n"+ "</ul>");
+                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+            out5.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "</ul>");
             out5.write("<h4>Number of People : " + getNumPessoas() + "</h4>\n");
             out5.write("<h4>Number of Devices : " + getNumAparelhos() + "</h4>\n");
             out5.write("<h4>Average Power of the Devices : " + getPotenciaMedia() + " Wh</h4>\n");
@@ -453,8 +456,64 @@ public class SimController {
 
     }
 
+    public void guardarDados() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("dados.bin");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+
+            out.writeObject(getLinguagem());
+            out.writeObject(getAltura());
+            out.writeObject(getLargura());
+            out.writeObject(getComprimento());
+            out.writeObject(getAreaTotal());
+           // out.writeObject(listaLim);
+           // out.writeObject(listaAber);
+            out.writeObject(getNumPessoas());
+            out.writeObject(getNumAparelhos());
+            out.writeObject(getPotenciaMedia());
+            out.writeObject(getTemperaturaEx());
+            out.writeObject(getTemperaturaInt());
+            out.writeObject(getTemperaturaPre());
+
+            out.close();
+            fileOut.close();
+
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public void introduzirDados() {
+        try {
+            FileInputStream fileIn = new FileInputStream("dados.bin");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+
+            setLinguagem((int) in.readObject());
+            setAltura((float) in.readObject());
+            setLargura((float) in.readObject());
+            setComprimento((float) in.readObject());
+            setAreaTotal((float) in.readObject());
+            //listaLim = (List<Limite>)in.readObject();         
+            //listaAber = (List<Abertu>)in.readObject(); 
+            setNumPessoas((int) in.readObject());
+            setNumAparelhos((int) in.readObject());
+            setPotenciaMedia((float) in.readObject());
+            setTemperaturaEx((int) in.readObject());
+            setTemperaturaInt((int) in.readObject());
+            setTemperaturaPre((int) in.readObject());
+
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            System.out.println("IOException");
+        } catch (ClassNotFoundException c) {
+
+            System.out.println("Class Not Found Exception");
+        }
+    }
+
     public void setLinguagem(int i) {
-        lingua=i;
+        lingua = i;
     }
 
     public int getLinguagem() {

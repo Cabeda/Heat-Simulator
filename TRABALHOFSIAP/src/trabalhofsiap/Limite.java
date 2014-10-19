@@ -5,11 +5,13 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jecabeda
  */
-public class Limite {
+public class Limite implements Serializable{
 
     private String tipo;
     private Material material;

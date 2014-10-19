@@ -5,11 +5,13 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jecabeda
  */
-public class Abertu {
+public class Abertu implements Serializable{
         private Material material;
         private String tipo;
         private double altura, largura, espessura;

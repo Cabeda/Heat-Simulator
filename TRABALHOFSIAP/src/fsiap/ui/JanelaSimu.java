@@ -150,6 +150,9 @@ public class JanelaSimu extends JDialog {
         }
         field1 = new JTextField();
         field1.setPreferredSize(CAMPO_TAMANHO);
+        if (dc.getComprimento() != 0) {
+            field1.setText(""+dc.getComprimento());
+        }
         field1.addMouseListener(new MouseListener() {
 
             @Override
@@ -204,6 +207,9 @@ public class JanelaSimu extends JDialog {
 
         field2 = new JTextField();
         field2.setPreferredSize(CAMPO_TAMANHO);
+        if (dc.getLargura() != 0) {
+            field2.setText(""+dc.getLargura());
+        }
         field2.addMouseListener(new MouseListener() {
 
             @Override
@@ -259,6 +265,9 @@ public class JanelaSimu extends JDialog {
 
         field3 = new JTextField();
         field3.setPreferredSize(CAMPO_TAMANHO);
+        if (dc.getAltura() != 0) {
+            field3.setText(""+dc.getAltura());
+        }
         field3.addMouseListener(new MouseListener() {
 
             @Override
@@ -313,6 +322,9 @@ public class JanelaSimu extends JDialog {
         }
         field4 = new JTextField();
         field4.setPreferredSize(CAMPO_TAMANHO);
+        if (dc.getAreaTotal() != 0) {
+            field4.setText(""+dc.getAreaTotal());
+        }
         field4.setEditable(false);
 
         panel4.add(label4);
@@ -437,6 +449,9 @@ public class JanelaSimu extends JDialog {
             "13", "14", "15", "16", "17", "18", "19", "20", "21"};
         label1.setPreferredSize(LABEL_TAMANHO2);
         JComboBox field1 = new JComboBox(vec);
+        if (dc.getNumPessoas() != 0) {
+            field1.setSelectedIndex(dc.getNumPessoas());
+        }
         field1.setPreferredSize(CAMPO_TAMANHO);
         panel1.add(label1);
         panel1.add(field1);
@@ -560,6 +575,9 @@ public class JanelaSimu extends JDialog {
         }
         JTextField field1 = new JTextField();
         field1.setPreferredSize(CAMPO_TAMANHO);
+        if (dc.getNumAparelhos() != 0) {
+            field1.setText(""+dc.getNumAparelhos());
+        }
         label1.setPreferredSize(LABEL_TAMANHO2);
         panel1.add(label1);
         panel1.add(field1);
@@ -577,6 +595,9 @@ public class JanelaSimu extends JDialog {
         }
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
+        if (dc.getPotenciaMedia() != 0) {
+            field2.setText(""+dc.getPotenciaMedia());
+        }
         field2.setPreferredSize(CAMPO_TAMANHO);
 
         panel2.add(label2);
@@ -589,7 +610,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dc.setNumAparelhos((Integer.parseInt(field1.getText())));
-                dc.setPotenciaMedia((Integer.parseInt(field1.getText())));
+                dc.setPotenciaMedia((Integer.parseInt(field2.getText())));
                 jt.setSelectedIndex(5);
             }
         }
@@ -633,6 +654,9 @@ public class JanelaSimu extends JDialog {
             "27", "28", "29", "30", "31", "32", "33", "34", "35",};
         label1.setPreferredSize(LABEL_TAMANHO2);
         JComboBox field1 = new JComboBox(vec);
+        if (dc.getTemperaturaPre() != 0) {
+            field1.setSelectedIndex(dc.getTemperaturaPre());
+        }
         field1.setPreferredSize(CAMPO_TAMANHO);
         panel1.add(label1);
         panel1.add(field1);
@@ -648,6 +672,9 @@ public class JanelaSimu extends JDialog {
             "27", "28", "29", "30", "31", "32", "33", "34", "35",};
         label2.setPreferredSize(LABEL_TAMANHO2);
         JComboBox field2 = new JComboBox(vec1);
+        if (dc.getTemperaturaEx()!= 0) {
+            field2.setSelectedIndex(dc.getTemperaturaEx());
+        }
         field2.setPreferredSize(CAMPO_TAMANHO);
         panel2.add(label2);
         panel2.add(field2);
@@ -664,6 +691,9 @@ public class JanelaSimu extends JDialog {
             "27", "28", "29", "30", "31", "32", "33", "34", "35",};
         label3.setPreferredSize(LABEL_TAMANHO2);
         JComboBox field3 = new JComboBox(vec);
+        if (dc.getTemperaturaInt() != 0) {
+            field3.setSelectedIndex(dc.getTemperaturaInt());
+        }
         field3.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(label3);
         panel3.add(field3);
@@ -721,6 +751,7 @@ public class JanelaSimu extends JDialog {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         dc.criarFicheiroHTMLEn();
+                        dc.guardarDados();
                     } catch (IOException ex) {
                         Logger.getLogger(JanelaSimu.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -735,6 +766,7 @@ public class JanelaSimu extends JDialog {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         dc.criarFicheiroHTMLPt();
+                        dc.guardarDados();
                     } catch (IOException ex) {
                         Logger.getLogger(JanelaSimu.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -758,16 +790,28 @@ public class JanelaSimu extends JDialog {
      * Opção para perguntar se deseja fechar a aplicação.
      */
     private void fechar() {
-        String[] opSimNao = {"Sim", "Não"};
-        int resposta = JOptionPane.showOptionDialog(this,
-                "Deseja fechar a aplicação?",
-                "FSIAP",
-                0,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                opSimNao,
-                opSimNao[1]);
-
+        int resposta;
+        if (dc.getLinguagem() == 1) {
+            String[] opSimNao = {"Yes", "No"};
+            resposta = JOptionPane.showOptionDialog(this,
+                    "Do you wish to close the program?",
+                    "FSIAP",
+                    0,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opSimNao,
+                    opSimNao[1]);
+        } else {
+            String[] opSimNao = {"Sim", "Não"};
+            resposta = JOptionPane.showOptionDialog(this,
+                    "Deseja fechar a aplicação?",
+                    "FSIAP",
+                    0,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opSimNao,
+                    opSimNao[1]);
+        }
         final int SIM = 0;
         if (resposta == SIM) {
             dispose();

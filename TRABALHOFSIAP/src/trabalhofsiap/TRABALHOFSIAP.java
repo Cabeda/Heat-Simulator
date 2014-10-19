@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package trabalhofsiap;
 
 import fsiap.ui.Janela;
+import fsiap.ui.JanelaSimu;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -21,10 +22,16 @@ public class TRABALHOFSIAP {
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        
-         
-         Janela jan = new Janela();
-        
+
+        File d = new File("dados.bin");
+        if (d.exists()) {
+            SimController dc = new SimController();
+            dc.introduzirDados();
+            JanelaSimu js = new JanelaSimu(null, dc);
+        } else {
+
+            Janela jan = new Janela();
+        }
     }
-    
+
 }
