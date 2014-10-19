@@ -8,6 +8,7 @@ package fsiap.ui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,8 +44,8 @@ import trabalhofsiap.SimController;
  */
 public class JanelaSimu extends JDialog {
 
-    private List<Limite> listaLim = new ArrayList();
-    private List<Abertu> listaAber = new ArrayList();
+    private List<Limite> listaLim = new ArrayList<Limite>();
+    private List<Abertu> listaAber = new ArrayList<Abertu>();
     /**
      * Fechar (S/N)
      */
@@ -151,7 +152,7 @@ public class JanelaSimu extends JDialog {
         field1 = new JTextField();
         field1.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getComprimento() != 0) {
-            field1.setText(""+dc.getComprimento());
+            field1.setText("" + dc.getComprimento());
         }
         field1.addMouseListener(new MouseListener() {
 
@@ -208,7 +209,7 @@ public class JanelaSimu extends JDialog {
         field2 = new JTextField();
         field2.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getLargura() != 0) {
-            field2.setText(""+dc.getLargura());
+            field2.setText("" + dc.getLargura());
         }
         field2.addMouseListener(new MouseListener() {
 
@@ -266,7 +267,7 @@ public class JanelaSimu extends JDialog {
         field3 = new JTextField();
         field3.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getAltura() != 0) {
-            field3.setText(""+dc.getAltura());
+            field3.setText("" + dc.getAltura());
         }
         field3.addMouseListener(new MouseListener() {
 
@@ -323,7 +324,7 @@ public class JanelaSimu extends JDialog {
         field4 = new JTextField();
         field4.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getAreaTotal() != 0) {
-            field4.setText(""+dc.getAreaTotal());
+            field4.setText("" + dc.getAreaTotal());
         }
         field4.setEditable(false);
 
@@ -372,6 +373,20 @@ public class JanelaSimu extends JDialog {
             panel1.add(label1, BorderLayout.NORTH);
         }
         jpanel2 = new JPanel();
+        if (dc.getListaAber() != null) {
+            List<Abertu> d = dc.getListaAber();
+            for (Abertu listaAber1 : d) {
+                JPanel a = new JPanel(new FlowLayout());
+                JLabel b = new JLabel(listaAber1.toString());
+                JButton c = new JButton(this.icon);
+                a.add(b);
+                a.add(c);
+                c.setPreferredSize(new Dimension(40, 40));
+                jpanel2.add(a);
+                jpanel2.revalidate();
+                panel1.revalidate();
+            }
+        }
         jpanel2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         final JScrollPane scroll = new JScrollPane(jpanel2);
@@ -381,6 +396,7 @@ public class JanelaSimu extends JDialog {
 
         JPanel panel3 = new JPanel();
         JButton btnAdicionar;
+
         if (dc.getLinguagem() == 1) {
             btnAdicionar = new JButton("Add on");
         } else {
@@ -496,6 +512,20 @@ public class JanelaSimu extends JDialog {
             panel1.add(label1, BorderLayout.NORTH);
         }
         jpanel3 = new JPanel();
+        if (dc.getListaLim() != null) {
+            List<Limite> d = dc.getListaLim();
+            for (Limite listaLim1 : dc.getListaLim()) {
+                JPanel a = new JPanel(new FlowLayout());
+                JLabel b = new JLabel(listaLim1.toString());
+                JButton c = new JButton(this.icon);
+                a.add(b);
+                a.add(c);
+                c.setPreferredSize(new Dimension(40, 40));
+                jpanel3.add(a);
+                jpanel3.revalidate();
+                panel1.revalidate();
+            }
+        }
         jpanel3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         //jpanel2.setPreferredSize(new Dimension(50,100));
 
@@ -506,6 +536,7 @@ public class JanelaSimu extends JDialog {
 
         JPanel panel3 = new JPanel();
         JButton btnAdicionar;
+
         if (dc.getLinguagem() == 1) {
             btnAdicionar = new JButton("Add on");
         } else {
@@ -576,7 +607,7 @@ public class JanelaSimu extends JDialog {
         JTextField field1 = new JTextField();
         field1.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getNumAparelhos() != 0) {
-            field1.setText(""+dc.getNumAparelhos());
+            field1.setText("" + dc.getNumAparelhos());
         }
         label1.setPreferredSize(LABEL_TAMANHO2);
         panel1.add(label1);
@@ -596,7 +627,7 @@ public class JanelaSimu extends JDialog {
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
         if (dc.getPotenciaMedia() != 0) {
-            field2.setText(""+dc.getPotenciaMedia());
+            field2.setText("" + dc.getPotenciaMedia());
         }
         field2.setPreferredSize(CAMPO_TAMANHO);
 
@@ -655,7 +686,7 @@ public class JanelaSimu extends JDialog {
         label1.setPreferredSize(LABEL_TAMANHO2);
         JComboBox field1 = new JComboBox(vec);
         if (dc.getTemperaturaPre() != 0) {
-            field1.setSelectedIndex(dc.getTemperaturaPre());
+            field1.setSelectedIndex(dc.getTemperaturaPre() - 15);
         }
         field1.setPreferredSize(CAMPO_TAMANHO);
         panel1.add(label1);
@@ -672,8 +703,8 @@ public class JanelaSimu extends JDialog {
             "27", "28", "29", "30", "31", "32", "33", "34", "35",};
         label2.setPreferredSize(LABEL_TAMANHO2);
         JComboBox field2 = new JComboBox(vec1);
-        if (dc.getTemperaturaEx()!= 0) {
-            field2.setSelectedIndex(dc.getTemperaturaEx());
+        if (dc.getTemperaturaEx() != 0) {
+            field2.setSelectedIndex(dc.getTemperaturaEx() - 15);
         }
         field2.setPreferredSize(CAMPO_TAMANHO);
         panel2.add(label2);
@@ -692,7 +723,7 @@ public class JanelaSimu extends JDialog {
         label3.setPreferredSize(LABEL_TAMANHO2);
         JComboBox field3 = new JComboBox(vec);
         if (dc.getTemperaturaInt() != 0) {
-            field3.setSelectedIndex(dc.getTemperaturaInt());
+            field3.setSelectedIndex(dc.getTemperaturaInt() - 15);
         }
         field3.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(label3);
@@ -703,9 +734,9 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dc.setTemperaturaInt(Integer.valueOf((String) field1.getSelectedItem()));
+                dc.setTemperaturaPre(Integer.valueOf((String) field1.getSelectedItem()));
                 dc.setTemperaturaEx(Integer.valueOf((String) field2.getSelectedItem()));
-                dc.setTemperaturaPre(Integer.valueOf((String) field3.getSelectedItem()));
+                dc.setTemperaturaInt(Integer.valueOf((String) field3.getSelectedItem()));
                 jt.setSelectedIndex(6);
             }
         }

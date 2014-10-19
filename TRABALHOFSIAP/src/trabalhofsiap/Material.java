@@ -5,13 +5,15 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 
 
 /**
  *
  * @author Jecabeda
  */
-public class Material {
+public class Material implements Serializable{
     private double capTermica;
     private final String nome;
 

@@ -5,11 +5,13 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jecabeda
  */
-public class Madeira extends Material {
+public class Madeira extends Material implements Serializable{
 
     private SimController dc;
 

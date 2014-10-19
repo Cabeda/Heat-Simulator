@@ -5,13 +5,15 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 
 
 /**
  *
  * @author Jecabeda
  */
-public class Betao extends Material {
+public class Betao extends Material implements Serializable{
 
 
        //Medida em c/J KG K (a 25ºC)

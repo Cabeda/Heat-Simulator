@@ -5,11 +5,13 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jecabeda
  */
-public class Aluminio extends Material {
+public class Aluminio extends Material implements Serializable{
      //Medida em c/J KG K
     
     private SimController dc;

@@ -5,11 +5,13 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jecabeda
  */
-public class Vidro extends Material {
+public class Vidro extends Material implements Serializable{
 
     private SimController dc;
     

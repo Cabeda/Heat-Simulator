@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
  *
  * @author Jecabeda
  */
-public class SimController {
+public class SimController implements Serializable{
 
     private float comprimento, largura, altura, areaTotal, potenciaMedia;
     int numPessoas, temperaturaEx, temperaturaInt, temperaturaPre, numAparelhos;
@@ -466,8 +467,16 @@ public class SimController {
             out.writeObject(getLargura());
             out.writeObject(getComprimento());
             out.writeObject(getAreaTotal());
-           // out.writeObject(listaLim);
-           // out.writeObject(listaAber);
+            
+            out.writeObject(listaLim.size());
+            for (Limite listaLim1 : listaLim) {
+                out.writeObject(listaLim1);
+            }
+            out.writeObject(listaAber.size());
+            for (Abertu listaAber1 : listaAber) {
+                out.writeObject(listaAber1);
+            }
+            
             out.writeObject(getNumPessoas());
             out.writeObject(getNumAparelhos());
             out.writeObject(getPotenciaMedia());
@@ -487,14 +496,25 @@ public class SimController {
         try {
             FileInputStream fileIn = new FileInputStream("dados.bin");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-
+            
             setLinguagem((int) in.readObject());
             setAltura((float) in.readObject());
             setLargura((float) in.readObject());
             setComprimento((float) in.readObject());
             setAreaTotal((float) in.readObject());
-            //listaLim = (List<Limite>)in.readObject();         
-            //listaAber = (List<Abertu>)in.readObject(); 
+            List<Limite> lsl = new ArrayList<>();
+            int cont=(int)in.readObject();
+            for (int i = 0; i < cont; i++) {
+                lsl.add((Limite)(in.readObject()));
+            }
+            setListaLim(lsl);
+            cont=(int)in.readObject();
+            List<Abertu> lsa = new ArrayList<>();
+            for (int i = 0; i < cont; i++) {
+                lsa.add((Abertu)(in.readObject()));
+            }
+            setListaAber(lsa);
+           
             setNumPessoas((int) in.readObject());
             setNumAparelhos((int) in.readObject());
             setPotenciaMedia((float) in.readObject());
@@ -518,6 +538,20 @@ public class SimController {
 
     public int getLinguagem() {
         return lingua;
+    }
+
+    /**
+     * @param listaLim the listaLim to set
+     */
+    public void setListaLim(List<Limite> listaLim) {
+        this.listaLim = listaLim;
+    }
+
+    /**
+     * @param listaAber the listaAber to set
+     */
+    public void setListaAber(List<Abertu> listaAber) {
+        this.listaAber = listaAber;
     }
 
 }

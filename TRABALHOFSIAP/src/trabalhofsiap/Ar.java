@@ -5,11 +5,13 @@
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jecabeda
  */
-public class Ar extends Material {
+public class Ar extends Material implements Serializable{
     //Medida em c/J KG K
 
     public Ar() {
