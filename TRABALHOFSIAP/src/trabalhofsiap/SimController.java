@@ -205,14 +205,6 @@ public class SimController {
 
     @Override
     public String toString() {
-//        String lim = "";
-//        String aber = "";
-//        for (Limite limTemp : listaLim) {
-//            lim += limTemp.toString();
-//        }
-//        for (Abertu aberTemp : listaAber) {
-//            aber += aberTemp.toString();
-//        }
 
         return "Comprimento:" + comprimento + ", Largura:" + largura + ", Altura:"
                 + "" + altura + ", Volume:" + areaTotal + ", Potencia Media: "

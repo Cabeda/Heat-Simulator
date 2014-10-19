@@ -11,10 +11,22 @@ package trabalhofsiap;
  */
 public class Vidro extends Material {
 
-    //Medida em c/J KG K
-    public Vidro() {
-        super(820, "Vidro");
-    }
+    private SimController dc;
     
+    //Medida em c/J KG K
+    public Vidro(SimController d) {
+        super(820, "Vidro");
+        this.dc=d;
+    }
+        
+     public String getNome() {
+        if (dc.getLinguagem() == 1) {
+            return "Glass";
+        } else {
+            return "Vidro";
+        }
+
+    }
+
     
 }

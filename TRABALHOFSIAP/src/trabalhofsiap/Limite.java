@@ -14,35 +14,43 @@ public class Limite {
     private String tipo;
     private Material material;
     private double altura, largura, espessura;
+    private SimController dc;
     private Aluminio al ;
     private Madeira ma;
     private Betao be;
     private Vidro vi;
     private Ar a;
 
-    public Limite(Material material, String tipo, double altura, double largura, double espessura) {
+    public Limite(Material material, String tipo, double altura, double largura, double espessura,SimController d) {
         this.material = material;
         this.tipo = tipo;
         this.altura = altura;
         this.largura = largura;
         this.espessura = espessura;
-        this.al = new Aluminio() ;
-        this.ma = new Madeira();
+        this.dc=d;
+        this.al = new Aluminio(dc) ;
+        this.ma = new Madeira(dc);
         this.be = new Betao();
-        this.vi = new Vidro();
+        this.vi = new Vidro(dc);
         this.a = new Ar();
     }
 
-    public Limite() {
+    public Limite(SimController d) {
         this.material = new Material();
-        this.tipo = "sem tipo";
+        
         this.altura = 0;
         this.largura = 0;
         this.espessura = 0;
-        this.al = new Aluminio() ;
-        this.ma = new Madeira();
+        this.dc=d;
+        if(dc.getLinguagem()==1){
+            this.tipo = "No Type";
+        }else{
+            this.tipo = "sem tipo";
+        }
+        this.al = new Aluminio(dc) ;
+        this.ma = new Madeira(dc);
         this.be = new Betao();
-        this.vi = new Vidro();
+        this.vi = new Vidro(dc);
         this.a = new Ar();
     }
 
@@ -76,19 +84,19 @@ public class Limite {
 
     public void setMaterialPeloNome(String tipo) {
         if (tipo.equals(vi.getNome())) {
-            this.material = new Vidro();
+            this.material = new Vidro(dc);
         } else {
             if (tipo.equals(be.getNome())) {
                 this.material = new Betao();
             } else {
                 if (tipo.equals(al.getNome())) {
-                    this.material = new Aluminio();
+                    this.material = new Aluminio(dc);
                 } else {
                     if (tipo.equals(a.getNome())) {
                         this.material = new Ar();
                     } else {
                         if (tipo.equals(ma.getNome())) {
-                            this.material = new Madeira();
+                            this.material = new Madeira(dc);
                         }
                     }
                 }

@@ -52,23 +52,28 @@ public class JanelaAber extends JFrame {
     private JanelaSimu js;
     private int posi;
 
-    private Aluminio al = new Aluminio();
-    private Madeira ma = new Madeira();
-    private Betao be = new Betao();
-    private Vidro vi = new Vidro();
-    private Ar a = new Ar();
+    private Aluminio al;
+    private Madeira ma;
+    private Betao be;
+    private Vidro vi;
+    private Ar a;
     private Abertu alt;
 
-    public JanelaAber(SimController dc, JanelaSimu js, boolean f, int po) {
+    public JanelaAber(SimController d, JanelaSimu js, boolean f, int po) {
 
-        super("Dados Abertura");
+        super("Dados Abertura/Openings Data");
 
-        this.dc = dc;
+        this.dc = d;
         this.js = js;
         this.flag = f;
         this.posi = po;
-        //ImageIcon i = new ImageIcon("xxxxxxx.jpg");
-        //add(new JLabel(i));
+
+        al = new Aluminio(dc);
+        ma = new Madeira(dc);
+        vi = new Vidro(dc);
+        a = new Ar();
+        be = new Betao();
+
         BorderLayout gl = new BorderLayout();
         setLayout(gl);
 
@@ -94,11 +99,21 @@ public class JanelaAber extends JFrame {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
-
+        String opcoes[] = new String[2];
+        JLabel label1;
         JPanel panel1 = new JPanel();
-        JLabel label1 = new JLabel("Tipo de abertura:", JLabel.RIGHT);
-        label1.setPreferredSize(LABEL_TAMANHO2);
-        String opcoes[] = {"Porta", "Janela"};
+        if (dc.getLinguagem() == 1) {
+            label1 = new JLabel("Types of Opening:", JLabel.RIGHT);
+            label1.setPreferredSize(LABEL_TAMANHO2);
+            opcoes[0] = "Window";
+            opcoes[1] = "Door";
+
+        } else {
+            label1 = new JLabel("Tipo de abertura:", JLabel.RIGHT);
+            label1.setPreferredSize(LABEL_TAMANHO2);
+            opcoes[0] = "Janela";
+            opcoes[1] = "Porta";
+        }
         field1 = new JComboBox(opcoes);
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
@@ -109,6 +124,7 @@ public class JanelaAber extends JFrame {
         JPanel panel2 = new JPanel();
         JLabel label2 = new JLabel("Material:", JLabel.RIGHT);
         label2.setPreferredSize(LABEL_TAMANHO2);
+
         String opcoes2[] = {ma.getNome(), vi.getNome(), al.getNome()};
         field2 = new JComboBox(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
@@ -117,36 +133,57 @@ public class JanelaAber extends JFrame {
         panel2.add(field2);
 
         JPanel panel3 = new JPanel();
-        JLabel label3 = new JLabel("Altura:", JLabel.RIGHT);
-        label3.setPreferredSize(LABEL_TAMANHO2);
+        JLabel label3;
+        if (dc.getLinguagem() == 1) {
+            label3 = new JLabel("Height:", JLabel.RIGHT);
+            label3.setPreferredSize(LABEL_TAMANHO2);
+        } else {
+            label3 = new JLabel("Altura:", JLabel.RIGHT);
+            label3.setPreferredSize(LABEL_TAMANHO2);
+        }
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
 
-        
         panel3.add(label3);
         panel3.add(field3);
 
         JPanel panel4 = new JPanel();
-        JLabel label4 = new JLabel("Largura:", JLabel.RIGHT);
-        label4.setPreferredSize(LABEL_TAMANHO2);
+        JLabel label4;
+        if (dc.getLinguagem() == 1) {
+            label4 = new JLabel("Width:", JLabel.RIGHT);
+            label4.setPreferredSize(LABEL_TAMANHO2);
+        } else {
+            label4 = new JLabel("Largura:", JLabel.RIGHT);
+            label4.setPreferredSize(LABEL_TAMANHO2);
+        }
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
 
         panel4.add(label4);
         panel4.add(field4);
-        
+
         JPanel panel6 = new JPanel();
-        JLabel label6= new JLabel("Espessura:", JLabel.RIGHT);
-        label6.setPreferredSize(LABEL_TAMANHO2);
+        JLabel label6;
+        if (dc.getLinguagem() == 1) {
+            label6 = new JLabel("Thickness:", JLabel.RIGHT);
+            label6.setPreferredSize(LABEL_TAMANHO2);
+        } else {
+            label6 = new JLabel("Espessura:", JLabel.RIGHT);
+            label6.setPreferredSize(LABEL_TAMANHO2);
+        }
         field6 = new JTextField();
         field6.setPreferredSize(Campo2_TAMANHO);
 
         panel6.add(label6);
         panel6.add(field6);
 
+        JButton btnMoveRight1;
         JPanel panel5 = new JPanel();
-        JButton btnMoveRight1 = new JButton("Confirmar");
-
+        if (dc.getLinguagem() == 1) {
+            btnMoveRight1 = new JButton("Confirm");
+        } else {
+            btnMoveRight1 = new JButton("Confirmar");
+        }
         if (flag == true) {
 
             flag = false;
@@ -155,7 +192,7 @@ public class JanelaAber extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Abertu aber = new Abertu();
+                    Abertu aber = new Abertu(dc);
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
                     aber.setTipo(field1.getSelectedItem().toString());
@@ -192,7 +229,11 @@ public class JanelaAber extends JFrame {
             });
         } else {
             flag = false;
-            btnMoveRight1 = new JButton("Confirmar");
+            if (dc.getLinguagem() == 1) {
+                btnMoveRight1 = new JButton("Confirm");
+            } else {
+                btnMoveRight1 = new JButton("Confirmar");
+            }
             btnMoveRight1.addActionListener(new ActionListener() {
 
                 @Override

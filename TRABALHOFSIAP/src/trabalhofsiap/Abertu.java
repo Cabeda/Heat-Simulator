@@ -14,22 +14,24 @@ public class Abertu {
         private String tipo;
         private double altura, largura, espessura;
         
+        private SimController dc;
         private Aluminio al;
         private Madeira ma;
         private Betao be;
         private Vidro vi;
         private Ar a;
 
-public Abertu() {
+public Abertu(SimController d) {
         this.altura=0;
         this.largura=0;
         this.espessura=0;
         this.material=new Material();
         this.tipo="sem tipo";
-        this.al = new Aluminio() ;
-        this.ma = new Madeira();
+        this.dc=d;
+        this.al = new Aluminio(dc) ;
+        this.ma = new Madeira(dc);
         this.be = new Betao();
-        this.vi = new Vidro();
+        this.vi = new Vidro(dc);
         this.a = new Ar();
     }
 
@@ -82,19 +84,19 @@ public Abertu() {
         public void setMaterialPeloNome(String tipo) {
         if(tipo==vi.getNome())
         {
-            this.material=new Vidro();
+            this.material=new Vidro(dc);
         } else{
             if(tipo==be.getNome()){
                 this.material= new Betao();
             } else{
             if(tipo==al.getNome()){
-                this.material= new Aluminio();
+                this.material= new Aluminio(dc);
             } else{
             if(tipo==a.getNome()){
                 this.material= new Ar();
             } else{
             if(tipo==ma.getNome()){
-                this.material= new Madeira();
+                this.material= new Madeira(dc);
             }
         }
         }

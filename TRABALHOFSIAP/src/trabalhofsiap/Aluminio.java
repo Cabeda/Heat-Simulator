@@ -12,9 +12,22 @@ package trabalhofsiap;
 public class Aluminio extends Material {
      //Medida em c/J KG K
     
-    public Aluminio() {
+    private SimController dc;
+    
+    public Aluminio(SimController d) {
         super( 900, "Aluminio");
+        this.dc=d;
     }
+    
+     public String getNome() {
+        if (dc.getLinguagem() == 1) {
+            return "Aluminum";
+        } else {
+            return "Aluminio";
+        }
+
+    }
+
 
     
 }

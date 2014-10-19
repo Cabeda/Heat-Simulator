@@ -10,12 +10,22 @@ package trabalhofsiap;
  * @author Jecabeda
  */
 public class Madeira extends Material {
-    
 
-       //Medida em c/J KG K
-    public Madeira() {
+    private SimController dc;
+
+    //Medida em c/J KG K
+    public Madeira(SimController d) {
         super(2330, "Madeira");
+        this.dc = d;
     }
-      
-    
+
+    public String getNome() {
+        if (dc.getLinguagem() == 1) {
+            return "Wood";
+        } else {
+            return "Madeira";
+        }
+
+    }
+
 }

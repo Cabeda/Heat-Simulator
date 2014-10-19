@@ -11,8 +11,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -36,10 +34,9 @@ import trabalhofsiap.Vidro;
  *
  * @author Jecabeda
  */
-public class JanelaLim extends JFrame{
+public class JanelaLim extends JFrame {
 
-    
-      private String fechar = "nao";
+    private String fechar = "nao";
 
     private Dimension LABEL_TAMANHO2 = new JLabel("Dimensóes do ambiente ").getPreferredSize();
     private Dimension Campo2_TAMANHO = new Dimension(250, 20);
@@ -54,23 +51,28 @@ public class JanelaLim extends JFrame{
     private JanelaSimu js;
     private int posi;
 
-    private Aluminio al = new Aluminio();
-    private Madeira ma = new Madeira();
-    private Betao be = new Betao();
-    private Vidro vi = new Vidro();
-    private Ar a = new Ar();
+    private Aluminio al;
+    private Madeira ma;
+    private Betao be;
+    private Vidro vi;
+    private Ar a;
     private Abertu alt;
 
-    public JanelaLim(SimController dc, JanelaSimu js, boolean f, int po) {
+    public JanelaLim(SimController d, JanelaSimu js, boolean f, int po) {
 
-        super("Dados Limites");
+        super("Dados Limites/Limits Data");
 
-        this.dc = dc;
+        this.dc = d;
         this.js = js;
         this.flag = f;
         this.posi = po;
-        //ImageIcon i = new ImageIcon("xxxxxxx.jpg");
-        //add(new JLabel(i));
+
+        al = new Aluminio(dc);
+        ma = new Madeira(dc);
+        vi = new Vidro(dc);
+        be = new Betao();
+        a = new Ar();
+
         BorderLayout gl = new BorderLayout();
         setLayout(gl);
 
@@ -97,10 +99,24 @@ public class JanelaLim extends JFrame{
         JPanel grid = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
 
+        String opcoes[] = new String[3];
+        JLabel label1;
         JPanel panel1 = new JPanel();
-        JLabel label1 = new JLabel("Tipo de limite:", JLabel.RIGHT);
-        label1.setPreferredSize(LABEL_TAMANHO2);
-        String opcoes[] = {"Parede", "Chão", "Tecto"};
+        if (dc.getLinguagem() == 1) {
+            label1 = new JLabel("Type of Limits:", JLabel.RIGHT);
+            label1.setPreferredSize(LABEL_TAMANHO2);
+
+            opcoes[0] = "Wall";
+            opcoes[1] = "Floor";
+            opcoes[2] = "Ceiling";
+        } else {
+            label1 = new JLabel("Tipo de limite:", JLabel.RIGHT);
+            label1.setPreferredSize(LABEL_TAMANHO2);
+
+            opcoes[0] = "Parede";
+            opcoes[1] = "Chão";
+            opcoes[2] = "Tecto";
+        }
         field1 = new JComboBox(opcoes);
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
@@ -119,16 +135,28 @@ public class JanelaLim extends JFrame{
         panel2.add(field2);
 
         JPanel panel3 = new JPanel();
-        JLabel label3 = new JLabel("Altura:", JLabel.RIGHT);
-        label3.setPreferredSize(LABEL_TAMANHO2);
+        JLabel label3;
+        if (dc.getLinguagem() == 1) {
+            label3 = new JLabel("Height:", JLabel.RIGHT);
+            label3.setPreferredSize(LABEL_TAMANHO2);
+        } else {
+            label3 = new JLabel("Altura:", JLabel.RIGHT);
+            label3.setPreferredSize(LABEL_TAMANHO2);
+        }
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
         panel3.add(label3);
         panel3.add(field3);
 
         JPanel panel4 = new JPanel();
-        JLabel label4 = new JLabel("Largura:", JLabel.RIGHT);
-        label4.setPreferredSize(LABEL_TAMANHO2);
+        JLabel label4;
+        if (dc.getLinguagem() == 1) {
+            label4 = new JLabel("Width:", JLabel.RIGHT);
+            label4.setPreferredSize(LABEL_TAMANHO2);
+        } else {
+            label4 = new JLabel("Largura:", JLabel.RIGHT);
+            label4.setPreferredSize(LABEL_TAMANHO2);
+        }
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
 
@@ -136,16 +164,27 @@ public class JanelaLim extends JFrame{
         panel4.add(field4);
 
         JPanel panel6 = new JPanel();
-        JLabel label6 = new JLabel("Espessura:", JLabel.RIGHT);
-        label6.setPreferredSize(LABEL_TAMANHO2);
+        JLabel label6;
+        if (dc.getLinguagem() == 1) {
+            label6 = new JLabel("Thickness:", JLabel.RIGHT);
+            label6.setPreferredSize(LABEL_TAMANHO2);
+        } else {
+            label6 = new JLabel("Espessura:", JLabel.RIGHT);
+            label6.setPreferredSize(LABEL_TAMANHO2);
+        }
         field6 = new JTextField();
-        field6.setPreferredSize(Campo2_TAMANHO);      
+        field6.setPreferredSize(Campo2_TAMANHO);
 
         panel6.add(label6);
         panel6.add(field6);
-        
+
         JPanel panel5 = new JPanel();
-        JButton btnMoveRight1 = new JButton("Confirmar");
+        JButton btnMoveRight1;
+        if (dc.getLinguagem() == 1) {
+            btnMoveRight1 = new JButton("Confirme");
+        } else {
+            btnMoveRight1 = new JButton("Confirmar");
+        }
 
         if (flag == true) {
 
@@ -155,7 +194,7 @@ public class JanelaLim extends JFrame{
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Limite lim = new Limite();
+                    Limite lim = new Limite(dc);
                     lim.setAltura(Double.parseDouble(field3.getText()));
                     lim.setLargura(Double.parseDouble(field4.getText()));
                     lim.setEspessura(Double.parseDouble(field6.getText()));
@@ -172,7 +211,7 @@ public class JanelaLim extends JFrame{
                     c.setPreferredSize(BTN_TAMANHO);
                     js.jpanel3.add(a);
                     js.jpanel3.revalidate();
-          
+
                     c.addActionListener(new ActionListener() {
 
                         @Override
@@ -193,7 +232,11 @@ public class JanelaLim extends JFrame{
             });
         } else {
             flag = false;
-            btnMoveRight1 = new JButton("Confirmar");
+            if (dc.getLinguagem() == 1) {
+                btnMoveRight1 = new JButton("Confirme");
+            } else {
+                btnMoveRight1 = new JButton("Confirmar");
+            }
             btnMoveRight1.addActionListener(new ActionListener() {
 
                 @Override
@@ -227,7 +270,7 @@ public class JanelaLim extends JFrame{
                             jan.field2.setSelectedItem(lim.getTipo());
                             jan.field3.setText("" + lim.getAltura());
                             jan.field4.setText("" + lim.getLargura());
-                            jan.field6.setText(""+lim.getEspessura());
+                            jan.field6.setText("" + lim.getEspessura());
 
                         }
                     });
@@ -248,7 +291,7 @@ public class JanelaLim extends JFrame{
         grid.add(panel3);
         grid.add(panel4);
         grid.add(panel6);
-        
+
         panel.add(grid, BorderLayout.CENTER);
         panel.add(panel5, BorderLayout.SOUTH);
 
@@ -259,7 +302,5 @@ public class JanelaLim extends JFrame{
 
         return lista;
     }
-    
-    
 
 }
