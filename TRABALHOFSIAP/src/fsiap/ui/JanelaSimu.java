@@ -74,6 +74,7 @@ public class JanelaSimu extends JDialog {
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
         getContentPane().add(jp);
+
         if (dc.getLinguagem() == 1) {
             jt.addTab("Dimensions", panel1());
 
@@ -83,7 +84,7 @@ public class JanelaSimu extends JDialog {
 
             jt.addTab("Persons", panel3());
 
-            jt.addTab("Appliances", panel6());
+            jt.addTab("Devices", panel6());
 
             jt.addTab("Temperature", panel7());
 
@@ -102,6 +103,14 @@ public class JanelaSimu extends JDialog {
             jt.addTab("Temperatura", panel7());
 
             jt.addTab("Resultado", panel8());
+        }
+        if (dc.getAltura() == 0) {
+            jt.setEnabledAt(1, false);
+            jt.setEnabledAt(2, false);
+            jt.setEnabledAt(3, false);
+            jt.setEnabledAt(4, false);
+            jt.setEnabledAt(5, false);
+            jt.setEnabledAt(6, false);
         }
         jt.repaint();
 
@@ -178,15 +187,23 @@ public class JanelaSimu extends JDialog {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-                    dc.setAltura((Float.parseFloat(field3.getText())));
-                    dc.setComprimento((Float.parseFloat(field1.getText())));
-                    dc.setLargura((Float.parseFloat(field2.getText())));
-                    dc.setAreaTotal();
-                    field4.setText(Float.toString(dc.getAreaTotal()));
+                try {
+                    if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
+                        dc.setAltura((Float.parseFloat(field3.getText())));
+                        dc.setComprimento((Float.parseFloat(field1.getText())));
+                        dc.setLargura((Float.parseFloat(field2.getText())));
+                        dc.setAreaTotal();
+                        field4.setText(Float.toString(dc.getAreaTotal()));
+                        revalidate();
+                    }
                     revalidate();
+                } catch (Exception ex) {
+                    if (dc.getLinguagem() == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-                revalidate();
             }
         });
         panel1.add(label1);
@@ -235,15 +252,23 @@ public class JanelaSimu extends JDialog {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-                    dc.setAltura((Float.parseFloat(field3.getText())));
-                    dc.setComprimento((Float.parseFloat(field1.getText())));
-                    dc.setLargura((Float.parseFloat(field2.getText())));
-                    dc.setAreaTotal();
-                    field4.setText(Float.toString(dc.getAreaTotal()));
+                try {
+                    if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
+                        dc.setAltura((Float.parseFloat(field3.getText())));
+                        dc.setComprimento((Float.parseFloat(field1.getText())));
+                        dc.setLargura((Float.parseFloat(field2.getText())));
+                        dc.setAreaTotal();
+                        field4.setText(Float.toString(dc.getAreaTotal()));
+                        revalidate();
+                    }
                     revalidate();
+                } catch (Exception ex) {
+                    if (dc.getLinguagem() == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-                revalidate();
             }
         });
 
@@ -293,15 +318,23 @@ public class JanelaSimu extends JDialog {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-                    dc.setAltura((Float.parseFloat(field3.getText())));
-                    dc.setComprimento((Float.parseFloat(field1.getText())));
-                    dc.setLargura((Float.parseFloat(field2.getText())));
-                    dc.setAreaTotal();
-                    field4.setText(Float.toString(dc.getAreaTotal()));
+                try {
+                    if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
+                        dc.setAltura((Float.parseFloat(field3.getText())));
+                        dc.setComprimento((Float.parseFloat(field1.getText())));
+                        dc.setLargura((Float.parseFloat(field2.getText())));
+                        dc.setAreaTotal();
+                        field4.setText(Float.toString(dc.getAreaTotal()));
+                        revalidate();
+                    }
                     revalidate();
+                } catch (Exception ex) {
+                    if (dc.getLinguagem() == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-                revalidate();
             }
         });
 
@@ -313,11 +346,11 @@ public class JanelaSimu extends JDialog {
         JLabel label4;
         JLabel l4;
         if (dc.getLinguagem() == 1) {
-            label4 = new JLabel("Area Total:", JLabel.RIGHT);
+            label4 = new JLabel("Total Area:", JLabel.RIGHT);
             l4 = new JLabel("m²", JLabel.LEFT);
             label4.setPreferredSize(LABEL_TAMANHO2);
         } else {
-            label4 = new JLabel("Total Area:", JLabel.RIGHT);
+            label4 = new JLabel("Área Total:", JLabel.RIGHT);
             l4 = new JLabel("m²", JLabel.LEFT);
             label4.setPreferredSize(LABEL_TAMANHO2);
         }
@@ -337,7 +370,18 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jt.setSelectedIndex(1);
+                if (field1.getText().equals("") || field2.getText().equals("")) {
+                    if (dc.getLinguagem() == 1) {
+
+                        JOptionPane.showMessageDialog(rootPane, "Please Fill all fields", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                } else {
+                    jt.setEnabledAt(1, true);
+                    jt.setSelectedIndex(1);
+                }
             }
         }
         );
@@ -422,6 +466,7 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                jt.setEnabledAt(3, true);
                 jt.setSelectedIndex(3);
             }
         }
@@ -479,6 +524,7 @@ public class JanelaSimu extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 dc.setNumPessoas(Integer.valueOf((String) field1.getSelectedItem()));
                 jt.setSelectedIndex(4);
+                jt.setEnabledAt(4, true);
             }
         }
         );
@@ -527,7 +573,6 @@ public class JanelaSimu extends JDialog {
             }
         }
         jpanel3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        //jpanel2.setPreferredSize(new Dimension(50,100));
 
         final JScrollPane scroll = new JScrollPane(jpanel3);
         scroll.setPreferredSize(SCROLL_TAMANHO);
@@ -562,6 +607,7 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                jt.setEnabledAt(2, true);
                 jt.setSelectedIndex(2);
             }
         }
@@ -640,9 +686,28 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dc.setNumAparelhos((Integer.parseInt(field1.getText())));
-                dc.setPotenciaMedia((Integer.parseInt(field2.getText())));
-                jt.setSelectedIndex(5);
+                try {
+                    if (field1.getText().equals("") || field2.getText().equals("")) {
+                        if (dc.getLinguagem() == 1) {
+
+                            JOptionPane.showMessageDialog(rootPane, "Please Fill all fields", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                    } else {
+                        dc.setNumAparelhos((Integer.parseInt(field1.getText())));
+                        dc.setPotenciaMedia((Integer.parseInt(field2.getText())));
+                        jt.setSelectedIndex(5);
+                        jt.setEnabledAt(5, true);
+                    }
+                } catch (Exception ex) {
+                    if (dc.getLinguagem() == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
         }
         );
@@ -738,6 +803,7 @@ public class JanelaSimu extends JDialog {
                 dc.setTemperaturaEx(Integer.valueOf((String) field2.getSelectedItem()));
                 dc.setTemperaturaInt(Integer.valueOf((String) field3.getSelectedItem()));
                 jt.setSelectedIndex(6);
+                jt.setEnabledAt(6, true);
             }
         }
         );

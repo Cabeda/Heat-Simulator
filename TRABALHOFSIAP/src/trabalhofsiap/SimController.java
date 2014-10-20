@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author Jecabeda
  */
-public class SimController implements Serializable{
+public class SimController implements Serializable {
 
     private float comprimento, largura, altura, areaTotal, potenciaMedia;
     int numPessoas, temperaturaEx, temperaturaInt, temperaturaPre, numAparelhos;
@@ -256,12 +256,12 @@ public class SimController implements Serializable{
         try {
             File fich = new File("Resultados.html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
-            out.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" + "<h1>Par&acirc;metros :</h1>\n");
+                    + "</div>\n" + "<hr>\n" + "<h1>Par&acirc;metros :</h1>\n");
             out.write("<ul>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
 
             out.write("<hr>\n</body></html>");
@@ -270,26 +270,26 @@ public class SimController implements Serializable{
             File dim = new File("dimensoes.html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
-            out2.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out2.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out2.write("<title>Dimens&otilde;es:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+                    + "</div>\n" + "<hr>\n");
             out2.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
-            out2.write("<h2>Dimens&otilde;es :</h2>" + "<h4>Comprimento : " + getComprimento() + " m</br>Altura : " + getAltura() + " m</br>Largura : " + getLargura() + " m</br>&Aacute;rea Total : " + getAreaTotal() + " m&sup3;</h4>\n");
+            out2.write("<h2>Dimens&otilde;es :</h2>" + "<h4>Comprimento : " + getComprimento() + " m<br>Altura : " + getAltura() + " m<br>Largura : " + getLargura() + " m<br>&Aacute;rea Total : " + getAreaTotal() + " m&sup3;</h4>\n");
             out2.write("<hr>\n</body></html>");
             out2.close();
 
             File lim = new File("limites.html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
-            out3.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out3.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out3.write("<title>Limites:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+                    + "</div>\n" + "<hr>\n" );
             out3.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
 
             int i = 1;
@@ -307,12 +307,12 @@ public class SimController implements Serializable{
             File abe = new File("aberturas.html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
-            out4.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out4.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out4.write("<title>Aberturas:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+                    + "</div>\n" + "<hr>\n" );
             out4.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
 
             i = 1;
@@ -329,12 +329,12 @@ public class SimController implements Serializable{
 
             File outro = new File("outros.html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
-            out5.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out5.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out5.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" + "<h1>Par&acirc;metros :</h1>\n");
+                    + "</div>\n" + "<hr>\n" + "<h1>Par&acirc;metros :</h1>\n");
             out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "</ul>");
             out5.write("<h4>N&uacute;mero de Pessoas : " + getNumPessoas() + "</h4>\n");
             out5.write("<h4>N&uacute;mero de Aparelhos : " + getNumAparelhos() + "</h4>\n");
@@ -359,12 +359,12 @@ public class SimController implements Serializable{
         try {
             File fich = new File("Results.html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
-            out.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out.write("<title>Results:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n" + "<h1>Parameters :</h1>\n");
+                    + "</div>\n" + "<hr>\n" + "<h1>Parameters :</h1>\n");
             out.write("<ul>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
 
             out.write("<hr>\n</body></html>");
@@ -373,26 +373,26 @@ public class SimController implements Serializable{
             File dim = new File("dimensions.html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
-            out2.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out2.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out2.write("<title>Dimensions:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+                    + "</div>\n" + "<hr>\n");
             out2.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
-            out2.write("<h2>Dimensions :</h2>" + "<h4>Length : " + getComprimento() + " m</br>Height : " + getAltura() + " m</br>Width : " + getLargura() + " m</br>Total Area : " + getAreaTotal() + " m&sup3;</h4>\n");
+            out2.write("<h2>Dimensions :</h2>" + "<h4>Length : " + getComprimento() + " m<br>Height : " + getAltura() + " m<br>Width : " + getLargura() + " m<br>Total Area : " + getAreaTotal() + " m&sup3;</h4>\n");
             out2.write("<hr>\n</body></html>");
             out2.close();
 
             File lim = new File("limits.html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
-            out3.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out3.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out3.write("<title>Limits:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+                    + "</div>\n" + "<hr>\n");
             out3.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
 
             int i = 1;
@@ -410,12 +410,12 @@ public class SimController implements Serializable{
             File abe = new File("openings.html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
-            out4.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out4.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out4.write("<title>Openings:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+                    + "</div>\n" + "<hr>\n");
             out4.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
 
             i = 1;
@@ -432,12 +432,12 @@ public class SimController implements Serializable{
 
             File outro = new File("others.html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
-            out5.write("<!DOCTYPE html PUBLIC " + "-//W3C//DTD HTML 4.01 Transitional//EN" + "http://www.w3.org/TR/html4/loose.dtd>\n"
-                    + "<html lang=" + "pt" + "><head><meta http-equiv=" + "Content-Type" + " content=" + "text/html; charset=ISO-8859-1" + ">\n");
+            out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
+                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
             out5.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out5.write("<title>Others:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<div align=\"left\">\n");
+                    + "</div>\n" + "<h1>Par&acirc;metros :</h1>\n" + "<hr>\n");
             out5.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "</ul>");
             out5.write("<h4>Number of People : " + getNumPessoas() + "</h4>\n");
             out5.write("<h4>Number of Devices : " + getNumAparelhos() + "</h4>\n");
@@ -467,7 +467,7 @@ public class SimController implements Serializable{
             out.writeObject(getLargura());
             out.writeObject(getComprimento());
             out.writeObject(getAreaTotal());
-            
+
             out.writeObject(listaLim.size());
             for (Limite listaLim1 : listaLim) {
                 out.writeObject(listaLim1);
@@ -476,7 +476,7 @@ public class SimController implements Serializable{
             for (Abertu listaAber1 : listaAber) {
                 out.writeObject(listaAber1);
             }
-            
+
             out.writeObject(getNumPessoas());
             out.writeObject(getNumAparelhos());
             out.writeObject(getPotenciaMedia());
@@ -496,25 +496,25 @@ public class SimController implements Serializable{
         try {
             FileInputStream fileIn = new FileInputStream("dados.bin");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            
+
             setLinguagem((int) in.readObject());
             setAltura((float) in.readObject());
             setLargura((float) in.readObject());
             setComprimento((float) in.readObject());
             setAreaTotal((float) in.readObject());
             List<Limite> lsl = new ArrayList<>();
-            int cont=(int)in.readObject();
+            int cont = (int) in.readObject();
             for (int i = 0; i < cont; i++) {
-                lsl.add((Limite)(in.readObject()));
+                lsl.add((Limite) (in.readObject()));
             }
             setListaLim(lsl);
-            cont=(int)in.readObject();
+            cont = (int) in.readObject();
             List<Abertu> lsa = new ArrayList<>();
             for (int i = 0; i < cont; i++) {
-                lsa.add((Abertu)(in.readObject()));
+                lsa.add((Abertu) (in.readObject()));
             }
             setListaAber(lsa);
-           
+
             setNumPessoas((int) in.readObject());
             setNumAparelhos((int) in.readObject());
             setPotenciaMedia((float) in.readObject());

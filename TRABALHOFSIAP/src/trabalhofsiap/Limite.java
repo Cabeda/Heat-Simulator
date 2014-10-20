@@ -119,7 +119,7 @@ public class Limite implements java.io.Serializable{
 
     @Override
     public String toString() {
-        return  material.getNome() + "/"+tipo + "/"+altura  + "/"+largura +"/"+ espessura;
+        return  material.getNome() + " | "+tipo + " | "+altura  + " | "+largura +" | "+ espessura;
     }
 
 }
