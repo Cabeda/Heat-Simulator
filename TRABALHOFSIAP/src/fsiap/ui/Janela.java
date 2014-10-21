@@ -39,7 +39,7 @@ public class Janela extends JFrame {
 
     private String fechar = "nao";
     private Dimension TXT_TAMANHO = new Dimension(585, 400);
-    private SimController dc ;
+    private SimController dc;
 
     /**
      * Cria a Janela com o menu.
@@ -50,8 +50,8 @@ public class Janela extends JFrame {
 
         super("Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
 
-        dc= new SimController();
-        
+        dc = new SimController();
+
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         menuBar.add(criarMenu());
@@ -138,19 +138,7 @@ public class Janela extends JFrame {
         item.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int resposta = 0;
-
-                String[] opSimNao = {"Sim", "Não"};
-                if (dc.getLinguagem() == 1) {
-                    resposta = JOptionPane.showOptionDialog(null, "Initialize program through file .bin?", "FSIAP", 0, JOptionPane.QUESTION_MESSAGE, null, opSimNao, opSimNao[1]);
-                } else {
-                    resposta = JOptionPane.showOptionDialog(null, "Iniciar através de ficheiro .bin?", "FSIAP", 0, JOptionPane.QUESTION_MESSAGE, null, opSimNao, opSimNao[1]);
-
-                }
-                final int SIM = 0;
-                if (resposta == SIM) {
-                    ImportarFicheiro i = new ImportarFicheiro(Janela.this,dc);
-                }
+                ImportarFicheiro i = new ImportarFicheiro(Janela.this, dc);
             }
         });
 

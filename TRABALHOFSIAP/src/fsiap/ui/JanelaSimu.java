@@ -10,12 +10,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -70,7 +73,7 @@ public class JanelaSimu extends JDialog {
     public JanelaSimu(JFrame pai, SimController d) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
-       
+
         dc = d;
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
@@ -698,11 +701,13 @@ public class JanelaSimu extends JDialog {
 
                     } else {
                         dc.setNumAparelhos((Integer.parseInt(field1.getText())));
-                        dc.setPotenciaMedia((Integer.parseInt(field2.getText())));
+                        dc.setPotenciaMedia((Float.parseFloat(field2.getText())));
                         jt.setSelectedIndex(5);
                         jt.setEnabledAt(5, true);
                     }
-                } catch (Exception ex) {
+                } catch (HeadlessException b) {
+                    System.out.println(b.getLocalizedMessage());
+                } catch (NumberFormatException m) {
                     if (dc.getLinguagem() == 1) {
                         JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                     } else {
@@ -747,12 +752,11 @@ public class JanelaSimu extends JDialog {
             panel1 = new JPanel();
             label1 = new JLabel("Temperature pretendida:", JLabel.RIGHT);
         }
-        String vec[] = {"15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
-            "27", "28", "29", "30", "31", "32", "33", "34", "35",};
+
         label1.setPreferredSize(LABEL_TAMANHO2);
-        JComboBox field1 = new JComboBox(vec);
+        JTextField field1 = new JTextField();
         if (dc.getTemperaturaPre() != 0) {
-            field1.setSelectedIndex(dc.getTemperaturaPre() - 15);
+            field1.setText("" + dc.getTemperaturaPre());
         }
         field1.setPreferredSize(CAMPO_TAMANHO);
         panel1.add(label1);
@@ -765,44 +769,23 @@ public class JanelaSimu extends JDialog {
         } else {
             label2 = new JLabel("Temperatura no exterior:", JLabel.RIGHT);
         }
-        String vec1[] = {"15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
-            "27", "28", "29", "30", "31", "32", "33", "34", "35",};
+
         label2.setPreferredSize(LABEL_TAMANHO2);
-        JComboBox field2 = new JComboBox(vec1);
+        JTextField field2 = new JTextField();
         if (dc.getTemperaturaEx() != 0) {
-            field2.setSelectedIndex(dc.getTemperaturaEx() - 15);
+            field2.setText("" + dc.getTemperaturaEx());
         }
         field2.setPreferredSize(CAMPO_TAMANHO);
         panel2.add(label2);
         panel2.add(field2);
-
-        JLabel label3;
-
-        JPanel panel3 = new JPanel();
-        if (dc.getLinguagem() == 1) {
-            label3 = new JLabel("Inside Temperature:", JLabel.RIGHT);
-        } else {
-            label3 = new JLabel("Temperatura Interior:", JLabel.RIGHT);
-        }
-        String vec2[] = {"15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26",
-            "27", "28", "29", "30", "31", "32", "33", "34", "35",};
-        label3.setPreferredSize(LABEL_TAMANHO2);
-        JComboBox field3 = new JComboBox(vec);
-        if (dc.getTemperaturaInt() != 0) {
-            field3.setSelectedIndex(dc.getTemperaturaInt() - 15);
-        }
-        field3.setPreferredSize(CAMPO_TAMANHO);
-        panel3.add(label3);
-        panel3.add(field3);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dc.setTemperaturaPre(Integer.valueOf((String) field1.getSelectedItem()));
-                dc.setTemperaturaEx(Integer.valueOf((String) field2.getSelectedItem()));
-                dc.setTemperaturaInt(Integer.valueOf((String) field3.getSelectedItem()));
+                dc.setTemperaturaPre(Integer.valueOf(field1.getText()));
+                dc.setTemperaturaEx(Integer.valueOf(field2.getText()));
                 jt.setSelectedIndex(6);
                 jt.setEnabledAt(6, true);
             }
@@ -815,7 +798,6 @@ public class JanelaSimu extends JDialog {
         panel.add(panel0, BorderLayout.NORTH);
         grid.add(panel1);
         grid.add(panel2);
-        grid.add(panel3);
         panel.add(grid, BorderLayout.CENTER);
         panel.add(panel5, BorderLayout.SOUTH);
         return panel;
@@ -841,37 +823,72 @@ public class JanelaSimu extends JDialog {
         JPanel jp = new JPanel();
 
         JPanel panel5 = new JPanel();
+
         JButton btnCalcular;
         if (dc.getLinguagem() == 1) {
+
             btnCalcular = new JButton("Calculate");
             btnCalcular.addActionListener(new ActionListener() {
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        dc.criarFicheiroHTMLEn();
-                        dc.guardarDados();
-                    } catch (IOException ex) {
-                        Logger.getLogger(JanelaSimu.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    String nomeDiretorio = null;
+                    String separador = java.io.File.separator;
+                    String s;
+                    do {
+                        s = JOptionPane.showInputDialog(null, "Insert the name of the directory:", "Save Data", JOptionPane.PLAIN_MESSAGE);
 
+                        if (!new File(s).exists()) {
+                            File f = new File(s);
+
+                            f.mkdir();
+
+                            try {
+                                dc.criarFicheiroHTMLPt(f.getPath());
+                                dc.guardarDados(f.getPath());
+                            } catch (IOException ex) {
+                                System.out.println("File not created!");
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "There's already a Dir with that name!", "Save Data", WIDTH);
+                        }
+                    } while (!new File(s).exists());
                 }
-            }
-            );
+            });
+
         } else {
+
             btnCalcular = new JButton("Calcular");
             btnCalcular.addActionListener(new ActionListener() {
+
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        dc.criarFicheiroHTMLPt();
-                        dc.guardarDados();
-                    } catch (IOException ex) {
-                        Logger.getLogger(JanelaSimu.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    String nomeDiretorio = null;
+                    String separador = java.io.File.separator;
+                    String s;
+                    do {
+                        s = JOptionPane.showInputDialog(null, "Insira o nome da pasta:", "Guardar Resultados", JOptionPane.PLAIN_MESSAGE);
 
+                        if (!new File(s).exists()) {
+                            File f = new File(s);
+
+                            f.mkdir();
+
+                            try {
+                                dc.criarFicheiroHTMLPt(f.getPath());
+                                dc.guardarDados(f.getPath());
+                            } catch (IOException ex) {
+                                System.out.println("Ficheiro não criado");
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Já existe um Directorio com esse nome!", fechar, WIDTH);
+                        }
+                    } while (!new File(s).exists());
                 }
-            }
-            );
+            });
+
         }
 
         panel5.add(btnCalcular);
@@ -913,8 +930,7 @@ public class JanelaSimu extends JDialog {
         final int SIM = 0;
         if (resposta == SIM) {
             dispose();
-            
-            
+
         }
         fechar = "sim";
     }

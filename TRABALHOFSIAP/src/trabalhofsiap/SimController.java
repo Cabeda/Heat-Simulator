@@ -25,7 +25,8 @@ import java.util.List;
 public class SimController implements Serializable {
 
     private float comprimento, largura, altura, areaTotal, potenciaMedia;
-    int numPessoas, temperaturaEx, temperaturaInt, temperaturaPre, numAparelhos;
+    int numPessoas, numAparelhos;
+    float temperaturaEx, temperaturaPre;
     private List<Limite> listaLim;
     private List<Abertu> listaAber;
     private int cint, cint2, lingua;
@@ -38,7 +39,6 @@ public class SimController implements Serializable {
         this.potenciaMedia = potenciaMedia;
         this.numPessoas = numPessoas;
         this.temperaturaEx = temperaturaEx;
-        this.temperaturaInt = temperaturaInt;
         this.temperaturaPre = temperaturaPre;
         this.numAparelhos = numAparelhos;
         this.listaAber = listaAber;
@@ -54,7 +54,6 @@ public class SimController implements Serializable {
         this.areaTotal = 0;
         this.numPessoas = 0;
         this.temperaturaEx = 0;
-        this.temperaturaInt = 0;
         this.temperaturaPre = 0;
         this.listaAber = new ArrayList();
         this.listaLim = new ArrayList();
@@ -69,7 +68,6 @@ public class SimController implements Serializable {
         this.areaTotal = dc.areaTotal;
         this.numPessoas = dc.numPessoas;
         this.temperaturaEx = dc.temperaturaEx;
-        this.temperaturaInt = dc.temperaturaInt;
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         this.potenciaMedia = dc.potenciaMedia;
@@ -90,15 +88,11 @@ public class SimController implements Serializable {
         return altura;
     }
 
-    public int getTemperaturaEx() {
+    public float getTemperaturaEx() {
         return temperaturaEx;
     }
 
-    public int getTemperaturaInt() {
-        return temperaturaInt;
-    }
-
-    public int getTemperaturaPre() {
+    public float getTemperaturaPre() {
         return temperaturaPre;
     }
 
@@ -156,16 +150,12 @@ public class SimController implements Serializable {
         this.potenciaMedia = potenciaMedia;
     }
 
-    public void setTemperaturaEx(int temperatura) {
+    public void setTemperaturaEx(float temperatura) {
         this.temperaturaEx = temperatura;
     }
 
-    public void setTemperaturaPre(int temperaturaPre) {
+    public void setTemperaturaPre(float temperaturaPre) {
         this.temperaturaPre = temperaturaPre;
-    }
-
-    public void setTemperaturaInt(int temperaturaInt) {
-        this.temperaturaInt = temperaturaInt;
     }
 
     public void setNumAparelhos(int numAparelhos) {
@@ -251,10 +241,10 @@ public class SimController implements Serializable {
 
     }
 
-    public void criarFicheiroHTMLPt() throws IOException {
+    public void criarFicheiroHTMLPt(String f) throws IOException {
 
         try {
-            File fich = new File("Resultados.html");
+            File fich = new File(f+"\\Resultados.html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
             out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -267,7 +257,7 @@ public class SimController implements Serializable {
             out.write("<hr>\n</body></html>");
             out.close();
 
-            File dim = new File("dimensoes.html");
+            File dim = new File(f+"\\dimensoes.html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
             out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -281,7 +271,7 @@ public class SimController implements Serializable {
             out2.write("<hr>\n</body></html>");
             out2.close();
 
-            File lim = new File("limites.html");
+            File lim = new File(f+"\\limites.html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
             out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -304,7 +294,7 @@ public class SimController implements Serializable {
             out3.write("<hr>\n</body></html>");
             out3.close();
 
-            File abe = new File("aberturas.html");
+            File abe = new File(f+"\\aberturas.html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
             out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -327,7 +317,7 @@ public class SimController implements Serializable {
             out4.write("<hr>\n</body></html>");
             out4.close();
 
-            File outro = new File("outros.html");
+            File outro = new File(f+"\\outros.html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
             out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -340,7 +330,6 @@ public class SimController implements Serializable {
             out5.write("<h4>N&uacute;mero de Aparelhos : " + getNumAparelhos() + "</h4>\n");
             out5.write("<h4>Pot&ecirc;ncia m&eacute;dia dos Aparelhos : " + getPotenciaMedia() + " Wh</h4>\n");
             out5.write("<h4>Temperatura exterior : " + getTemperaturaEx() + " &deg;C</h4>\n");
-            out5.write("<h4>Temperatura interior : " + getTemperaturaInt() + " &deg;C</h4>\n");
             out5.write("<h4>Temperatura pretendida : " + getTemperaturaPre() + " &deg;C</h4>\n");
 
             out5.write("<hr>\n</body></html>");
@@ -354,10 +343,10 @@ public class SimController implements Serializable {
 
     }
 
-    public void criarFicheiroHTMLEn() throws IOException {
+    public void criarFicheiroHTMLEn(String f) throws IOException {
 
         try {
-            File fich = new File("Results.html");
+            File fich = new File(f+"\\Results.html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
             out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -370,7 +359,7 @@ public class SimController implements Serializable {
             out.write("<hr>\n</body></html>");
             out.close();
 
-            File dim = new File("dimensions.html");
+            File dim = new File(f+"\\dimensions.html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
             out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -384,7 +373,7 @@ public class SimController implements Serializable {
             out2.write("<hr>\n</body></html>");
             out2.close();
 
-            File lim = new File("limits.html");
+            File lim = new File(f+"\\limits.html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
             out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -407,7 +396,7 @@ public class SimController implements Serializable {
             out3.write("<hr>\n</body></html>");
             out3.close();
 
-            File abe = new File("openings.html");
+            File abe = new File(f+"\\openings.html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
             out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -430,7 +419,7 @@ public class SimController implements Serializable {
             out4.write("<hr>\n</body></html>");
             out4.close();
 
-            File outro = new File("others.html");
+            File outro = new File(f+"\\others.html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
             out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -443,7 +432,6 @@ public class SimController implements Serializable {
             out5.write("<h4>Number of Devices : " + getNumAparelhos() + "</h4>\n");
             out5.write("<h4>Average Power of the Devices : " + getPotenciaMedia() + " Wh</h4>\n");
             out5.write("<h4>Outside Temperature : " + getTemperaturaEx() + " &deg;C</h4>\n");
-            out5.write("<h4>Inside Temperature : " + getTemperaturaInt() + " &deg;C</h4>\n");
             out5.write("<h4>Desired Temperature : " + getTemperaturaPre() + " &deg;C</h4>\n");
 
             out5.write("<hr>\n</body></html>");
@@ -457,9 +445,9 @@ public class SimController implements Serializable {
 
     }
 
-    public void guardarDados() {
+    public void guardarDados(String f) {
         try {
-            FileOutputStream fileOut = new FileOutputStream("dados.bin");
+            FileOutputStream fileOut = new FileOutputStream(f+"\\"+f+".bin");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
             out.writeObject(getLinguagem());
@@ -481,7 +469,6 @@ public class SimController implements Serializable {
             out.writeObject(getNumAparelhos());
             out.writeObject(getPotenciaMedia());
             out.writeObject(getTemperaturaEx());
-            out.writeObject(getTemperaturaInt());
             out.writeObject(getTemperaturaPre());
 
             out.close();
@@ -519,7 +506,6 @@ public class SimController implements Serializable {
             setNumAparelhos((int) in.readObject());
             setPotenciaMedia((float) in.readObject());
             setTemperaturaEx((int) in.readObject());
-            setTemperaturaInt((int) in.readObject());
             setTemperaturaPre((int) in.readObject());
 
             in.close();
