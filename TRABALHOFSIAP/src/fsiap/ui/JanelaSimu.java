@@ -70,6 +70,7 @@ public class JanelaSimu extends JDialog {
     public JanelaSimu(JFrame pai, SimController d) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
+       
         dc = d;
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
@@ -912,6 +913,8 @@ public class JanelaSimu extends JDialog {
         final int SIM = 0;
         if (resposta == SIM) {
             dispose();
+            
+            
         }
         fechar = "sim";
     }

@@ -14,6 +14,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -38,7 +39,7 @@ public class Janela extends JFrame {
 
     private String fechar = "nao";
     private Dimension TXT_TAMANHO = new Dimension(585, 400);
-    private SimController dc = new SimController();
+    private SimController dc ;
 
     /**
      * Cria a Janela com o menu.
@@ -49,6 +50,8 @@ public class Janela extends JFrame {
 
         super("Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
 
+        dc= new SimController();
+        
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         menuBar.add(criarMenu());
@@ -87,7 +90,7 @@ public class Janela extends JFrame {
     private JMenu criarMenu() throws IOException {
         final JMenu menu = new JMenu("Menu");
         menu.setMnemonic(KeyEvent.VK_M);
-
+        menu.add(importFich());
         menu.addSeparator();
         menu.add(criarItemSair());
         return menu;
@@ -129,6 +132,31 @@ public class Janela extends JFrame {
         return item;
     }
 
+    private JMenuItem importFich() {
+        JMenuItem item = new JMenuItem("Importar Ficheiro/ Import File", KeyEvent.VK_F);
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
+        item.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int resposta = 0;
+
+                String[] opSimNao = {"Sim", "Não"};
+                if (dc.getLinguagem() == 1) {
+                    resposta = JOptionPane.showOptionDialog(null, "Initialize program through file .bin?", "FSIAP", 0, JOptionPane.QUESTION_MESSAGE, null, opSimNao, opSimNao[1]);
+                } else {
+                    resposta = JOptionPane.showOptionDialog(null, "Iniciar através de ficheiro .bin?", "FSIAP", 0, JOptionPane.QUESTION_MESSAGE, null, opSimNao, opSimNao[1]);
+
+                }
+                final int SIM = 0;
+                if (resposta == SIM) {
+                    ImportarFicheiro i = new ImportarFicheiro(Janela.this,dc);
+                }
+            }
+        });
+
+        return item;
+    }
+
     private JPanel criarButtonEN() {
 
         JPanel jp2 = new JPanel();
@@ -141,7 +169,7 @@ public class Janela extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dc.setLinguagem(1);
-                JanelaSimu jd = new JanelaSimu(null,dc);
+                JanelaSimu jd = new JanelaSimu(null, dc);
                 Janela.this.dispose();
             }
         });
@@ -165,7 +193,7 @@ public class Janela extends JFrame {
                     public void actionPerformed(ActionEvent e
                     ) {
                         dc.setLinguagem(2);
-                        JanelaSimu jd = new JanelaSimu(null,dc);
+                        JanelaSimu jd = new JanelaSimu(null, dc);
                         Janela.this.dispose();
                     }
                 }

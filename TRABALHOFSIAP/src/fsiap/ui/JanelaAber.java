@@ -197,6 +197,7 @@ public class JanelaAber extends JFrame {
                     aber.setLargura(Double.parseDouble(field4.getText()));
                     aber.setTipo(field1.getSelectedItem().toString());
                     aber.setMaterialPeloNome(field2.getSelectedItem().toString());
+                    aber.setEspessura(Double.parseDouble(field6.getText()));
                     dc.addAber(aber);
                     posi = dc.getListaAber().size() - 1;
                     dispose();
@@ -288,6 +289,7 @@ public class JanelaAber extends JFrame {
         panel.add(grid, BorderLayout.CENTER);
         panel.add(panel5, BorderLayout.SOUTH);
 
+        getRootPane().setDefaultButton(btnMoveRight1);
         return panel;
     }
 

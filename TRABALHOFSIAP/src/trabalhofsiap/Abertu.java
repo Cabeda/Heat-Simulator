@@ -121,7 +121,7 @@ public Abertu(SimController d) {
         @Override
     public String toString(){
 
-        return ""+this.altura+" | "+this.largura+" | "+this.material.getNome()+" | "+this.tipo+" | "+this.espessura;
+        return this.material.getNome()+" | "+this.tipo+" | "+this.altura+" | "+this.largura+" | "+" | "+this.espessura;
     }    
     
 }

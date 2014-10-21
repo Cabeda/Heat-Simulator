@@ -20,7 +20,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import trabalhofsiap.Abertu;
 import trabalhofsiap.Aluminio;
 import trabalhofsiap.Ar;
@@ -170,16 +172,17 @@ public class JanelaLim extends JFrame {
             label6.setPreferredSize(LABEL_TAMANHO2);
         } else {
             label6 = new JLabel("Espessura:", JLabel.RIGHT);
-            label6.setPreferredSize(LABEL_TAMANHO2);
+            label6.setPreferredSize(LABEL_TAMANHO2);            
         }
         field6 = new JTextField();
         field6.setPreferredSize(Campo2_TAMANHO);
 
-        panel6.add(label6);
+        panel6.add(label6);    
         panel6.add(field6);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1;
+
         if (dc.getLinguagem() == 1) {
             btnMoveRight1 = new JButton("Confirme");
         } else {
@@ -219,8 +222,8 @@ public class JanelaLim extends JFrame {
 
                             JanelaLim jan = new JanelaLim(dc, js, false, posi);
                             Limite lim = dc.getListaLim().get(posi);
-                            jan.field1.setSelectedItem(lim.getMaterial());
-                            jan.field2.setSelectedItem(lim.getTipo());
+                            jan.field1.setSelectedItem(lim.getTipo());
+                            jan.field2.setSelectedItem(lim.getMaterial().getNome());
                             jan.field3.setText("" + lim.getAltura());
                             jan.field4.setText("" + lim.getLargura());
                             jan.field6.setText("" + lim.getEspessura());
@@ -295,6 +298,8 @@ public class JanelaLim extends JFrame {
         panel.add(grid, BorderLayout.CENTER);
         panel.add(panel5, BorderLayout.SOUTH);
 
+        
+        getRootPane().setDefaultButton(btnMoveRight1);
         return panel;
     }
 

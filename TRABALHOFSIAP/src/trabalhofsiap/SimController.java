@@ -492,9 +492,9 @@ public class SimController implements Serializable {
         }
     }
 
-    public void introduzirDados() {
+    public void introduzirDados(File f) {
         try {
-            FileInputStream fileIn = new FileInputStream("dados.bin");
+            FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream in = new ObjectInputStream(fileIn);
 
             setLinguagem((int) in.readObject());
