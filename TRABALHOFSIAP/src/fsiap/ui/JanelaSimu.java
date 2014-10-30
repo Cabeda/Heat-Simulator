@@ -38,6 +38,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import trabalhofsiap.Abertu;
+import trabalhofsiap.Camada;
 import trabalhofsiap.Limite;
 import trabalhofsiap.SimController;
 
@@ -47,11 +48,7 @@ import trabalhofsiap.SimController;
  */
 public class JanelaSimu extends JDialog {
 
-    private List<Limite> listaLim = new ArrayList<Limite>();
-    private List<Abertu> listaAber = new ArrayList<Abertu>();
-    /**
-     * Fechar (S/N)
-     */
+
     public Icon icon = new ImageIcon("icon_device_settings.gif");
     private String fechar = "nao";
     private String resultado = "";
@@ -64,6 +61,16 @@ public class JanelaSimu extends JDialog {
     private Dimension RESULTADO_TAMANHO = new Dimension(300, 70);
     private Dimension BTN_TAMANHO = new Dimension(70, 40);
     private SimController dc;
+    
+    Limite tecto=new Limite("Tecto", dc);
+    Limite chao=new Limite("Chão", dc);
+    Limite paredeNorte=new Limite("Parede Norte", dc);
+    Limite paredeOeste=new Limite("Parede Oeste", dc);
+    Limite paredeSul=new Limite("Parede Sul", dc);
+    Limite paredeEste=new Limite("Parede Este", dc);
+    
+    
+    
     private JTextField field4;
 
     public JPanel jpanel2, jpanel3;
@@ -73,8 +80,15 @@ public class JanelaSimu extends JDialog {
     public JanelaSimu(JFrame pai, SimController d) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
-
+        
         dc = d;
+        dc.addLim(tecto);
+        dc.addLim(paredeNorte);
+        dc.addLim(paredeOeste);
+        dc.addLim(paredeEste);
+        dc.addLim(paredeSul);
+        dc.addLim(chao);
+        
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
         getContentPane().add(jp);
@@ -82,7 +96,7 @@ public class JanelaSimu extends JDialog {
         if (dc.getLinguagem() == 1) {
             jt.addTab("Dimensions", panel1());
 
-            jt.addTab("Limits", panel5());
+            jt.addTab("Lanes", panel5());
 
             jt.addTab("Openings", panel2());
 
@@ -96,7 +110,7 @@ public class JanelaSimu extends JDialog {
         } else {
             jt.addTab("Dimensões", panel1());
 
-            jt.addTab("Limites", panel5());
+            jt.addTab("Camadas", panel5());
 
             jt.addTab("Aberturas", panel2());
 
@@ -193,6 +207,26 @@ public class JanelaSimu extends JDialog {
             public void mouseExited(MouseEvent e) {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
+                        
+                        
+                        tecto.setAltura((Float.parseFloat(field1.getText())));
+                        tecto.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeNorte.setAltura((Float.parseFloat(field3.getText())));
+                        paredeNorte.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeOeste.setAltura((Float.parseFloat(field3.getText())));
+                        paredeOeste.setLargura((Float.parseFloat(field1.getText())));
+                        
+                        paredeSul.setAltura((Float.parseFloat(field3.getText())));
+                        paredeSul.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeEste.setAltura((Float.parseFloat(field3.getText())));
+                        paredeEste.setLargura((Float.parseFloat(field1.getText())));
+                        
+                        chao.setAltura((Float.parseFloat(field1.getText())));
+                        chao.setLargura((Float.parseFloat(field2.getText())));
+                        
                         dc.setAltura((Float.parseFloat(field3.getText())));
                         dc.setComprimento((Float.parseFloat(field1.getText())));
                         dc.setLargura((Float.parseFloat(field2.getText())));
@@ -258,6 +292,25 @@ public class JanelaSimu extends JDialog {
             public void mouseExited(MouseEvent e) {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
+                        
+                        tecto.setAltura((Float.parseFloat(field1.getText())));
+                        tecto.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeNorte.setAltura((Float.parseFloat(field3.getText())));
+                        paredeNorte.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeOeste.setAltura((Float.parseFloat(field3.getText())));
+                        paredeOeste.setLargura((Float.parseFloat(field1.getText())));
+                        
+                        paredeSul.setAltura((Float.parseFloat(field3.getText())));
+                        paredeSul.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeEste.setAltura((Float.parseFloat(field3.getText())));
+                        paredeEste.setLargura((Float.parseFloat(field1.getText())));
+                        
+                        chao.setAltura((Float.parseFloat(field1.getText())));
+                        chao.setLargura((Float.parseFloat(field2.getText())));
+                        
                         dc.setAltura((Float.parseFloat(field3.getText())));
                         dc.setComprimento((Float.parseFloat(field1.getText())));
                         dc.setLargura((Float.parseFloat(field2.getText())));
@@ -324,6 +377,25 @@ public class JanelaSimu extends JDialog {
             public void mouseExited(MouseEvent e) {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
+                        
+                        tecto.setAltura((Float.parseFloat(field1.getText())));
+                        tecto.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeNorte.setAltura((Float.parseFloat(field3.getText())));
+                        paredeNorte.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeOeste.setAltura((Float.parseFloat(field3.getText())));
+                        paredeOeste.setLargura((Float.parseFloat(field1.getText())));
+                        
+                        paredeSul.setAltura((Float.parseFloat(field3.getText())));
+                        paredeSul.setLargura((Float.parseFloat(field2.getText())));
+                        
+                        paredeEste.setAltura((Float.parseFloat(field3.getText())));
+                        paredeEste.setLargura((Float.parseFloat(field1.getText())));
+                        
+                        chao.setAltura((Float.parseFloat(field1.getText())));
+                        chao.setLargura((Float.parseFloat(field2.getText())));
+                        
                         dc.setAltura((Float.parseFloat(field3.getText())));
                         dc.setComprimento((Float.parseFloat(field1.getText())));
                         dc.setLargura((Float.parseFloat(field2.getText())));
@@ -421,8 +493,8 @@ public class JanelaSimu extends JDialog {
             panel1.add(label1, BorderLayout.NORTH);
         }
         jpanel2 = new JPanel();
-        if (dc.getListaAber() != null) {
-            List<Abertu> d = dc.getListaAber();
+        if (dc.getListaAberturas() != null) {
+            List<Abertu> d = dc.getListaAberturas();
             for (Abertu listaAber1 : d) {
                 JPanel a = new JPanel(new FlowLayout());
                 JLabel b = new JLabel(listaAber1.toString());
@@ -553,20 +625,20 @@ public class JanelaSimu extends JDialog {
         JPanel panel1 = new JPanel(new BorderLayout());
         JLabel label1;
         if (dc.getLinguagem() == 1) {
-            label1 = new JLabel("Room Boundaries ", JLabel.CENTER);
+            label1 = new JLabel("Room Lanes ", JLabel.CENTER);
             label1.setPreferredSize(LABEL_TAMANHO2);
             panel1.add(label1, BorderLayout.NORTH);
         } else {
-            label1 = new JLabel("Limites da sala ", JLabel.CENTER);
+            label1 = new JLabel("Camadas da sala ", JLabel.CENTER);
             label1.setPreferredSize(LABEL_TAMANHO2);
             panel1.add(label1, BorderLayout.NORTH);
         }
         jpanel3 = new JPanel();
-        if (dc.getListaLim() != null) {
-            List<Limite> d = dc.getListaLim();
-            for (Limite listaLim1 : dc.getListaLim()) {
+        if (dc.getListaCamadas() != null) {
+            List<Camada> d = dc.getListaCamadas();
+            for (Camada listaCam1 : dc.getListaCamadas()) {
                 JPanel a = new JPanel(new FlowLayout());
-                JLabel b = new JLabel(listaLim1.toString());
+                JLabel b = new JLabel(listaCam1.toString());
                 JButton c = new JButton(this.icon);
                 a.add(b);
                 a.add(c);
@@ -595,7 +667,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JanelaLim ja = new JanelaLim(dc, JanelaSimu.this, true, 0);
+                JanelaCamada ja = new JanelaCamada(dc, JanelaSimu.this,true, 0);
                 revalidate();
                 jpanel3.revalidate();
                 scroll.revalidate();

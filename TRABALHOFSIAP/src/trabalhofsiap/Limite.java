@@ -5,62 +5,48 @@
  */
 package trabalhofsiap;
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Jecabeda
  */
-public class Limite implements java.io.Serializable{
+public class Limite implements java.io.Serializable {
 
     private String tipo;
-    private Material material;
-    private double altura, largura, espessura;
+    private double altura, largura;
     private SimController dc;
-    private Aluminio al ;
-    private Madeira ma;
-    private Betao be;
-    private Vidro vi;
-    private Ar a;
+    private List<Abertu> listaAberturas;
+    private List<Camada> listaCamadas;
 
-    public Limite(Material material, String tipo, double altura, double largura, double espessura,SimController d) {
-        this.material = material;
+    public Limite(String tipo, double altura, double largura, SimController d) {
         this.tipo = tipo;
         this.altura = altura;
         this.largura = largura;
-        this.espessura = espessura;
-        this.dc=d;
-        this.al = new Aluminio(dc) ;
-        this.ma = new Madeira(dc);
-        this.be = new Betao();
-        this.vi = new Vidro(dc);
-        this.a = new Ar();
+        this.dc = d;
+        listaAberturas = new ArrayList<Abertu>();
+        listaCamadas = new ArrayList<>();
+
+    }
+
+    public Limite(String tipo, SimController d) {
+        this.tipo = tipo;
+        this.altura = altura;
+        this.largura = largura;
+        this.dc = d;
+        listaAberturas = new ArrayList<Abertu>();
+        listaCamadas = new ArrayList<>();
+
     }
 
     public Limite(SimController d) {
-        this.material = new Material();
-        
         this.altura = 0;
         this.largura = 0;
-        this.espessura = 0;
-        this.dc=d;
-        if(dc.getLinguagem()==1){
-            this.tipo = "No Type";
-        }else{
-            this.tipo = "sem tipo";
-        }
-        this.al = new Aluminio(dc) ;
-        this.ma = new Madeira(dc);
-        this.be = new Betao();
-        this.vi = new Vidro(dc);
-        this.a = new Ar();
-    }
+        this.dc = d;
+        listaAberturas = new ArrayList<Abertu>();
+        listaCamadas = new ArrayList<>();
 
-    public Material getMaterial() {
-        return material;
-    }
-
-    public double getEspessura() {
-        return espessura;
     }
 
     public String getTipo() {
@@ -75,34 +61,15 @@ public class Limite implements java.io.Serializable{
         return largura;
     }
 
+    public List<Abertu> getListaAberturas() {
+        return listaAberturas;
+    }
+
+    public List<Camada> getListaCamadas() {
+        return listaCamadas;
+    }
     public void setTipo(String tipo) {
         this.tipo = tipo;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
-    }
-
-    public void setMaterialPeloNome(String tipo) {
-        if (tipo.equals(vi.getNome())) {
-            this.material = new Vidro(dc);
-        } else {
-            if (tipo.equals(be.getNome())) {
-                this.material = new Betao();
-            } else {
-                if (tipo.equals(al.getNome())) {
-                    this.material = new Aluminio(dc);
-                } else {
-                    if (tipo.equals(a.getNome())) {
-                        this.material = new Ar();
-                    } else {
-                        if (tipo.equals(ma.getNome())) {
-                            this.material = new Madeira(dc);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     public void setAltura(double altura) {
@@ -113,13 +80,19 @@ public class Limite implements java.io.Serializable{
         this.largura = largura;
     }
 
-    public void setEspessura(double espessura) {
-        this.espessura = espessura;
+    public void addCamada(Camada c) {
+        listaCamadas.add(c);
+        
+    }
+    
+    public void addAbertura(Abertu a) {
+        listaAberturas.add(a);
+        
     }
 
     @Override
     public String toString() {
-        return  material.getNome() + " | "+tipo + " | "+altura  + " | "+largura +" | "+ espessura;
+        return getTipo() + " | " + getAltura() + " | " + getLargura();
     }
 
 }

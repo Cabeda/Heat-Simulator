@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -13,12 +15,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import trabalhofsiap.Abertu;
 import trabalhofsiap.Aluminio;
 import trabalhofsiap.Ar;
 import trabalhofsiap.Betao;
+import trabalhofsiap.Camada;
+import trabalhofsiap.Limite;
 import trabalhofsiap.Madeira;
 import trabalhofsiap.SimController;
 import trabalhofsiap.Vidro;
@@ -47,7 +52,6 @@ public class JanelaAber extends JFrame {
     public JTextField field4, field3, field6;
     private boolean flag;
     public JComboBox field1, field2;
-    private List<Abertu> lista = new ArrayList();
     private SimController dc;
     private JanelaSimu js;
     private int posi;
@@ -103,20 +107,58 @@ public class JanelaAber extends JFrame {
         JLabel label1;
         JPanel panel1 = new JPanel();
         if (dc.getLinguagem() == 1) {
-            label1 = new JLabel("Types of Opening:", JLabel.RIGHT);
+            label1 = new JLabel("Limit:", JLabel.RIGHT);
             label1.setPreferredSize(LABEL_TAMANHO2);
-            opcoes[0] = "Window";
-            opcoes[1] = "Door";
 
         } else {
-            label1 = new JLabel("Tipo de abertura:", JLabel.RIGHT);
+            label1 = new JLabel("Limite:", JLabel.RIGHT);
             label1.setPreferredSize(LABEL_TAMANHO2);
-            opcoes[0] = "Janela";
-            opcoes[1] = "Porta";
+
         }
-        field1 = new JComboBox(opcoes);
+        field1 = new JComboBox(dc.getListaLim().toArray());
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
+        field1.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                try {
+                    if (-1 != field1.getSelectedIndex()) {
+                        Limite lim = (Limite) field1.getSelectedItem();
+                        field3.setText(Double.toString(lim.getAltura()));
+                        field4.setText(Double.toString(lim.getLargura()));
+
+                    }
+                    revalidate();
+                } catch (Exception ex) {
+                    if (dc.getLinguagem() == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+        });
 
         panel1.add(label1);
         panel1.add(field1);
@@ -129,6 +171,48 @@ public class JanelaAber extends JFrame {
         field2 = new JComboBox(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
         field2.setSelectedIndex(-1);
+        field2.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                try {
+                    if (-1 != field1.getSelectedIndex()) {
+                        Limite lim = (Limite) field1.getSelectedItem();
+                        field3.setText(Double.toString(lim.getAltura()));
+                        field4.setText(Double.toString(lim.getLargura()));
+
+                    }
+                    revalidate();
+                } catch (Exception ex) {
+                    if (dc.getLinguagem() == 1) {
+                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+        });
+
         panel2.add(label2);
         panel2.add(field2);
 
@@ -143,6 +227,7 @@ public class JanelaAber extends JFrame {
         }
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
+        field3.setEditable(false);
 
         panel3.add(label3);
         panel3.add(field3);
@@ -158,6 +243,7 @@ public class JanelaAber extends JFrame {
         }
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
+        field4.setEditable(false);
 
         panel4.add(label4);
         panel4.add(field4);
@@ -188,6 +274,11 @@ public class JanelaAber extends JFrame {
 
             flag = false;
 
+            if (dc.getLinguagem() == 1) {
+                btnMoveRight1 = new JButton("Confirm");
+            } else {
+                btnMoveRight1 = new JButton("Confirmar");
+            }
             btnMoveRight1.addActionListener(new ActionListener() {
 
                 @Override
@@ -195,11 +286,13 @@ public class JanelaAber extends JFrame {
                     Abertu aber = new Abertu(dc);
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
-                    aber.setTipo(field1.getSelectedItem().toString());
                     aber.setMaterialPeloNome(field2.getSelectedItem().toString());
                     aber.setEspessura(Double.parseDouble(field6.getText()));
-                    dc.addAber(aber);
-                    posi = dc.getListaAber().size() - 1;
+
+                    Limite lim = (Limite) field1.getSelectedItem();
+                    lim.addAbertura(aber);
+
+                    posi = lim.getListaAberturas().size() - 1;
                     dispose();
                     JPanel a = new JPanel(new FlowLayout());
                     JLabel b = new JLabel(aber.toString());
@@ -216,36 +309,34 @@ public class JanelaAber extends JFrame {
                         public void actionPerformed(ActionEvent e) {
 
                             JanelaAber jan = new JanelaAber(dc, js, false, posi);
-                            Abertu aber = dc.getListaAber().get(posi);
-                            jan.field1.setSelectedItem(aber.getTipo());
-                            jan.field2.setSelectedItem(aber.getMaterial().getNome());
-                            jan.field3.setText("" + aber.getAltura());
-                            jan.field4.setText("" + aber.getLargura());
-                            jan.field6.setText("" + aber.getEspessura());
+                            Abertu aber = lim.getListaAberturas().get(posi);
 
+                            jan.field1.setSelectedItem(field1.getSelectedItem());
+                            jan.field1.setEnabled(false);
+                            jan.field2.setSelectedItem(aber.getMaterial().getNome());
+                            jan.field3.setText(Double.toString(lim.getAltura()));
+                            jan.field4.setText(Double.toString(lim.getLargura()));
+                            jan.field6.setText("" + aber.getEspessura());
                         }
                     });
 
                 }
             });
         } else {
-            flag = false;
-            if (dc.getLinguagem() == 1) {
-                btnMoveRight1 = new JButton("Confirm");
-            } else {
-                btnMoveRight1 = new JButton("Confirmar");
-            }
             btnMoveRight1.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Abertu aber = dc.getListaAber().get(posi);
+                    Limite lim = (Limite) field1.getSelectedItem();
+                    Abertu aber = lim.getListaAberturas().get(posi);
 
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
                     aber.setEspessura(Double.parseDouble(field6.getText()));
-                    aber.setTipo(field1.getSelectedItem().toString());
                     aber.setMaterialPeloNome(field2.getSelectedItem().toString());
+
+                    lim.getListaAberturas().set(posi, aber);
+
                     js.revalidate();
                     js.repaint();
                     dispose();
@@ -260,18 +351,20 @@ public class JanelaAber extends JFrame {
                         public void actionPerformed(ActionEvent e) {
 
                             JanelaAber jan = new JanelaAber(dc, js, false, posi);
-                            Abertu aber = dc.getListaAber().get(posi);
-                            jan.field1.setSelectedItem(aber.getMaterial());
-                            jan.field2.setSelectedItem(aber.getTipo());
-                            jan.field3.setText("" + aber.getAltura());
-                            jan.field4.setText("" + aber.getLargura());
+                            Abertu aber = lim.getListaAberturas().get(posi);
+
+                            jan.field1.setSelectedItem(field1.getSelectedItem());
+                            jan.field1.setEnabled(false);
+                            jan.field2.setSelectedItem(aber.getMaterial().getNome());
+                            jan.field3.setText(Double.toString(lim.getAltura()));
+                            jan.field4.setText(Double.toString(lim.getLargura()));
                             jan.field6.setText("" + aber.getEspessura());
 
                         }
                     });
                     a.add(b);
                     a.add(c);
-                    System.out.println(posi);
+
                     js.jpanel2.remove(posi);
                     js.jpanel2.add(a, posi);
                     js.jpanel2.revalidate();
@@ -291,11 +384,6 @@ public class JanelaAber extends JFrame {
 
         getRootPane().setDefaultButton(btnMoveRight1);
         return panel;
-    }
-
-    public List<Abertu> getLista() {
-
-        return lista;
     }
 
 }

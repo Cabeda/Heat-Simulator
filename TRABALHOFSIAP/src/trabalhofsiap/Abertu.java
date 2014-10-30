@@ -11,7 +11,6 @@ package trabalhofsiap;
  */
 public class Abertu implements java.io.Serializable{
         private Material material;
-        private String tipo;
         private double altura, largura, espessura;
         
         private SimController dc;
@@ -26,7 +25,6 @@ public Abertu(SimController d) {
         this.largura=0;
         this.espessura=0;
         this.material=new Material();
-        this.tipo="sem tipo";
         this.dc=d;
         this.al = new Aluminio(dc) ;
         this.ma = new Madeira(dc);
@@ -65,20 +63,6 @@ public Abertu(SimController d) {
      */
     public void setMaterial(Material material) {
         this.material = material;
-    }
-
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
     
         public void setMaterialPeloNome(String tipo) {
@@ -121,7 +105,7 @@ public Abertu(SimController d) {
         @Override
     public String toString(){
 
-        return this.material.getNome()+" | "+this.tipo+" | "+this.altura+" | "+this.largura+" | "+" | "+this.espessura;
+        return this.material.getNome()+" | "+this.altura+" | "+this.largura+" | "+" | "+this.espessura;
     }    
     
 }

@@ -28,10 +28,9 @@ public class SimController implements Serializable {
     int numPessoas, numAparelhos;
     float temperaturaEx, temperaturaPre;
     private List<Limite> listaLim;
-    private List<Abertu> listaAber;
     private int cint, cint2, lingua;
 
-    public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim, List<Abertu> listaAber) {
+    public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
@@ -41,7 +40,6 @@ public class SimController implements Serializable {
         this.temperaturaEx = temperaturaEx;
         this.temperaturaPre = temperaturaPre;
         this.numAparelhos = numAparelhos;
-        this.listaAber = listaAber;
         this.listaLim = listaLim;
         this.cint = 0;
         this.cint2 = 0;
@@ -55,7 +53,6 @@ public class SimController implements Serializable {
         this.numPessoas = 0;
         this.temperaturaEx = 0;
         this.temperaturaPre = 0;
-        this.listaAber = new ArrayList();
         this.listaLim = new ArrayList();
         this.cint = 0;
         this.cint2 = 0;
@@ -71,8 +68,6 @@ public class SimController implements Serializable {
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         this.potenciaMedia = dc.potenciaMedia;
-        this.listaAber = dc.listaAber;
-        this.listaLim = dc.listaLim;
 
     }
 
@@ -115,10 +110,6 @@ public class SimController implements Serializable {
 
     public List<Limite> getListaLim() {
         return listaLim;
-    }
-
-    public List<Abertu> getListaAber() {
-        return listaAber;
     }
 
     public void setComprimento(float comprimento) {
@@ -168,30 +159,32 @@ public class SimController implements Serializable {
         cint++;
     }
 
-    public void addAber(Abertu listaAber) {
-        (this.listaAber).add(listaAber);
-
+    public List<Abertu> getListaAberturas(){
+        List<Abertu> temp = new ArrayList();
+        for(Limite lim: listaLim){
+            for(Abertu aber : lim.getListaAberturas())
+            {
+                temp.add(aber);
+            }
+        }
+        return temp;
     }
-
+    public List<Camada> getListaCamadas(){
+        List<Camada> temp = new ArrayList();
+        for(Limite lim: listaLim){
+            for(Camada cam : lim.getListaCamadas())
+            {
+                temp.add(cam);
+            }
+        }
+        return temp;
+    }
     public void altLim(Limite listaLim2) {
         for (Limite listaLim1 : listaLim) {
             if (listaLim1.equals(listaLim2)) {
                 listaLim1.setAltura(listaLim2.getAltura());
                 listaLim1.setLargura(listaLim2.getLargura());
-                listaLim1.setMaterial(listaLim2.getMaterial());
                 listaLim1.setTipo(listaLim2.getTipo());
-            }
-        }
-
-    }
-
-    public void altAber(Abertu listaAber2) {
-        for (Abertu listaLim1 : listaAber) {
-            if (listaLim1.equals(listaAber2)) {
-                listaLim1.setAltura(listaAber2.getAltura());
-                listaLim1.setLargura(listaAber2.getLargura());
-                listaLim1.setMaterial(listaAber2.getMaterial());
-                listaLim1.setTipo(listaAber2.getTipo());
             }
         }
 
@@ -203,21 +196,12 @@ public class SimController implements Serializable {
         return "Comprimento:" + comprimento + ", Largura:" + largura + ", Altura:"
                 + "" + altura + ", Volume:" + areaTotal + ", Potencia Media: "
                 + potenciaMedia + ", Numero de Pessoas:" + numPessoas + ", Temperatura:"
-                + "" + temperaturaEx + ", Numero de Aparelhos:" + numAparelhos + "Número de aberturas: "
-                + listaAber.size() + "Número de limites: " + listaLim.size();
+                + "" + temperaturaEx + ", Numero de Aparelhos:" + numAparelhos;
     }
 
     public String calcular() {
         String x = "";
         double resultado = 0;
-
-        for (Limite limTemp : listaLim) {
-
-            resultado += (limTemp.getAltura() * limTemp.getLargura());
-        }
-        for (Abertu aberTemp : listaAber) {
-            resultado += (aberTemp.getAltura() * aberTemp.getLargura());
-        }
 
         return x;
     }
@@ -231,20 +215,10 @@ public class SimController implements Serializable {
         }
     }
 
-    public String ultimoAber() {
-        if (listaLim.size() != 0) {
-            Abertu aber = listaAber.get(listaAber.size());
-            return aber.toString();
-        } else {
-            return "Sem abertura";
-        }
-
-    }
-
     public void criarFicheiroHTMLPt(String f) throws IOException {
 
         try {
-            File fich = new File(f+"\\Resultados.html");
+            File fich = new File(f + "\\Resultados.html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
             out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -257,7 +231,7 @@ public class SimController implements Serializable {
             out.write("<hr>\n</body></html>");
             out.close();
 
-            File dim = new File(f+"\\dimensoes.html");
+            File dim = new File(f + "\\dimensoes.html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
             out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -271,7 +245,7 @@ public class SimController implements Serializable {
             out2.write("<hr>\n</body></html>");
             out2.close();
 
-            File lim = new File(f+"\\limites.html");
+            File lim = new File(f + "\\limites.html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
             out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -279,22 +253,24 @@ public class SimController implements Serializable {
             out3.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out3.write("<title>Limites:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" );
+                    + "</div>\n" + "<hr>\n");
             out3.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
 
             int i = 1;
             out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Numero</td>\n<td>Tipo</td>\n<td>Material</td>\n<td>Altura (m)</td>\n<td>Largura (m)</td>\n<td>Espessura (m)</td>\n</tr>");
 
-            for (Limite ls : listaLim) {
-                out3.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" + ls.getEspessura() + "</td></tr>");
-                i++;
+            for (Limite temp : listaLim) {
+                for (Camada ls : temp.getListaCamadas()) {
+                    out3.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" + "</td></tr>");
+                    i++;
+                }
             }
             out3.write("</table>");
 
             out3.write("<hr>\n</body></html>");
             out3.close();
 
-            File abe = new File(f+"\\aberturas.html");
+            File abe = new File(f + "\\aberturas.html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
             out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -302,22 +278,24 @@ public class SimController implements Serializable {
             out4.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
             out4.write("<title>Aberturas:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" );
+                    + "</div>\n" + "<hr>\n");
             out4.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
 
             i = 1;
             out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Numero</td>\n<td>Tipo</td>\n<td>Material</td>\n<td>Altura (m)</td>\n<td>Largura (m)</td>\n<td>Espessura (m)</td>\n</tr>");
 
-            for (Abertu ls : listaAber) {
-                out4.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
-                i++;
+            for (Limite temp : listaLim) {
+                for (Abertu ls : temp.getListaAberturas()) {
+                    out4.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
+                    i++;
+                }
             }
             out4.write("</table>");
 
             out4.write("<hr>\n</body></html>");
             out4.close();
 
-            File outro = new File(f+"\\outros.html");
+            File outro = new File(f + "\\outros.html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
             out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -346,7 +324,7 @@ public class SimController implements Serializable {
     public void criarFicheiroHTMLEn(String f) throws IOException {
 
         try {
-            File fich = new File(f+"\\Results.html");
+            File fich = new File(f + "\\Results.html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
             out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -359,7 +337,7 @@ public class SimController implements Serializable {
             out.write("<hr>\n</body></html>");
             out.close();
 
-            File dim = new File(f+"\\dimensions.html");
+            File dim = new File(f + "\\dimensions.html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
             out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -373,7 +351,7 @@ public class SimController implements Serializable {
             out2.write("<hr>\n</body></html>");
             out2.close();
 
-            File lim = new File(f+"\\limits.html");
+            File lim = new File(f + "\\limits.html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
             out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -386,17 +364,18 @@ public class SimController implements Serializable {
 
             int i = 1;
             out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Number</td>\n<td>Type</td>\n<td>Material</td>\n<td>Height (m)</td>\n<td>Width (m)</td>\n<td>Thickness (m)</td>\n</tr>");
-
-            for (Limite ls : listaLim) {
-                out3.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" + ls.getEspessura() + "</td></tr>");
-                i++;
+            for (Limite temp : listaLim) {
+                for (Camada ls : temp.getListaCamadas()) {
+                    out3.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" + "</td></tr>");
+                    i++;
+                }
             }
             out3.write("</table>");
 
             out3.write("<hr>\n</body></html>");
             out3.close();
 
-            File abe = new File(f+"\\openings.html");
+            File abe = new File(f + "\\openings.html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
             out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
@@ -409,17 +388,18 @@ public class SimController implements Serializable {
 
             i = 1;
             out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Number</td>\n<td>Type</td>\n<td>Material</td>\n<td>Height (m)</td>\n<td>Width (m)</td>\n<td>Thickness(m)</td>\n</tr>");
-
-            for (Abertu ls : listaAber) {
-                out4.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
-                i++;
+            for (Limite temp : listaLim) {
+                for (Abertu ls : temp.getListaAberturas()) {
+                    out4.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
+                    i++;
+                }
             }
             out4.write("</table>");
 
             out4.write("<hr>\n</body></html>");
             out4.close();
 
-            File outro = new File(f+"\\others.html");
+            File outro = new File(f + "\\others.html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
             out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
@@ -447,7 +427,7 @@ public class SimController implements Serializable {
 
     public void guardarDados(String f) {
         try {
-            FileOutputStream fileOut = new FileOutputStream(f+"\\"+f+".bin");
+            FileOutputStream fileOut = new FileOutputStream(f + "\\" + f + ".bin");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
             out.writeObject(getLinguagem());
@@ -456,15 +436,18 @@ public class SimController implements Serializable {
             out.writeObject(getComprimento());
             out.writeObject(getAreaTotal());
 
-            out.writeObject(listaLim.size());
-            for (Limite listaLim1 : listaLim) {
-                out.writeObject(listaLim1);
+            for (Limite temp : listaLim) {
+                out.writeObject(temp.getListaCamadas().size());
+                for (Camada listaCam1 : temp.getListaCamadas()) {
+                    out.writeObject(listaCam1);
+                }
             }
-            out.writeObject(listaAber.size());
-            for (Abertu listaAber1 : listaAber) {
-                out.writeObject(listaAber1);
+            for (Limite temp : listaLim) {
+                out.writeObject(temp.getListaAberturas().size());
+                for (Abertu listaAber1 : temp.getListaAberturas()) {
+                    out.writeObject(listaAber1);
+                }
             }
-
             out.writeObject(getNumPessoas());
             out.writeObject(getNumAparelhos());
             out.writeObject(getPotenciaMedia());
@@ -500,7 +483,6 @@ public class SimController implements Serializable {
             for (int i = 0; i < cont; i++) {
                 lsa.add((Abertu) (in.readObject()));
             }
-            setListaAber(lsa);
 
             setNumPessoas((int) in.readObject());
             setNumAparelhos((int) in.readObject());
@@ -531,13 +513,6 @@ public class SimController implements Serializable {
      */
     public void setListaLim(List<Limite> listaLim) {
         this.listaLim = listaLim;
-    }
-
-    /**
-     * @param listaAber the listaAber to set
-     */
-    public void setListaAber(List<Abertu> listaAber) {
-        this.listaAber = listaAber;
     }
 
 }
