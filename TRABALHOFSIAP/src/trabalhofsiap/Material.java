@@ -1,41 +1,37 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+TRABALHO DE FÍSICA
+António Pinheiro 1130339
+Cristina Lopes 1130371
+Egídio Santos 1130348
+José Cabeda 1130395
  */
 package trabalhofsiap;
 
 import java.io.Serializable;
 
-
-
-/**
- *
- * @author Jecabeda
- */
 public class Material implements Serializable{
-    private double capTermica;
+    
+    /**
+     * Para calcular a Resistência Térmica é necessário a condutibilidade Térmica do material
+     */
+    private double condutibilidadeTermica;
     private final String nome;
 
-    public Material(double capTermica, String nome) {
-        this.capTermica = capTermica;
+    public Material(double condutibilidadeTermica, String nome) {
+        this.condutibilidadeTermica = condutibilidadeTermica;
         this.nome = nome;
     }
 
     public Material() {
-        this.capTermica=0;
+        this.condutibilidadeTermica=0;
         this.nome="sem nome";
     }
 
-    public double getCapTermica() {
-        return capTermica;
+    public double getCondutibilidadeTermica() {
+        return condutibilidadeTermica;
     }
 
     public String getNome() {
         return nome;
     }
-    
-    
-    
-
 }

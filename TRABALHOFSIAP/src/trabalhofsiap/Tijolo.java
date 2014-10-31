@@ -9,21 +9,21 @@ package trabalhofsiap;
 
 import java.io.Serializable;
 
-public class Betao extends Material implements Serializable{
+public class Tijolo extends Material implements Serializable{
 
-        private SimController dc;
-        
+    private SimController dc;
+
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Betao() {
-        super(3350, "Betão");
-        this.dc = dc;
+    public Tijolo(SimController d) {
+        super(0.6, "Tijolo");
+        this.dc = d;
     }
-    
+
     public String getNome() {
         if (dc.getLinguagem() == 1) {
-            return "Concrete";
+            return "Brick";
         } else {
-            return "Betão";
+            return "Tijolo";
         }
-    }
+}
 }

@@ -1,23 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+TRABALHO DE FÍSICA
+António Pinheiro 1130339
+Cristina Lopes 1130371
+Egídio Santos 1130348
+José Cabeda 1130395
  */
 package trabalhofsiap;
 
 import java.io.Serializable;
 
-/**
- *
- * @author Jecabeda
- */
 public class Vidro extends Material implements Serializable{
 
     private SimController dc;
     
-    //Medida em c/J KG K
+    //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
     public Vidro(SimController d) {
-        super(820, "Vidro");
+        super(0.79, "Vidro");
         this.dc=d;
     }
         
