@@ -625,7 +625,7 @@ public class JanelaSimu extends JDialog {
         JPanel panel1 = new JPanel(new BorderLayout());
         JLabel label1;
         if (dc.getLinguagem() == 1) {
-            label1 = new JLabel("Room Lanes ", JLabel.CENTER);
+            label1 = new JLabel("Room Layers ", JLabel.CENTER);
             label1.setPreferredSize(LABEL_TAMANHO2);
             panel1.add(label1, BorderLayout.NORTH);
         } else {
@@ -822,7 +822,7 @@ public class JanelaSimu extends JDialog {
             panel0.add(label0);
 
             panel1 = new JPanel();
-            label1 = new JLabel("Temperature pretendida:", JLabel.RIGHT);
+            label1 = new JLabel("Temperatura pretendida:", JLabel.RIGHT);
         }
 
         label1.setPreferredSize(LABEL_TAMANHO2);
