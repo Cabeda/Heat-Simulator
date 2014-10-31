@@ -16,6 +16,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,11 +36,12 @@ import trabalhofsiap.SimController;
  */
 public class Janela extends JFrame {
 
-    public String lingua = "";
 
     private String fechar = "nao";
     private Dimension TXT_TAMANHO = new Dimension(585, 400);
     private SimController dc;
+    String pais,lingua;
+    Locale currentLocale;
 
     /**
      * Cria a Janela com o menu.
@@ -156,9 +158,14 @@ public class Janela extends JFrame {
         bu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dc.setLinguagem(1);
-                JanelaSimu jd = new JanelaSimu(null, dc);
-                Janela.this.dispose();
+                        lingua = new String("en");
+                        pais = new String("EN");
+                        currentLocale = new Locale(lingua, pais);
+                        dc.setMensagens(currentLocale);
+                        // Para Retirar quando of ficheiros propeties tiverem feitos.
+                        dc.setLinguagem(1);
+                        JanelaSimu jd = new JanelaSimu(null, dc);
+                        Janela.this.dispose();
             }
         });
 
@@ -180,6 +187,11 @@ public class Janela extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e
                     ) {
+                        lingua = new String("pt");
+                        pais = new String("PT");
+                        currentLocale = new Locale(lingua, pais);
+                        dc.setMensagens(currentLocale);
+                        // Para Retirar quando of ficheiros propeties tiverem feitos.
                         dc.setLinguagem(2);
                         JanelaSimu jd = new JanelaSimu(null, dc);
                         Janela.this.dispose();

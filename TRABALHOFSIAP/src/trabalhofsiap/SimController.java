@@ -17,6 +17,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -29,6 +31,7 @@ public class SimController implements Serializable {
     float temperaturaEx, temperaturaPre;
     private List<Limite> listaLim;
     private int cint, cint2, lingua;
+    ResourceBundle mensagens;
 
     public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
         this.comprimento = comprimento;
@@ -513,6 +516,19 @@ public class SimController implements Serializable {
      */
     public void setListaLim(List<Limite> listaLim) {
         this.listaLim = listaLim;
+    }
+    /**
+     * @return the mensagens
+     */
+    public ResourceBundle getMensagens() {
+        return mensagens;
+    }
+
+    /**
+     * @param mensagens the mensagens to set
+     */
+    public void setMensagens(Locale currentLocale) {
+        this.mensagens = ResourceBundle.getBundle("MensagensBundle",currentLocale);
     }
 
 }
