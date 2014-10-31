@@ -9,24 +9,21 @@ package trabalhofsiap;
 
 import java.io.Serializable;
 
-public class Vidro extends Material implements Serializable{
+public class Tijolo extends Material implements Serializable{
 
     private SimController dc;
-    
+
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Vidro(SimController d) {
-        super(0.79, "Vidro");
-        this.dc=d;
+    public Tijolo(SimController d) {
+        super(0.6, "Tijolo");
+        this.dc = d;
     }
-        
-     public String getNome() {
+
+    public String getNome() {
         if (dc.getLinguagem() == 1) {
-            return "Glass";
+            return "Brick";
         } else {
-            return "Vidro";
+            return "Tijolo";
         }
-
-    }
-
-    
+}
 }
