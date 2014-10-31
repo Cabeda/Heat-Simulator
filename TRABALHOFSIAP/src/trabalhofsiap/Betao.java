@@ -15,7 +15,7 @@ public class Betao extends Material implements Serializable{
         
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
     public Betao() {
-        super(3350, "Betão");
+        super(1.7, "Betão");
         this.dc = dc;
     }
     
