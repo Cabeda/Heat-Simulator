@@ -788,7 +788,7 @@ public class JanelaSimu extends JDialog {
                         f.mkdir();
 
                         try {
-                            dc.criarFicheiroHTMLPt(f.getPath());
+                            dc.criarFicheiroHTML(f.getPath());
                             dc.guardarDados(f.getPath());
                         } catch (IOException ex) {
                             System.out.println(mensagens.getString("ficheiroNCriado"));

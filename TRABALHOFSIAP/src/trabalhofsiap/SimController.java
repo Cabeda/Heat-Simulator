@@ -199,10 +199,10 @@ public class SimController implements Serializable {
     @Override
     public String toString() {
 
-        return "Comprimento:" + comprimento + ", Largura:" + largura + ", Altura:"
-                + "" + altura + ", Volume:" + areaTotal + ", Potencia Media: "
-                + potenciaMedia + ", Numero de Pessoas:" + numPessoas + ", Temperatura:"
-                + "" + temperaturaEx + ", Numero de Aparelhos:" + numAparelhos;
+        return mensagens.getString("comprimento")+":" + comprimento + ", "+mensagens.getString("largura")+":"+ largura +", "+ mensagens.getString("altura")+":"
+                + altura + ", "+mensagens.getString("areaTotal")+":"+ areaTotal + ", "+mensagens.getString("potenciaMedia")+":"+
+                + potenciaMedia + ", "+mensagens.getString("numPessoas")+":"+ numPessoas + ", "+mensagens.getString("temperatura")+":"
+                + temperaturaEx + ", "+mensagens.getString("numAparelhos")+":"+ numAparelhos;
     }
 
     public String calcular() {
@@ -221,49 +221,49 @@ public class SimController implements Serializable {
         }
     }
 
-    public void criarFicheiroHTMLPt(String f) throws IOException {
+    public void criarFicheiroHTML(String f) throws IOException {
 
         try {
-            File fich = new File(f + "\\Resultados.html");
+            File fich = new File(f + "\\"+mensagens.getString("resultados")+".html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
             out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<h1>Par&acirc;metros :</h1>\n");
-            out.write("<ul>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
+            out.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
+            out.write("<title>"+mensagens.getString("resultados")+":"+"</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+                    + "</div>\n" + "<hr>\n" + "<h1>"+mensagens.getString("parametros") +":"+"</h1>\n");
+            out.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
 
             out.write("<hr>\n</body></html>");
             out.close();
 
-            File dim = new File(f + "\\dimensoes.html");
+            File dim = new File(f + "\\"+mensagens.getString("dimTitulo")+".html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
             out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out2.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out2.write("<title>Dimens&otilde;es:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+            out2.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
+            out2.write("<title>"+mensagens.getString("dimTitulo")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n");
-            out2.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
-            out2.write("<h2>Dimens&otilde;es :</h2>" + "<h4>Comprimento : " + getComprimento() + " m<br>Altura : " + getAltura() + " m<br>Largura : " + getLargura() + " m<br>&Aacute;rea Total : " + getAreaTotal() + " m&sup3;</h4>\n");
+            out2.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
+            out2.write("<h2>"+mensagens.getString("dimTitulo")+":</h2>" + "<h4>"+mensagens.getString("comprimento")+": " + getComprimento() + " m<br>"+mensagens.getString("altura")+": " + getAltura() + " m<br>"+mensagens.getString("largura") +": " + getLargura() + " m<br>"+ mensagens.getString("areaTotal") +": " + getAreaTotal() + " m&sup3;</h4>\n");
             out2.write("<hr>\n</body></html>");
             out2.close();
 
-            File lim = new File(f + "\\limites.html");
+            File lim = new File(f + "\\"+mensagens.getString("limites")+".html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
             out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out3.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out3.write("<title>Limites:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+            out3.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
+            out3.write("<title>"+mensagens.getString("limites")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n");
-            out3.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
+            out3.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
 
             int i = 1;
-            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Numero</td>\n<td>Tipo</td>\n<td>Material</td>\n<td>Altura (m)</td>\n<td>Largura (m)</td>\n<td>Espessura (m)</td>\n</tr>");
+            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>"+mensagens.getString("numero")+"</td>\n<td>"+mensagens.getString("tipo")+"</td>\n<td>"+mensagens.getString("material")+"</td>\n<td>"+mensagens.getString("altura")+" (m)</td>\n<td>"+mensagens.getString("largura")+" (m)</td>\n<td>"+mensagens.getString("espessura")+" (m)</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Camada ls : temp.getListaCamadas()) {
@@ -276,19 +276,19 @@ public class SimController implements Serializable {
             out3.write("<hr>\n</body></html>");
             out3.close();
 
-            File abe = new File(f + "\\aberturas.html");
+            File abe = new File(f + "\\"+mensagens.getString("aberturas")+".html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
             out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out4.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out4.write("<title>Aberturas:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+            out4.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
+            out4.write("<title>"+mensagens.getString("aberturas")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n");
-            out4.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"outros.html\">Outros</a></li>\n" + "</ul>");
+            out4.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
 
             i = 1;
-            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Numero</td>\n<td>Tipo</td>\n<td>Material</td>\n<td>Altura (m)</td>\n<td>Largura (m)</td>\n<td>Espessura (m)</td>\n</tr>");
+            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>"+mensagens.getString("numero")+"</td>\n<td>"+mensagens.getString("tipo")+"</td>\n<td>"+mensagens.getString("material")+"</td>\n<td>"+mensagens.getString("altura")+" (m)</td>\n<td>"+mensagens.getString("largura")+" (m)</td>\n<td>"+mensagens.getString("espessura")+" (m)</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Abertu ls : temp.getListaAberturas()) {
@@ -301,20 +301,20 @@ public class SimController implements Serializable {
             out4.write("<hr>\n</body></html>");
             out4.close();
 
-            File outro = new File(f + "\\outros.html");
+            File outro = new File(f + "\\"+mensagens.getString("outros")+".html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
             out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out5.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out5.write("<title>Resultados:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<h1>Par&acirc;metros :</h1>\n");
-            out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">Home</a></li>\n" + "  <li><a href=\"dimensoes.html\">Dimens&otilde;es</a></li>\n" + "  <li><a href=\"limites.html\">Limites</a></li>\n" + "  <li><a href=\"aberturas.html\">Aberturas</a></li>\n" + "</ul>");
-            out5.write("<h4>N&uacute;mero de Pessoas : " + getNumPessoas() + "</h4>\n");
-            out5.write("<h4>N&uacute;mero de Aparelhos : " + getNumAparelhos() + "</h4>\n");
-            out5.write("<h4>Pot&ecirc;ncia m&eacute;dia dos Aparelhos : " + getPotenciaMedia() + " Wh</h4>\n");
-            out5.write("<h4>Temperatura exterior : " + getTemperaturaEx() + " &deg;C</h4>\n");
-            out5.write("<h4>Temperatura pretendida : " + getTemperaturaPre() + " &deg;C</h4>\n");
+            out5.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"/styles(1).php\">\n");
+            out5.write("<title>"+mensagens.getString("resultados")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+                    + "</div>\n" + "<hr>\n" + "<h1>"+mensagens.getString("parametros")+":</h1>\n");
+            out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\"dimensoes.html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\"limites.html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\"aberturas.html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "</ul>");
+            out5.write("<h4>"+mensagens.getString("numPessoas")+" : " + getNumPessoas() + "</h4>\n");
+            out5.write("<h4>"+mensagens.getString("numAparelhos")+" : " + getNumAparelhos() + "</h4>\n");
+            out5.write("<h4>"+mensagens.getString("potenciaMedia")+" : " + getPotenciaMedia() + " Wh</h4>\n");
+            out5.write("<h4>"+mensagens.getString("temperaturaExt")+" : " + getTemperaturaEx() + " &deg;C</h4>\n");
+            out5.write("<h4>"+mensagens.getString("temperaturadesej") +": " + getTemperaturaPre() + " &deg;C</h4>\n");
 
             out5.write("<hr>\n</body></html>");
             out5.close();
@@ -323,110 +323,6 @@ public class SimController implements Serializable {
 
         } catch (IOException e) {
             System.out.println("Erro - " + e.getLocalizedMessage());
-        }
-
-    }
-
-    public void criarFicheiroHTMLEn(String f) throws IOException {
-
-        try {
-            File fich = new File(f + "\\Results.html");
-            BufferedWriter out = new BufferedWriter(new FileWriter(fich));
-            out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
-                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out.write("<title>Results:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<h1>Parameters :</h1>\n");
-            out.write("<ul>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
-
-            out.write("<hr>\n</body></html>");
-            out.close();
-
-            File dim = new File(f + "\\dimensions.html");
-            BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
-
-            out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
-                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out2.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out2.write("<title>Dimensions:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n");
-            out2.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
-            out2.write("<h2>Dimensions :</h2>" + "<h4>Length : " + getComprimento() + " m<br>Height : " + getAltura() + " m<br>Width : " + getLargura() + " m<br>Total Area : " + getAreaTotal() + " m&sup3;</h4>\n");
-            out2.write("<hr>\n</body></html>");
-            out2.close();
-
-            File lim = new File(f + "\\limits.html");
-            BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
-
-            out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
-                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out3.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out3.write("<title>Limits:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n");
-            out3.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
-
-            int i = 1;
-            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Number</td>\n<td>Type</td>\n<td>Material</td>\n<td>Height (m)</td>\n<td>Width (m)</td>\n<td>Thickness (m)</td>\n</tr>");
-            for (Limite temp : listaLim) {
-                for (Camada ls : temp.getListaCamadas()) {
-                    out3.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" + "</td></tr>");
-                    i++;
-                }
-            }
-            out3.write("</table>");
-
-            out3.write("<hr>\n</body></html>");
-            out3.close();
-
-            File abe = new File(f + "\\openings.html");
-            BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
-
-            out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
-                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out4.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out4.write("<title>Openings:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n");
-            out4.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"others.html\">Others</a></li>\n" + "</ul>");
-
-            i = 1;
-            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>Number</td>\n<td>Type</td>\n<td>Material</td>\n<td>Height (m)</td>\n<td>Width (m)</td>\n<td>Thickness(m)</td>\n</tr>");
-            for (Limite temp : listaLim) {
-                for (Abertu ls : temp.getListaAberturas()) {
-                    out4.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
-                    i++;
-                }
-            }
-            out4.write("</table>");
-
-            out4.write("<hr>\n</body></html>");
-            out4.close();
-
-            File outro = new File(f + "\\others.html");
-            BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
-            out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
-                    + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out5.write("<script type=\"text/javascript\" src=\"./Resultados_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./Resultados_files/styles(1).php\">\n");
-            out5.write("<title>Others:</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<h1>Par&acirc;metros :</h1>\n" + "<hr>\n");
-            out5.write("<ul>\n" + "  <li><a href=\"Results.html\">Home</a></li>\n" + "  <li><a href=\"dimensions.html\">Dimensions</a></li>\n" + "  <li><a href=\"limits.html\">Limits</a></li>\n" + "  <li><a href=\"openings.html\">Openings</a></li>\n" + "</ul>");
-            out5.write("<h4>Number of People : " + getNumPessoas() + "</h4>\n");
-            out5.write("<h4>Number of Devices : " + getNumAparelhos() + "</h4>\n");
-            out5.write("<h4>Average Power of the Devices : " + getPotenciaMedia() + " Wh</h4>\n");
-            out5.write("<h4>Outside Temperature : " + getTemperaturaEx() + " &deg;C</h4>\n");
-            out5.write("<h4>Desired Temperature : " + getTemperaturaPre() + " &deg;C</h4>\n");
-
-            out5.write("<hr>\n</body></html>");
-            out5.close();
-
-            Desktop.getDesktop().browse(fich.toURI());
-
-        } catch (IOException e) {
-            System.out.println("Error - " + e.getLocalizedMessage());
         }
 
     }
