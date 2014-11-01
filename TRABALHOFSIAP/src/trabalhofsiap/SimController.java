@@ -46,6 +46,7 @@ public class SimController implements Serializable {
         this.listaLim = listaLim;
         this.cint = 0;
         this.cint2 = 0;
+        mensagens = ResourceBundle.getBundle("MensagensBundle",new Locale("pt","PT"));
     }
 
     public SimController() {
@@ -59,6 +60,7 @@ public class SimController implements Serializable {
         this.listaLim = new ArrayList();
         this.cint = 0;
         this.cint2 = 0;
+         mensagens = ResourceBundle.getBundle("MensagensBundle",new Locale("pt","PT"));
     }
 
     public SimController(SimController dc) {
@@ -71,6 +73,7 @@ public class SimController implements Serializable {
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         this.potenciaMedia = dc.potenciaMedia;
+        mensagens = ResourceBundle.getBundle("MensagensBundle",new Locale("pt","PT"));
 
     }
 

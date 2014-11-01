@@ -14,16 +14,12 @@ public class Tijolo extends Material implements Serializable{
     private SimController dc;
 
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Tijolo(SimController d) {
-        super(0.6, "Tijolo");
-        this.dc = d;
+    public Tijolo(SimController dc) {
+        super(0.6,dc.getMensagens().getString("tijolo"));
+        this.dc = dc;
     }
 
     public String getNome() {
-        if (dc.getLinguagem() == 1) {
-            return "Brick";
-        } else {
-            return "Tijolo";
-        }
+         return dc.getMensagens().getString("tijolo");
 }
 }

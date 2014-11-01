@@ -21,8 +21,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.print.attribute.ResolutionSyntax;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -48,7 +50,6 @@ import trabalhofsiap.SimController;
  */
 public class JanelaSimu extends JDialog {
 
-
     public Icon icon = new ImageIcon("icon_device_settings.gif");
     private String fechar = "nao";
     private String resultado = "";
@@ -61,16 +62,15 @@ public class JanelaSimu extends JDialog {
     private Dimension RESULTADO_TAMANHO = new Dimension(300, 70);
     private Dimension BTN_TAMANHO = new Dimension(70, 40);
     private SimController dc;
-    
-    Limite tecto=new Limite("Tecto", dc);
-    Limite chao=new Limite("Chão", dc);
-    Limite paredeNorte=new Limite("Parede Norte", dc);
-    Limite paredeOeste=new Limite("Parede Oeste", dc);
-    Limite paredeSul=new Limite("Parede Sul", dc);
-    Limite paredeEste=new Limite("Parede Este", dc);
-    
-    
-    
+    ResourceBundle mensagens;
+
+    Limite tecto;
+    Limite chao;
+    Limite paredeNorte;
+    Limite paredeOeste;
+    Limite paredeSul;
+    Limite paredeEste;
+
     private JTextField field4;
 
     public JPanel jpanel2, jpanel3;
@@ -80,7 +80,16 @@ public class JanelaSimu extends JDialog {
     public JanelaSimu(JFrame pai, SimController d) {
 
         super(pai, "Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
-        
+
+        mensagens = d.getMensagens();
+
+        tecto = new Limite(mensagens.getString("tecto"), dc);
+        chao = new Limite(mensagens.getString("chao"), dc);
+        paredeNorte = new Limite(mensagens.getString("paredeNorte"), dc);
+        paredeOeste = new Limite(mensagens.getString("paredeOeste"), dc);
+        paredeSul = new Limite(mensagens.getString("paredeSul"), dc);
+        paredeEste = new Limite(mensagens.getString("paredeEste"), dc);
+
         dc = d;
         dc.addLim(tecto);
         dc.addLim(paredeNorte);
@@ -88,40 +97,23 @@ public class JanelaSimu extends JDialog {
         dc.addLim(paredeEste);
         dc.addLim(paredeSul);
         dc.addLim(chao);
-        
+
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());
         getContentPane().add(jp);
+        jt.addTab(mensagens.getString("dimTitulo"), panel1());
 
-        if (dc.getLinguagem() == 1) {
-            jt.addTab("Dimensions", panel1());
+        jt.addTab(mensagens.getString("camadasTitulo"), panel5());
 
-            jt.addTab("Lanes", panel5());
+        jt.addTab(mensagens.getString("aberturasTitulo"), panel2());
 
-            jt.addTab("Openings", panel2());
+        jt.addTab(mensagens.getString("pessoasTitulo"), panel3());
 
-            jt.addTab("Persons", panel3());
+        jt.addTab(mensagens.getString("aparelhos"), panel6());
 
-            jt.addTab("Devices", panel6());
+        jt.addTab(mensagens.getString("temperatura"), panel7());
 
-            jt.addTab("Temperature", panel7());
-
-            jt.addTab("Results", panel8());
-        } else {
-            jt.addTab("Dimensões", panel1());
-
-            jt.addTab("Camadas", panel5());
-
-            jt.addTab("Aberturas", panel2());
-
-            jt.addTab("Pessoas", panel3());
-
-            jt.addTab("Aparelhos", panel6());
-
-            jt.addTab("Temperatura", panel7());
-
-            jt.addTab("Resultado", panel8());
-        }
+        jt.addTab(mensagens.getString("resultado"), panel8());
         if (dc.getAltura() == 0) {
             jt.setEnabledAt(1, false);
             jt.setEnabledAt(2, false);
@@ -159,23 +151,13 @@ public class JanelaSimu extends JDialog {
         JPanel panel1 = new JPanel();
         JLabel label1;
         JLabel l1;
-        if (dc.getLinguagem() == 1) {
-            JLabel label0 = new JLabel("Ambient Dimensions", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
+        JLabel label0 = new JLabel(mensagens.getString("dimAmbiente"), JLabel.CENTER);
+        label0.setPreferredSize(LABEL_TAMANHO2);
+        panel0.add(label0);
 
-            label1 = new JLabel("Length:", JLabel.RIGHT);
-            l1 = new JLabel("m", JLabel.LEFT);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-        } else {
-            JLabel label0 = new JLabel("Dimensões do ambiente", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
-
-            label1 = new JLabel("Comprimento:", JLabel.RIGHT);
-            l1 = new JLabel("m", JLabel.LEFT);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-        }
+        label1 = new JLabel(mensagens.getString("comprimento"), JLabel.RIGHT);
+        l1 = new JLabel("m", JLabel.LEFT);
+        label1.setPreferredSize(LABEL_TAMANHO2);
         field1 = new JTextField();
         field1.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getComprimento() != 0) {
@@ -207,26 +189,25 @@ public class JanelaSimu extends JDialog {
             public void mouseExited(MouseEvent e) {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-                        
-                        
+
                         tecto.setAltura((Float.parseFloat(field1.getText())));
                         tecto.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeNorte.setAltura((Float.parseFloat(field3.getText())));
                         paredeNorte.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeOeste.setAltura((Float.parseFloat(field3.getText())));
                         paredeOeste.setLargura((Float.parseFloat(field1.getText())));
-                        
+
                         paredeSul.setAltura((Float.parseFloat(field3.getText())));
                         paredeSul.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeEste.setAltura((Float.parseFloat(field3.getText())));
                         paredeEste.setLargura((Float.parseFloat(field1.getText())));
-                        
+
                         chao.setAltura((Float.parseFloat(field1.getText())));
                         chao.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         dc.setAltura((Float.parseFloat(field3.getText())));
                         dc.setComprimento((Float.parseFloat(field1.getText())));
                         dc.setLargura((Float.parseFloat(field2.getText())));
@@ -236,11 +217,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    if (dc.getLinguagem() == 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -251,15 +228,9 @@ public class JanelaSimu extends JDialog {
         JPanel panel2 = new JPanel();
         JLabel l2;
         JLabel label2;
-        if (dc.getLinguagem() == 1) {
-            label2 = new JLabel("Width:", JLabel.RIGHT);
-            l2 = new JLabel("m", JLabel.LEFT);
-            label2.setPreferredSize(LABEL_TAMANHO2);
-        } else {
-            label2 = new JLabel("Largura:", JLabel.RIGHT);
-            l2 = new JLabel("m", JLabel.LEFT);
-            label2.setPreferredSize(LABEL_TAMANHO2);
-        }
+        label2 = new JLabel(mensagens.getString("largura"), JLabel.RIGHT);
+        l2 = new JLabel("m", JLabel.LEFT);
+        label2.setPreferredSize(LABEL_TAMANHO2);
 
         field2 = new JTextField();
         field2.setPreferredSize(CAMPO_TAMANHO);
@@ -292,25 +263,25 @@ public class JanelaSimu extends JDialog {
             public void mouseExited(MouseEvent e) {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-                        
+
                         tecto.setAltura((Float.parseFloat(field1.getText())));
                         tecto.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeNorte.setAltura((Float.parseFloat(field3.getText())));
                         paredeNorte.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeOeste.setAltura((Float.parseFloat(field3.getText())));
                         paredeOeste.setLargura((Float.parseFloat(field1.getText())));
-                        
+
                         paredeSul.setAltura((Float.parseFloat(field3.getText())));
                         paredeSul.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeEste.setAltura((Float.parseFloat(field3.getText())));
                         paredeEste.setLargura((Float.parseFloat(field1.getText())));
-                        
+
                         chao.setAltura((Float.parseFloat(field1.getText())));
                         chao.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         dc.setAltura((Float.parseFloat(field3.getText())));
                         dc.setComprimento((Float.parseFloat(field1.getText())));
                         dc.setLargura((Float.parseFloat(field2.getText())));
@@ -320,11 +291,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    if (dc.getLinguagem() == 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -336,15 +303,9 @@ public class JanelaSimu extends JDialog {
         JPanel panel3 = new JPanel();
         JLabel l3;
         JLabel label3;
-        if (dc.getLinguagem() == 1) {
-            label3 = new JLabel("Height:", JLabel.RIGHT);
-            l3 = new JLabel("m", JLabel.LEFT);
-            label3.setPreferredSize(LABEL_TAMANHO2);
-        } else {
-            label3 = new JLabel("Altura:", JLabel.RIGHT);
-            l3 = new JLabel("m", JLabel.LEFT);
-            label3.setPreferredSize(LABEL_TAMANHO2);
-        }
+        label3 = new JLabel(mensagens.getString("altura"), JLabel.RIGHT);
+        l3 = new JLabel("m", JLabel.LEFT);
+        label3.setPreferredSize(LABEL_TAMANHO2);
 
         field3 = new JTextField();
         field3.setPreferredSize(CAMPO_TAMANHO);
@@ -377,25 +338,25 @@ public class JanelaSimu extends JDialog {
             public void mouseExited(MouseEvent e) {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-                        
+
                         tecto.setAltura((Float.parseFloat(field1.getText())));
                         tecto.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeNorte.setAltura((Float.parseFloat(field3.getText())));
                         paredeNorte.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeOeste.setAltura((Float.parseFloat(field3.getText())));
                         paredeOeste.setLargura((Float.parseFloat(field1.getText())));
-                        
+
                         paredeSul.setAltura((Float.parseFloat(field3.getText())));
                         paredeSul.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         paredeEste.setAltura((Float.parseFloat(field3.getText())));
                         paredeEste.setLargura((Float.parseFloat(field1.getText())));
-                        
+
                         chao.setAltura((Float.parseFloat(field1.getText())));
                         chao.setLargura((Float.parseFloat(field2.getText())));
-                        
+
                         dc.setAltura((Float.parseFloat(field3.getText())));
                         dc.setComprimento((Float.parseFloat(field1.getText())));
                         dc.setLargura((Float.parseFloat(field2.getText())));
@@ -405,11 +366,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    if (dc.getLinguagem() == 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -421,15 +378,9 @@ public class JanelaSimu extends JDialog {
         JPanel panel4 = new JPanel();
         JLabel label4;
         JLabel l4;
-        if (dc.getLinguagem() == 1) {
-            label4 = new JLabel("Total Area:", JLabel.RIGHT);
-            l4 = new JLabel("m²", JLabel.LEFT);
-            label4.setPreferredSize(LABEL_TAMANHO2);
-        } else {
-            label4 = new JLabel("Área Total:", JLabel.RIGHT);
-            l4 = new JLabel("m²", JLabel.LEFT);
-            label4.setPreferredSize(LABEL_TAMANHO2);
-        }
+        label4 = new JLabel(mensagens.getString("areaTotal"), JLabel.RIGHT);
+        l4 = new JLabel("m²", JLabel.LEFT);
+        label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getAreaTotal() != 0) {
@@ -447,12 +398,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (field1.getText().equals("") || field2.getText().equals("")) {
-                    if (dc.getLinguagem() == 1) {
-
-                        JOptionPane.showMessageDialog(rootPane, "Please Fill all fields", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
                     jt.setEnabledAt(1, true);
@@ -483,15 +429,9 @@ public class JanelaSimu extends JDialog {
         panel.setLayout(new BorderLayout(10, 10));
 
         JPanel panel1 = new JPanel(new BorderLayout());
-        if (dc.getLinguagem() == 1) {
-            JLabel label1 = new JLabel("Openings ", JLabel.CENTER);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-            panel1.add(label1, BorderLayout.NORTH);
-        } else {
-            JLabel label1 = new JLabel("Aberturas ", JLabel.CENTER);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-            panel1.add(label1, BorderLayout.NORTH);
-        }
+        JLabel label1 = new JLabel(mensagens.getString("aberturas"), JLabel.CENTER);
+        label1.setPreferredSize(LABEL_TAMANHO2);
+        panel1.add(label1, BorderLayout.NORTH);
         jpanel2 = new JPanel();
         if (dc.getListaAberturas() != null) {
             List<Abertu> d = dc.getListaAberturas();
@@ -517,16 +457,12 @@ public class JanelaSimu extends JDialog {
         JPanel panel3 = new JPanel();
         JButton btnAdicionar;
 
-        if (dc.getLinguagem() == 1) {
-            btnAdicionar = new JButton("Add on");
-        } else {
-            btnAdicionar = new JButton("Adicionar");
-        }
+        btnAdicionar = new JButton(mensagens.getString("adicionar"));
         btnAdicionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JanelaAber ja = new JanelaAber(dc, JanelaSimu.this, true, 0);
+                JanelaAber ja = new JanelaAber(mensagens.getString("dadosaber"), dc, JanelaSimu.this, true, 0);
                 revalidate();
                 jpanel2.revalidate();
                 scroll.revalidate();
@@ -567,21 +503,12 @@ public class JanelaSimu extends JDialog {
         JLabel label0;
         JPanel panel1;
         JLabel label1;
-        if (dc.getLinguagem() == 1) {
-            label0 = new JLabel("Persons ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
+        label0 = new JLabel(mensagens.getString("pessoas"), JLabel.CENTER);
+        label0.setPreferredSize(LABEL_TAMANHO2);
+        panel0.add(label0);
 
-            panel1 = new JPanel();
-            label1 = new JLabel("Number of People:", JLabel.RIGHT);
-        } else {
-            label0 = new JLabel("Pessoas ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
-
-            panel1 = new JPanel();
-            label1 = new JLabel("Nº de Pessoas:", JLabel.RIGHT);
-        }
+        panel1 = new JPanel();
+        label1 = new JLabel(mensagens.getString("numPessoas"), JLabel.RIGHT);
         String vec[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
             "13", "14", "15", "16", "17", "18", "19", "20", "21"};
         label1.setPreferredSize(LABEL_TAMANHO2);
@@ -624,15 +551,9 @@ public class JanelaSimu extends JDialog {
 
         JPanel panel1 = new JPanel(new BorderLayout());
         JLabel label1;
-        if (dc.getLinguagem() == 1) {
-            label1 = new JLabel("Room Layers ", JLabel.CENTER);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-            panel1.add(label1, BorderLayout.NORTH);
-        } else {
-            label1 = new JLabel("Camadas da sala ", JLabel.CENTER);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-            panel1.add(label1, BorderLayout.NORTH);
-        }
+        label1 = new JLabel(mensagens.getString("camadasSala"), JLabel.CENTER);
+        label1.setPreferredSize(LABEL_TAMANHO2);
+        panel1.add(label1, BorderLayout.NORTH);
         jpanel3 = new JPanel();
         if (dc.getListaCamadas() != null) {
             List<Camada> d = dc.getListaCamadas();
@@ -658,16 +579,12 @@ public class JanelaSimu extends JDialog {
         JPanel panel3 = new JPanel();
         JButton btnAdicionar;
 
-        if (dc.getLinguagem() == 1) {
-            btnAdicionar = new JButton("Add on");
-        } else {
-            btnAdicionar = new JButton("Adicionar");
-        }
+        btnAdicionar = new JButton(mensagens.getString("adicionar"));
         btnAdicionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                JanelaCamada ja = new JanelaCamada(dc, JanelaSimu.this,true, 0);
+                JanelaCamada ja = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, true, 0);
                 revalidate();
                 jpanel3.revalidate();
                 scroll.revalidate();
@@ -708,24 +625,13 @@ public class JanelaSimu extends JDialog {
         JPanel panel0 = new JPanel();
         JPanel panel1;
         JLabel label1, l1, label0;
+        label0 = new JLabel(mensagens.getString("aparelhosSala"), JLabel.CENTER);
+        label0.setPreferredSize(LABEL_TAMANHO2);
+        panel0.add(label0);
 
-        if (dc.getLinguagem() == 1) {
-            label0 = new JLabel("Room Devices ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
-
-            panel1 = new JPanel();
-            label1 = new JLabel("Number of Devices:", JLabel.RIGHT);
-            l1 = new JLabel("      ");
-        } else {
-            label0 = new JLabel("Aparelhos na sala ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
-
-            panel1 = new JPanel();
-            label1 = new JLabel("Nº de aparelhos:", JLabel.RIGHT);
-            l1 = new JLabel("      ");
-        }
+        panel1 = new JPanel();
+        label1 = new JLabel(mensagens.getString("numAparelhos"), JLabel.RIGHT);
+        l1 = new JLabel("      ");
         JTextField field1 = new JTextField();
         field1.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getNumAparelhos() != 0) {
@@ -739,13 +645,8 @@ public class JanelaSimu extends JDialog {
         JPanel panel2 = new JPanel();
         JLabel label2, l2;
 
-        if (dc.getLinguagem() == 1) {
-            label2 = new JLabel("Average Power:", JLabel.RIGHT);
-            l2 = new JLabel("Wh");
-        } else {
-            label2 = new JLabel("Potência média:", JLabel.RIGHT);
-            l2 = new JLabel("Wh");
-        }
+        label2 = new JLabel(mensagens.getString("potenciaMedia"), JLabel.RIGHT);
+        l2 = new JLabel("Wh");
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
         if (dc.getPotenciaMedia() != 0) {
@@ -764,12 +665,7 @@ public class JanelaSimu extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (field1.getText().equals("") || field2.getText().equals("")) {
-                        if (dc.getLinguagem() == 1) {
-
-                            JOptionPane.showMessageDialog(rootPane, "Please Fill all fields", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                        } else {
-                            JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                        }
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
                         dc.setNumAparelhos((Integer.parseInt(field1.getText())));
@@ -780,11 +676,7 @@ public class JanelaSimu extends JDialog {
                 } catch (HeadlessException b) {
                     System.out.println(b.getLocalizedMessage());
                 } catch (NumberFormatException m) {
-                    if (dc.getLinguagem() == 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
@@ -809,21 +701,12 @@ public class JanelaSimu extends JDialog {
         JPanel panel0 = new JPanel();
         JLabel label0, label1;
         JPanel panel1;
-        if (dc.getLinguagem() == 1) {
-            label0 = new JLabel("Temperature ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
+        label0 = new JLabel(mensagens.getString("temperatura") + ": ", JLabel.CENTER);
+        label0.setPreferredSize(LABEL_TAMANHO2);
+        panel0.add(label0);
 
-            panel1 = new JPanel();
-            label1 = new JLabel("Desired Temperature:", JLabel.RIGHT);
-        } else {
-            label0 = new JLabel("Temperatura ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
-
-            panel1 = new JPanel();
-            label1 = new JLabel("Temperatura pretendida:", JLabel.RIGHT);
-        }
+        panel1 = new JPanel();
+        label1 = new JLabel(mensagens.getString("temperaturadesej") + ": ", JLabel.RIGHT);
 
         label1.setPreferredSize(LABEL_TAMANHO2);
         JTextField field1 = new JTextField();
@@ -836,11 +719,7 @@ public class JanelaSimu extends JDialog {
 
         JPanel panel2 = new JPanel();
         JLabel label2;
-        if (dc.getLinguagem() == 1) {
-            label2 = new JLabel("Outside Temperature :", JLabel.RIGHT);
-        } else {
-            label2 = new JLabel("Temperatura no exterior:", JLabel.RIGHT);
-        }
+        label2 = new JLabel(mensagens.getString("temperaturaExt"), JLabel.RIGHT);
 
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
@@ -882,86 +761,45 @@ public class JanelaSimu extends JDialog {
 
         JPanel panel0 = new JPanel();
         JLabel label0;
-        if (dc.getLinguagem() == 1) {
-            label0 = new JLabel("Results ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
-        } else {
-            label0 = new JLabel("Resultado ", JLabel.CENTER);
-            label0.setPreferredSize(LABEL_TAMANHO2);
-            panel0.add(label0);
-        }
+        label0 = new JLabel(mensagens.getString("resultado"), JLabel.CENTER);
+        label0.setPreferredSize(LABEL_TAMANHO2);
+        panel0.add(label0);
 
         JPanel jp = new JPanel();
 
         JPanel panel5 = new JPanel();
 
         JButton btnCalcular;
-        if (dc.getLinguagem() == 1) {
 
-            btnCalcular = new JButton("Calculate");
-            btnCalcular.addActionListener(new ActionListener() {
+        btnCalcular = new JButton(mensagens.getString("calcular"));
+        btnCalcular.addActionListener(new ActionListener() {
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String nomeDiretorio = null;
-                    String separador = java.io.File.separator;
-                    String s;
-                    do {
-                        s = JOptionPane.showInputDialog(null, "Insert the name of the directory:", "Save Data", JOptionPane.PLAIN_MESSAGE);
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nomeDiretorio = null;
+                String separador = java.io.File.separator;
+                String s;
+                do {
+                    s = JOptionPane.showInputDialog(null, mensagens.getString("inserNomePasta"), mensagens.getString("guardarResult"), JOptionPane.PLAIN_MESSAGE);
 
-                        if (!new File(s).exists()) {
-                            File f = new File(s);
+                    if (!new File(s).exists()) {
+                        File f = new File(s);
 
-                            f.mkdir();
+                        f.mkdir();
 
-                            try {
-                                dc.criarFicheiroHTMLPt(f.getPath());
-                                dc.guardarDados(f.getPath());
-                            } catch (IOException ex) {
-                                System.out.println("File not created!");
-                            }
-
-                        } else {
-                            JOptionPane.showMessageDialog(null, "There's already a Dir with that name!", "Save Data", WIDTH);
+                        try {
+                            dc.criarFicheiroHTMLPt(f.getPath());
+                            dc.guardarDados(f.getPath());
+                        } catch (IOException ex) {
+                            System.out.println(mensagens.getString("ficheiroNCriado"));
                         }
-                    } while (!new File(s).exists());
-                }
-            });
 
-        } else {
-
-            btnCalcular = new JButton("Calcular");
-            btnCalcular.addActionListener(new ActionListener() {
-
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String nomeDiretorio = null;
-                    String separador = java.io.File.separator;
-                    String s;
-                    do {
-                        s = JOptionPane.showInputDialog(null, "Insira o nome da pasta:", "Guardar Resultados", JOptionPane.PLAIN_MESSAGE);
-
-                        if (!new File(s).exists()) {
-                            File f = new File(s);
-
-                            f.mkdir();
-
-                            try {
-                                dc.criarFicheiroHTMLPt(f.getPath());
-                                dc.guardarDados(f.getPath());
-                            } catch (IOException ex) {
-                                System.out.println("Ficheiro não criado");
-                            }
-
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Já existe um Directorio com esse nome!", fechar, WIDTH);
-                        }
-                    } while (!new File(s).exists());
-                }
-            });
-
-        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, mensagens.getString("pastaJaExiste"), mensagens.getString("guardarResult"), WIDTH);
+                    }
+                } while (!new File(s).exists());
+            }
+        });
 
         panel5.add(btnCalcular);
 
@@ -978,27 +816,15 @@ public class JanelaSimu extends JDialog {
      */
     private void fechar() {
         int resposta;
-        if (dc.getLinguagem() == 1) {
-            String[] opSimNao = {"Yes", "No"};
-            resposta = JOptionPane.showOptionDialog(this,
-                    "Do you wish to close the program?",
-                    "FSIAP",
-                    0,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    opSimNao,
-                    opSimNao[1]);
-        } else {
-            String[] opSimNao = {"Sim", "Não"};
-            resposta = JOptionPane.showOptionDialog(this,
-                    "Deseja fechar a aplicação?",
-                    "FSIAP",
-                    0,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null,
-                    opSimNao,
-                    opSimNao[1]);
-        }
+        String[] opSimNao = {mensagens.getString("sim"), mensagens.getString("nao")};
+        resposta = JOptionPane.showOptionDialog(this,
+                mensagens.getString("fecharPrograma"),
+                "FSIAP",
+                0,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opSimNao,
+                opSimNao[1]);
         final int SIM = 0;
         if (resposta == SIM) {
             dispose();

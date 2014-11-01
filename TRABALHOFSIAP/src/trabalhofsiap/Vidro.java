@@ -14,17 +14,13 @@ public class Vidro extends Material implements Serializable{
     private SimController dc;
     
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Vidro(SimController d) {
-        super(0.79, "Vidro");
-        this.dc=d;
+    public Vidro(SimController dc) {
+        super(0.79,dc.getMensagens().getString("vidro"));
+        this.dc=dc;
     }
         
      public String getNome() {
-        if (dc.getLinguagem() == 1) {
-            return "Glass";
-        } else {
-            return "Vidro";
-        }
+        return dc.getMensagens().getString("vidro");
 
     }
 

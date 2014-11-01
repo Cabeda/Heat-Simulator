@@ -14,17 +14,13 @@ public class Madeira extends Material implements Serializable{
     private SimController dc;
 
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Madeira(SimController d) {
-        super(0.13, "Madeira");
-        this.dc = d;
+    public Madeira(SimController dc) {
+        super(0.13,dc.getMensagens().getString("madeira"));
+        this.dc = dc;
     }
 
     public String getNome() {
-        if (dc.getLinguagem() == 1) {
-            return "Wood";
-        } else {
-            return "Madeira";
-        }
+         return dc.getMensagens().getString("madeira");
 
     }
 

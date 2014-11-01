@@ -6,6 +6,7 @@
 package fsiap.ui;
 
 import java.io.File;
+import java.util.ResourceBundle;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,25 +19,20 @@ import trabalhofsiap.SimController;
 public class ImportarFicheiro {
 
     private SimController dc;
-
+    ResourceBundle mensagens;
     public ImportarFicheiro(JFrame pai,SimController d) {
-
+        
         try {
 
             this.dc = d;
-
+            mensagens = this.dc.getMensagens();
             File selectedFile = null;
 
             do {
                 JFileChooser fileChooser = new JFileChooser();
                 int returnValue = fileChooser.showOpenDialog(null);
-                if (dc.getLinguagem() == 1) {
-                    fileChooser.setApproveButtonText("Select");
-                    fileChooser.setApproveButtonToolTipText("Select the file to import");
-                } else {
-                    fileChooser.setApproveButtonText("Selecionar");
-                    fileChooser.setApproveButtonToolTipText("Select the file to import");
-                }
+                    fileChooser.setApproveButtonText(mensagens.getString("selecionar"));
+                    fileChooser.setApproveButtonToolTipText(mensagens.getString("selecionarFicheiro"));
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     selectedFile = fileChooser.getSelectedFile();
                     if (selectedFile != null) {
@@ -46,18 +42,10 @@ public class ImportarFicheiro {
                                 pai.dispose();
                                 JanelaSimu js = new JanelaSimu(null, dc);
                             } else {
-                                if (dc.getLinguagem() == 1) {
-                                    JOptionPane.showMessageDialog(fileChooser, "The Selected File is invalid", "Import File", JOptionPane.INFORMATION_MESSAGE);
-                                } else {
-                                    JOptionPane.showMessageDialog(fileChooser, "O ficheiro selecionado é inválido", "Importar Ficheiro", JOptionPane.INFORMATION_MESSAGE);
-                                }
+                                    JOptionPane.showMessageDialog(fileChooser, mensagens.getString("selecionarFicheiroInv"), mensagens.getString("importarFich"), JOptionPane.INFORMATION_MESSAGE);
                             }
                         } else {
-                            if (dc.getLinguagem() == 1) {
-                                JOptionPane.showMessageDialog(fileChooser, "The Selected File doesn't exist!", "Import File", JOptionPane.INFORMATION_MESSAGE);
-                            } else {
-                                JOptionPane.showMessageDialog(fileChooser, "O ficheiro selecionado não existe!", "Importar Ficheiro", JOptionPane.INFORMATION_MESSAGE);
-                            }
+                                JOptionPane.showMessageDialog(fileChooser, mensagens.getString("selecionarFicheiroNexiste"), mensagens.getString("importarFich"), JOptionPane.INFORMATION_MESSAGE);
                         }
                     }
                 }

@@ -14,17 +14,13 @@ public class Ar extends Material implements Serializable{
     private SimController dc;
     
      //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Ar() {
-        super(0.03, "Ar");
+    public Ar(SimController dc) {
+        super(0.03, dc.getMensagens().getString("ar"));
         this.dc = dc;
     }
 
     public String getNome() {
-        if (dc.getLinguagem() == 1) {
-            return "Air";
-        } else {
-            return "Ar";
-        }
+         return dc.getMensagens().getString("ar");
 }
     
     

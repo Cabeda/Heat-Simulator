@@ -30,9 +30,9 @@ public class Camada implements java.io.Serializable{
         this.dc=d;
         this.al = new Aluminio(dc) ;
         this.ma = new Madeira(dc);
-        this.be = new Betao();
+        this.be = new Betao(dc);
         this.vi = new Vidro(dc);
-        this.a = new Ar();
+        this.a = new Ar(dc);
     }
 
     public Camada(SimController d) {
@@ -44,9 +44,9 @@ public class Camada implements java.io.Serializable{
         this.dc=d;
         this.al = new Aluminio(dc) ;
         this.ma = new Madeira(dc);
-        this.be = new Betao();
+        this.be = new Betao(dc);
         this.vi = new Vidro(dc);
-        this.a = new Ar();
+        this.a = new Ar(dc);
     }
 
     public Material getMaterial() {
@@ -75,13 +75,13 @@ public class Camada implements java.io.Serializable{
             this.material = new Vidro(dc);
         } else {
             if (tipo.equals(be.getNome())) {
-                this.material = new Betao();
+                this.material = new Betao(dc);
             } else {
                 if (tipo.equals(al.getNome())) {
                     this.material = new Aluminio(dc);
                 } else {
                     if (tipo.equals(a.getNome())) {
-                        this.material = new Ar();
+                        this.material = new Ar(dc);
                     } else {
                         if (tipo.equals(ma.getNome())) {
                             this.material = new Madeira(dc);

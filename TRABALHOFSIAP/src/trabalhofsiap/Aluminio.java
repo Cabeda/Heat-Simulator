@@ -14,18 +14,13 @@ public class Aluminio extends Material implements Serializable{
     private SimController dc;
     
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Aluminio(SimController d) {
-        super( 237, "Aluminio");
-        this.dc=d;
+    public Aluminio(SimController dc) {
+        super( 237,dc.getMensagens().getString("aluminio"));
+        this.dc=dc;
     }
     
      public String getNome() {
-        if (dc.getLinguagem() == 1) {
-            return "Aluminum";
-        } else {
-            return "Aluminio";
-        }
-
+         return dc.getMensagens().getString("aluminio");
     }
 
 

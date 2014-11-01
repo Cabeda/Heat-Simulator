@@ -1,4 +1,4 @@
-package fsiap.ui;
+ package fsiap.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -62,11 +63,11 @@ public class JanelaAber extends JFrame {
     private Vidro vi;
     private Ar a;
     private Abertu alt;
+    ResourceBundle mensagens;
 
-    public JanelaAber(SimController d, JanelaSimu js, boolean f, int po) {
-
-        super("Dados Abertura/Openings Data");
-
+    public JanelaAber(String titulo, SimController d, JanelaSimu js, boolean f, int po) {
+        super(titulo);
+        mensagens = d.getMensagens();
         this.dc = d;
         this.js = js;
         this.flag = f;
@@ -75,8 +76,8 @@ public class JanelaAber extends JFrame {
         al = new Aluminio(dc);
         ma = new Madeira(dc);
         vi = new Vidro(dc);
-        a = new Ar();
-        be = new Betao();
+        a = new Ar(dc);
+        be = new Betao(dc);
 
         BorderLayout gl = new BorderLayout();
         setLayout(gl);
@@ -106,15 +107,8 @@ public class JanelaAber extends JFrame {
         String opcoes[] = new String[2];
         JLabel label1;
         JPanel panel1 = new JPanel();
-        if (dc.getLinguagem() == 1) {
-            label1 = new JLabel("Limit:", JLabel.RIGHT);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-
-        } else {
-            label1 = new JLabel("Limite:", JLabel.RIGHT);
-            label1.setPreferredSize(LABEL_TAMANHO2);
-
-        }
+        label1 = new JLabel(mensagens.getString("limite")+":", JLabel.RIGHT);
+        label1.setPreferredSize(LABEL_TAMANHO2);
         field1 = new JComboBox(dc.getListaLim().toArray());
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
@@ -151,11 +145,8 @@ public class JanelaAber extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    if (dc.getLinguagem() == 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+
                 }
             }
         });
@@ -164,7 +155,7 @@ public class JanelaAber extends JFrame {
         panel1.add(field1);
 
         JPanel panel2 = new JPanel();
-        JLabel label2 = new JLabel("Material:", JLabel.RIGHT);
+        JLabel label2 = new JLabel(mensagens.getString("material")+":", JLabel.RIGHT);
         label2.setPreferredSize(LABEL_TAMANHO2);
 
         String opcoes2[] = {ma.getNome(), vi.getNome(), al.getNome()};
@@ -204,11 +195,7 @@ public class JanelaAber extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    if (dc.getLinguagem() == 1) {
-                        JOptionPane.showMessageDialog(rootPane, "Dados Inválidos", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(rootPane, "Invalid Data", "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                    }
+                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -218,13 +205,8 @@ public class JanelaAber extends JFrame {
 
         JPanel panel3 = new JPanel();
         JLabel label3;
-        if (dc.getLinguagem() == 1) {
-            label3 = new JLabel("Height:", JLabel.RIGHT);
-            label3.setPreferredSize(LABEL_TAMANHO2);
-        } else {
-            label3 = new JLabel("Altura:", JLabel.RIGHT);
-            label3.setPreferredSize(LABEL_TAMANHO2);
-        }
+        label3 = new JLabel(mensagens.getString("altura")+":", JLabel.RIGHT);
+        label3.setPreferredSize(LABEL_TAMANHO2);
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
         field3.setEditable(false);
@@ -234,13 +216,8 @@ public class JanelaAber extends JFrame {
 
         JPanel panel4 = new JPanel();
         JLabel label4;
-        if (dc.getLinguagem() == 1) {
-            label4 = new JLabel("Width:", JLabel.RIGHT);
-            label4.setPreferredSize(LABEL_TAMANHO2);
-        } else {
-            label4 = new JLabel("Largura:", JLabel.RIGHT);
-            label4.setPreferredSize(LABEL_TAMANHO2);
-        }
+        label4 = new JLabel(mensagens.getString("largura")+":", JLabel.RIGHT);
+        label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
         field4.setEditable(false);
@@ -250,13 +227,8 @@ public class JanelaAber extends JFrame {
 
         JPanel panel6 = new JPanel();
         JLabel label6;
-        if (dc.getLinguagem() == 1) {
-            label6 = new JLabel("Thickness:", JLabel.RIGHT);
-            label6.setPreferredSize(LABEL_TAMANHO2);
-        } else {
-            label6 = new JLabel("Espessura:", JLabel.RIGHT);
-            label6.setPreferredSize(LABEL_TAMANHO2);
-        }
+        label6 = new JLabel(mensagens.getString("espessura")+":", JLabel.RIGHT);
+        label6.setPreferredSize(LABEL_TAMANHO2);
         field6 = new JTextField();
         field6.setPreferredSize(Campo2_TAMANHO);
 
@@ -265,20 +237,12 @@ public class JanelaAber extends JFrame {
 
         JButton btnMoveRight1;
         JPanel panel5 = new JPanel();
-        if (dc.getLinguagem() == 1) {
-            btnMoveRight1 = new JButton("Confirm");
-        } else {
-            btnMoveRight1 = new JButton("Confirmar");
-        }
+        btnMoveRight1 = new JButton(mensagens.getString("confirmar"));
         if (flag == true) {
 
             flag = false;
 
-            if (dc.getLinguagem() == 1) {
-                btnMoveRight1 = new JButton("Confirm");
-            } else {
-                btnMoveRight1 = new JButton("Confirmar");
-            }
+            btnMoveRight1 = new JButton(mensagens.getString("confirmar"));
             btnMoveRight1.addActionListener(new ActionListener() {
 
                 @Override
@@ -308,7 +272,7 @@ public class JanelaAber extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
 
-                            JanelaAber jan = new JanelaAber(dc, js, false, posi);
+                            JanelaAber jan = new JanelaAber(mensagens.getString("dadosaber"),dc, js, false, posi);
                             Abertu aber = lim.getListaAberturas().get(posi);
 
                             jan.field1.setSelectedItem(field1.getSelectedItem());
@@ -350,7 +314,7 @@ public class JanelaAber extends JFrame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
 
-                            JanelaAber jan = new JanelaAber(dc, js, false, posi);
+                            JanelaAber jan = new JanelaAber(mensagens.getString("dadosaber"),dc, js, false, posi);
                             Abertu aber = lim.getListaAberturas().get(posi);
 
                             jan.field1.setSelectedItem(field1.getSelectedItem());
