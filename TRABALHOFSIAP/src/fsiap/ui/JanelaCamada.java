@@ -288,13 +288,17 @@ public class JanelaCamada extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Camada cam = new Camada(dc);
-                    cam.setAltura(Double.parseDouble(field3.getText()));
-                    cam.setLargura(Double.parseDouble(field4.getText()));
+                    Limite lim = (Limite) field1.getSelectedItem();
+//                    Camada cam = new Camada(dc);
+//                    cam.setAltura(Double.parseDouble(field3.getText()));
+//                    cam.setLargura(Double.parseDouble(field4.getText()));
+//                    cam.setMaterialPeloNome(field2.getSelectedItem().toString());
+//                    cam.setEspessura(Double.parseDouble(field6.getText()));
+                    Camada cam =  new Camada(dc);
                     cam.setMaterialPeloNome(field2.getSelectedItem().toString());
+                    cam.setLimite(lim);
                     cam.setEspessura(Double.parseDouble(field6.getText()));
                     
-                    Limite lim = (Limite) field1.getSelectedItem();
                     lim.addCamada(cam);
                     
                     posi = lim.getListaCamadas().size() - 1;
@@ -335,8 +339,8 @@ public class JanelaCamada extends JFrame {
                     Limite lim = (Limite) field1.getSelectedItem();
                     Camada cam = lim.getListaCamadas().get(posi);
 
-                    cam.setAltura(Double.parseDouble(field3.getText()));
-                    cam.setLargura(Double.parseDouble(field4.getText()));
+//                    cam.setAltura(Double.parseDouble(field3.getText()));
+//                    cam.setLargura(Double.parseDouble(field4.getText()));
                     cam.setEspessura(Double.parseDouble(field6.getText()));
                     cam.setMaterialPeloNome(field2.getSelectedItem().toString());
                     

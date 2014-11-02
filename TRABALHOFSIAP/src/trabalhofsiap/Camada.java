@@ -13,40 +13,28 @@ package trabalhofsiap;
 public class Camada implements java.io.Serializable{
 
     private Material material;
-    private double altura, largura, espessura;
+    private Limite limite;
+    private double altura, largura, espessura, area;
     private SimController dc;
-    private Aluminio al ;
-    private Madeira ma;
-    private Betao be;
-    private Vidro vi;
-    private Ar a;
 
-    public Camada(Material material, double altura, double largura, double espessura,SimController d) {
+    public Camada(Material material, double altura, double largura, double espessura, SimController d) {
         this.material = material;
-
-        this.altura = altura;
-        this.largura = largura;
         this.espessura = espessura;
         this.dc=d;
-        this.al = new Aluminio(dc) ;
-        this.ma = new Madeira(dc);
-        this.be = new Betao(dc);
-        this.vi = new Vidro(dc);
-        this.a = new Ar(dc);
+    }
+    
+    public Camada(Material material, Limite l, double espessura, SimController d) {
+        this.material = material;
+
+        this.limite = l;
+        this.espessura = espessura;
+        this.dc=d;
     }
 
     public Camada(SimController d) {
         this.material = new Material();
-        
-        this.altura = 0;
-        this.largura = 0;
         this.espessura = 0;
         this.dc=d;
-        this.al = new Aluminio(dc) ;
-        this.ma = new Madeira(dc);
-        this.be = new Betao(dc);
-        this.vi = new Vidro(dc);
-        this.a = new Ar(dc);
     }
 
     public Material getMaterial() {
@@ -56,49 +44,30 @@ public class Camada implements java.io.Serializable{
     public double getEspessura() {
         return espessura;
     }
-
+    
+     /**
+     * Multiplica a altura pela largura 
+     * @return area da abertura
+     */
+    public double getArea(){
+        return limite.getArea();
+    }
 
     public double getAltura() {
-        return altura;
+        return getLimite().getAltura();
     }
 
     public double getLargura() {
-        return largura;
+        return getLimite().getLargura();
     }
-
     public void setMaterial(Material material) {
         this.material = material;
     }
 
     public void setMaterialPeloNome(String tipo) {
-        if (tipo.equals(vi.getNome())) {
-            this.material = new Vidro(dc);
-        } else {
-            if (tipo.equals(be.getNome())) {
-                this.material = new Betao(dc);
-            } else {
-                if (tipo.equals(al.getNome())) {
-                    this.material = new Aluminio(dc);
-                } else {
-                    if (tipo.equals(a.getNome())) {
-                        this.material = new Ar(dc);
-                    } else {
-                        if (tipo.equals(ma.getNome())) {
-                            this.material = new Madeira(dc);
-                        }
-                    }
-                }
-            }
-        }
+        this.material = dc.getMaterialpeloNome(tipo);
     }
-
-    public void setAltura(double altura) {
-        this.altura = altura;
-    }
-
-    public void setLargura(double largura) {
-        this.largura = largura;
-    }
+    
 
     public void setEspessura(double espessura) {
         this.espessura = espessura;
@@ -108,6 +77,21 @@ public class Camada implements java.io.Serializable{
     public String toString() {
         return  material.getNome() + " | "+altura  + " | "+largura +" | "+ espessura;
     }
+
+    /**
+     * @return the limite
+     */
+    public Limite getLimite() {
+        return limite;
+    }
+
+    /**
+     * @param limite the limite to set
+     */
+    public void setLimite(Limite limite) {
+        this.limite = limite;
+    }
+  
 
 }
 

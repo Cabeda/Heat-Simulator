@@ -162,8 +162,7 @@ public class Janela extends JFrame {
                         pais = new String("EN");
                         currentLocale = new Locale(lingua, pais);
                         dc.setMensagens(currentLocale);
-                        // Para Retirar quando of ficheiros propeties tiverem feitos.
-                        dc.setLinguagem(1);
+                        dc.criarListaMaterial();
                         JanelaSimu jd = new JanelaSimu(null, dc);
                         Janela.this.dispose();
             }
@@ -191,8 +190,7 @@ public class Janela extends JFrame {
                         pais = new String("PT");
                         currentLocale = new Locale(lingua, pais);
                         dc.setMensagens(currentLocale);
-                        // Para Retirar quando of ficheiros propeties tiverem feitos.
-                        dc.setLinguagem(2);
+                        dc.criarListaMaterial();
                         JanelaSimu jd = new JanelaSimu(null, dc);
                         Janela.this.dispose();
                     }

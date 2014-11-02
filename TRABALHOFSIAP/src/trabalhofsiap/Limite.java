@@ -15,7 +15,7 @@ import java.util.List;
 public class Limite implements java.io.Serializable {
 
     private String tipo;
-    private double altura, largura;
+    private double altura, largura, area;
     private SimController dc;
     private List<Abertu> listaAberturas;
     private List<Camada> listaCamadas;
@@ -24,29 +24,29 @@ public class Limite implements java.io.Serializable {
         this.tipo = tipo;
         this.altura = altura;
         this.largura = largura;
+        this.area = altura*largura;
         this.dc = d;
         listaAberturas = new ArrayList<Abertu>();
         listaCamadas = new ArrayList<>();
-
     }
 
     public Limite(String tipo, SimController d) {
         this.tipo = tipo;
         this.altura = altura;
         this.largura = largura;
+        this.area = altura*largura;
         this.dc = d;
         listaAberturas = new ArrayList<Abertu>();
         listaCamadas = new ArrayList<>();
-
     }
 
     public Limite(SimController d) {
         this.altura = 0;
         this.largura = 0;
         this.dc = d;
+        this.area = altura*largura;
         listaAberturas = new ArrayList<Abertu>();
         listaCamadas = new ArrayList<>();
-
     }
 
     public String getTipo() {
@@ -82,12 +82,26 @@ public class Limite implements java.io.Serializable {
 
     public void addCamada(Camada c) {
         listaCamadas.add(c);
-        
+    }
+    /**
+     * Devolve a area do limite
+     * @return area (altura x largura)
+     */
+    public double getArea(){
+        return area;
+    }
+    
+    /**
+     * Modifica a área do limite
+     * @param area 
+     */
+    public void setArea(double area){
+        this.area = area;
     }
     
     public void addAbertura(Abertu a) {
         listaAberturas.add(a);
-        
+        setArea(this.area-a.getArea());
     }
 
     @Override

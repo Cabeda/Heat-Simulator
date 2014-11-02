@@ -9,37 +9,27 @@ package trabalhofsiap;
  *
  * @author Jecabeda
  */
-public class Abertu implements java.io.Serializable{
-        private Material material;
-        private double altura, largura, espessura;
-        
-        private SimController dc;
-        private Aluminio al;
-        private Madeira ma;
-        private Betao be;
-        private Vidro vi;
-        private Ar a;
+public class Abertu implements java.io.Serializable {
 
-public Abertu(SimController d) {
-        this.altura=0;
-        this.largura=0;
-        this.espessura=0;
-        this.material=new Material();
-        this.dc=d;
-        this.al = new Aluminio(dc) ;
-        this.ma = new Madeira(dc);
-        this.be = new Betao(dc);
-        this.vi = new Vidro(dc);
-        this.a = new Ar(dc);
+    private Material material;
+    private double altura, largura, espessura;
+
+    private SimController dc;
+
+    public Abertu(SimController d) {
+        this.altura = 0;
+        this.largura = 0;
+        this.espessura = 0;
+        this.material = new Material();
+        this.dc = d;
     }
 
-  
     public void setLargura(double la) {
-        this.largura=la;
+        this.largura = la;
     }
-    
+
     public void setAltura(double al) {
-        this.altura=al;
+        this.altura = al;
     }
 
     /**
@@ -53,10 +43,18 @@ public Abertu(SimController d) {
         return espessura;
     }
 
+    /**
+     * Multiplica a altura pela largura
+     *
+     * @return area da abertura
+     */
+    public double getArea() {
+        return altura * largura;
+    }
+
     public void setEspessura(double espessura) {
         this.espessura = espessura;
     }
-    
 
     /**
      * @param material the material to set
@@ -64,28 +62,9 @@ public Abertu(SimController d) {
     public void setMaterial(Material material) {
         this.material = material;
     }
-    
-        public void setMaterialPeloNome(String tipo) {
-        if(tipo==vi.getNome())
-        {
-            this.material=new Vidro(dc);
-        } else{
-            if(tipo==be.getNome()){
-                this.material= new Betao(dc);
-            } else{
-            if(tipo==al.getNome()){
-                this.material= new Aluminio(dc);
-            } else{
-            if(tipo==a.getNome()){
-                this.material= new Ar(dc);
-            } else{
-            if(tipo==ma.getNome()){
-                this.material= new Madeira(dc);
-            }
-        }
-        }
-        }
-        }
+
+     public void setMaterialPeloNome(String tipo) {
+        this.material = dc.getMaterialpeloNome(tipo);
     }
 
     /**
@@ -102,10 +81,10 @@ public Abertu(SimController d) {
         return largura;
     }
 
-        @Override
-    public String toString(){
+    @Override
+    public String toString() {
 
-        return this.material.getNome()+" | "+this.altura+" | "+this.largura+" | "+" | "+this.espessura;
-    }    
-    
+        return this.material.getNome() + " | " + this.altura + " | " + this.largura + " | " + " | " + this.espessura;
+    }
+
 }

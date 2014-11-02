@@ -16,8 +16,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
@@ -30,6 +32,7 @@ public class SimController implements Serializable {
     int numPessoas, numAparelhos;
     float temperaturaEx, temperaturaPre;
     private List<Limite> listaLim;
+    private Map<String, Material> listaMaterial;
     private int cint, cint2, lingua;
     ResourceBundle mensagens;
 
@@ -46,7 +49,8 @@ public class SimController implements Serializable {
         this.listaLim = listaLim;
         this.cint = 0;
         this.cint2 = 0;
-        mensagens = ResourceBundle.getBundle("MensagensBundle",new Locale("pt","PT"));
+        listaMaterial= new HashMap<String,Material>(); 
+        mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
     }
 
     public SimController() {
@@ -60,7 +64,8 @@ public class SimController implements Serializable {
         this.listaLim = new ArrayList();
         this.cint = 0;
         this.cint2 = 0;
-         mensagens = ResourceBundle.getBundle("MensagensBundle",new Locale("pt","PT"));
+listaMaterial= new HashMap<String,Material>(); 
+        mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
     }
 
     public SimController(SimController dc) {
@@ -73,7 +78,8 @@ public class SimController implements Serializable {
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         this.potenciaMedia = dc.potenciaMedia;
-        mensagens = ResourceBundle.getBundle("MensagensBundle",new Locale("pt","PT"));
+        listaMaterial= new HashMap<String,Material>(); 
+        mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
 
     }
 
@@ -165,26 +171,26 @@ public class SimController implements Serializable {
         cint++;
     }
 
-    public List<Abertu> getListaAberturas(){
+    public List<Abertu> getListaAberturas() {
         List<Abertu> temp = new ArrayList();
-        for(Limite lim: listaLim){
-            for(Abertu aber : lim.getListaAberturas())
-            {
+        for (Limite lim : listaLim) {
+            for (Abertu aber : lim.getListaAberturas()) {
                 temp.add(aber);
             }
         }
         return temp;
     }
-    public List<Camada> getListaCamadas(){
+
+    public List<Camada> getListaCamadas() {
         List<Camada> temp = new ArrayList();
-        for(Limite lim: listaLim){
-            for(Camada cam : lim.getListaCamadas())
-            {
+        for (Limite lim : listaLim) {
+            for (Camada cam : lim.getListaCamadas()) {
                 temp.add(cam);
             }
         }
         return temp;
     }
+
     public void altLim(Limite listaLim2) {
         for (Limite listaLim1 : listaLim) {
             if (listaLim1.equals(listaLim2)) {
@@ -199,10 +205,10 @@ public class SimController implements Serializable {
     @Override
     public String toString() {
 
-        return mensagens.getString("comprimento")+":" + comprimento + ", "+mensagens.getString("largura")+":"+ largura +", "+ mensagens.getString("altura")+":"
-                + altura + ", "+mensagens.getString("areaTotal")+":"+ areaTotal + ", "+mensagens.getString("potenciaMedia")+":"+
-                + potenciaMedia + ", "+mensagens.getString("numPessoas")+":"+ numPessoas + ", "+mensagens.getString("temperatura")+":"
-                + temperaturaEx + ", "+mensagens.getString("numAparelhos")+":"+ numAparelhos;
+        return mensagens.getString("comprimento") + ":" + comprimento + ", " + mensagens.getString("largura") + ":" + largura + ", " + mensagens.getString("altura") + ":"
+                + altura + ", " + mensagens.getString("areaTotal") + ":" + areaTotal + ", " + mensagens.getString("potenciaMedia") + ":"
+                + +potenciaMedia + ", " + mensagens.getString("numPessoas") + ":" + numPessoas + ", " + mensagens.getString("temperatura") + ":"
+                + temperaturaEx + ", " + mensagens.getString("numAparelhos") + ":" + numAparelhos;
     }
 
     public String calcular() {
@@ -224,46 +230,46 @@ public class SimController implements Serializable {
     public void criarFicheiroHTML(String f) throws IOException {
 
         try {
-            File fich = new File(f + "\\"+mensagens.getString("resultados")+".html");
+            File fich = new File(f + "\\" + mensagens.getString("resultados") + ".html");
             BufferedWriter out = new BufferedWriter(new FileWriter(fich));
             out.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
-            out.write("<title>"+mensagens.getString("resultados")+":"+"</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<h1>"+mensagens.getString("parametros") +":"+"</h1>\n");
-            out.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
+            out.write("<script type=\"text/javascript\" src=\"./" + mensagens.getString("resultados") + "_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles(1).php\">\n");
+            out.write("<title>" + mensagens.getString("resultados") + ":" + "</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+                    + "</div>\n" + "<hr>\n" + "<h1>" + mensagens.getString("parametros") + ":" + "</h1>\n");
+            out.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             out.write("<hr>\n</body></html>");
             out.close();
 
-            File dim = new File(f + "\\"+mensagens.getString("dimTitulo")+".html");
+            File dim = new File(f + "\\" + mensagens.getString("dimTitulo") + ".html");
             BufferedWriter out2 = new BufferedWriter(new FileWriter(dim));
 
             out2.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out2.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
-            out2.write("<title>"+mensagens.getString("dimTitulo")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+            out2.write("<script type=\"text/javascript\" src=\"./" + mensagens.getString("resultados") + "_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles(1).php\">\n");
+            out2.write("<title>" + mensagens.getString("dimTitulo") + ":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n");
-            out2.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
-            out2.write("<h2>"+mensagens.getString("dimTitulo")+":</h2>" + "<h4>"+mensagens.getString("comprimento")+": " + getComprimento() + " m<br>"+mensagens.getString("altura")+": " + getAltura() + " m<br>"+mensagens.getString("largura") +": " + getLargura() + " m<br>"+ mensagens.getString("areaTotal") +": " + getAreaTotal() + " m&sup3;</h4>\n");
+            out2.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
+            out2.write("<h2>" + mensagens.getString("dimTitulo") + ":</h2>" + "<h4>" + mensagens.getString("comprimento") + ": " + getComprimento() + " m<br>" + mensagens.getString("altura") + ": " + getAltura() + " m<br>" + mensagens.getString("largura") + ": " + getLargura() + " m<br>" + mensagens.getString("areaTotal") + ": " + getAreaTotal() + " m&sup3;</h4>\n");
             out2.write("<hr>\n</body></html>");
             out2.close();
 
-            File lim = new File(f + "\\"+mensagens.getString("limites")+".html");
+            File lim = new File(f + "\\" + mensagens.getString("limites") + ".html");
             BufferedWriter out3 = new BufferedWriter(new FileWriter(lim));
 
             out3.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out3.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
-            out3.write("<title>"+mensagens.getString("limites")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+            out3.write("<script type=\"text/javascript\" src=\"./" + mensagens.getString("resultados") + "_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles(1).php\">\n");
+            out3.write("<title>" + mensagens.getString("limites") + ":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n");
-            out3.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
+            out3.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             int i = 1;
-            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>"+mensagens.getString("numero")+"</td>\n<td>"+mensagens.getString("tipo")+"</td>\n<td>"+mensagens.getString("material")+"</td>\n<td>"+mensagens.getString("altura")+" (m)</td>\n<td>"+mensagens.getString("largura")+" (m)</td>\n<td>"+mensagens.getString("espessura")+" (m)</td>\n</tr>");
+            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("tipo") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m)</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Camada ls : temp.getListaCamadas()) {
@@ -276,19 +282,19 @@ public class SimController implements Serializable {
             out3.write("<hr>\n</body></html>");
             out3.close();
 
-            File abe = new File(f + "\\"+mensagens.getString("aberturas")+".html");
+            File abe = new File(f + "\\" + mensagens.getString("aberturas") + ".html");
             BufferedWriter out4 = new BufferedWriter(new FileWriter(abe));
 
             out4.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out4.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles(1).php\">\n");
-            out4.write("<title>"+mensagens.getString("aberturas")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+            out4.write("<script type=\"text/javascript\" src=\"./" + mensagens.getString("resultados") + "_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles(1).php\">\n");
+            out4.write("<title>" + mensagens.getString("aberturas") + ":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n");
-            out4.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\""+mensagens.getString("outros")+".html\">"+mensagens.getString("outros")+"</a></li>\n" + "</ul>");
+            out4.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             i = 1;
-            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>"+mensagens.getString("numero")+"</td>\n<td>"+mensagens.getString("tipo")+"</td>\n<td>"+mensagens.getString("material")+"</td>\n<td>"+mensagens.getString("altura")+" (m)</td>\n<td>"+mensagens.getString("largura")+" (m)</td>\n<td>"+mensagens.getString("espessura")+" (m)</td>\n</tr>");
+            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("tipo") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m)</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Abertu ls : temp.getListaAberturas()) {
@@ -301,20 +307,20 @@ public class SimController implements Serializable {
             out4.write("<hr>\n</body></html>");
             out4.close();
 
-            File outro = new File(f + "\\"+mensagens.getString("outros")+".html");
+            File outro = new File(f + "\\" + mensagens.getString("outros") + ".html");
             BufferedWriter out5 = new BufferedWriter(new FileWriter(outro));
             out5.write("<!DOCTYPE html PUBLIC " + "\"-//W3C//DTD HTML 4.01 Transitional//EN\"" + "\"http://www.w3.org/TR/html4/loose.dtd\">\n"
                     + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">" + "\n");
-            out5.write("<script type=\"text/javascript\" src=\"./"+mensagens.getString("resultados")+"_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n"
-                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./"+mensagens.getString("resultados")+"/styles(1).php\">\n");
-            out5.write("<title>"+mensagens.getString("resultados")+":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<h1>"+mensagens.getString("parametros")+":</h1>\n");
-            out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">"+mensagens.getString("home")+"</a></li>\n" + "  <li><a href=\"dimensoes.html\">"+mensagens.getString("dimTitulo")+"</a></li>\n" + "  <li><a href=\"limites.html\">"+mensagens.getString("limites")+"</a></li>\n" + "  <li><a href=\"aberturas.html\">"+mensagens.getString("aberturas")+"</a></li>\n" + "</ul>");
-            out5.write("<h4>"+mensagens.getString("numPessoas")+" : " + getNumPessoas() + "</h4>\n");
-            out5.write("<h4>"+mensagens.getString("numAparelhos")+" : " + getNumAparelhos() + "</h4>\n");
-            out5.write("<h4>"+mensagens.getString("potenciaMedia")+" : " + getPotenciaMedia() + " Wh</h4>\n");
-            out5.write("<h4>"+mensagens.getString("temperaturaExt")+" : " + getTemperaturaEx() + " &deg;C</h4>\n");
-            out5.write("<h4>"+mensagens.getString("temperaturadesej") +": " + getTemperaturaPre() + " &deg;C</h4>\n");
+            out5.write("<script type=\"text/javascript\" src=\"./" + mensagens.getString("resultados") + "_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n"
+                    + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "/styles(1).php\">\n");
+            out5.write("<title>" + mensagens.getString("resultados") + ":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
+                    + "</div>\n" + "<hr>\n" + "<h1>" + mensagens.getString("parametros") + ":</h1>\n");
+            out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"dimensoes.html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"limites.html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"aberturas.html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "</ul>");
+            out5.write("<h4>" + mensagens.getString("numPessoas") + " : " + getNumPessoas() + "</h4>\n");
+            out5.write("<h4>" + mensagens.getString("numAparelhos") + " : " + getNumAparelhos() + "</h4>\n");
+            out5.write("<h4>" + mensagens.getString("potenciaMedia") + " : " + getPotenciaMedia() + " Wh</h4>\n");
+            out5.write("<h4>" + mensagens.getString("temperaturaExt") + " : " + getTemperaturaEx() + " &deg;C</h4>\n");
+            out5.write("<h4>" + mensagens.getString("temperaturadesej") + ": " + getTemperaturaPre() + " &deg;C</h4>\n");
 
             out5.write("<hr>\n</body></html>");
             out5.close();
@@ -416,6 +422,7 @@ public class SimController implements Serializable {
     public void setListaLim(List<Limite> listaLim) {
         this.listaLim = listaLim;
     }
+
     /**
      * @return the mensagens
      */
@@ -427,7 +434,28 @@ public class SimController implements Serializable {
      * @param mensagens the mensagens to set
      */
     public void setMensagens(Locale currentLocale) {
-        this.mensagens = ResourceBundle.getBundle("MensagensBundle",currentLocale);
+        this.mensagens = ResourceBundle.getBundle("MensagensBundle", currentLocale);
+        
+    }
+
+    /**
+     * @return the listaMaterial
+     */
+    public Material getMaterialpeloNome(String tipo) {
+        return listaMaterial.get(tipo);
+    }
+
+    /**
+     * @param listaMaterial the listaMaterial to set
+     */
+    public void criarListaMaterial() {
+        listaMaterial.put(mensagens.getString("aluminio"),new Aluminio(this));
+        listaMaterial.put(mensagens.getString("ar"), new Ar(this));
+        listaMaterial.put(mensagens.getString("betao"), new Betao(this));
+        listaMaterial.put(mensagens.getString("cimento"), new Cimento(this));
+        listaMaterial.put(mensagens.getString("madeira"), new Madeira(this));
+        listaMaterial.put(mensagens.getString("tijolo"), new Tijolo(this));
+        listaMaterial.put(mensagens.getString("vidro"), new Vidro(this));
     }
 
 }

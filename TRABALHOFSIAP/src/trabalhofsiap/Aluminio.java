@@ -15,7 +15,7 @@ public class Aluminio extends Material implements Serializable{
     
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
     public Aluminio(SimController dc) {
-        super( 237,dc.getMensagens().getString("aluminio"));
+        super(237, dc.getMensagens().getString("aluminio"));
         this.dc=dc;
     }
     
