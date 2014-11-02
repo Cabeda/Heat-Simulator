@@ -51,6 +51,7 @@ import trabalhofsiap.SimController;
 public class JanelaSimu extends JDialog {
 
     public Icon icon = new ImageIcon("icon_device_settings.gif");
+    public Icon icon2 = new ImageIcon("delete.png");
     private String fechar = "nao";
     private String resultado = "";
     private JTextField field1;

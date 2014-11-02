@@ -316,8 +316,11 @@ public class JanelaCamada extends JFrame {
                             JLabel b = new JLabel(cam.toString());
                             JButton c = new JButton(js.icon);
                             c.setPreferredSize(BTN_TAMANHO);
+                            JButton d = new JButton(js.icon2);
+                            d.setPreferredSize(BTN_TAMANHO);
                             a.add(b);
                             a.add(c);
+                            a.add(d);
                             js.jpanel3.add(a);
                             js.jpanel3.revalidate();
 
@@ -335,6 +338,21 @@ public class JanelaCamada extends JFrame {
                                     jan.field3.setText(Double.toString(lim.getAltura()));
                                     jan.field4.setText(Double.toString(lim.getLargura()));
                                     jan.field6.setText("" + cam.getEspessura());
+                                }
+                            });
+
+                            d.addActionListener(new ActionListener() {
+
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    Camada cam = lim.getListaCamadas().get(posi);
+                                    lim.getListaCamadas().remove(cam);
+                                    js.jpanel3.remove(posi);
+                                    js.jpanel3.revalidate();
+                                    js.revalidate();
+                                    js.repaint();
+
                                 }
                             });
 
@@ -375,6 +393,8 @@ public class JanelaCamada extends JFrame {
                             JLabel b = new JLabel(cam.toString());
                             JButton c = new JButton(js.icon);
                             c.setPreferredSize(BTN_TAMANHO);
+                            JButton d = new JButton(js.icon2);
+                            d.setPreferredSize(BTN_TAMANHO);
                             c.addActionListener(new ActionListener() {
 
                                 @Override
@@ -392,8 +412,26 @@ public class JanelaCamada extends JFrame {
 
                                 }
                             });
+                            
+                            
+                            d.addActionListener(new ActionListener() {
+
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    Camada cam = lim.getListaCamadas().get(posi);
+                                    lim.getListaCamadas().remove(cam);
+                                    js.jpanel3.remove(posi);
+                                    js.jpanel3.revalidate();
+                                    js.revalidate();
+                                    js.repaint();
+
+                                }
+                            });
+                            
                             a.add(b);
                             a.add(c);
+                            a.add(d);
 
                             js.jpanel3.remove(posi);
                             js.jpanel3.add(a, posi);
