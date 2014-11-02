@@ -1,0 +1,1 @@
+![Planeamento.jpg](https://bitbucket.org/repo/doqoR8/images/3190455066-Planeamento.jpg)
