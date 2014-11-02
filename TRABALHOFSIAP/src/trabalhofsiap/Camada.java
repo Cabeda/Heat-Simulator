@@ -5,12 +5,11 @@
  */
 package trabalhofsiap;
 
-
 /**
  *
  * @author Jecabeda
  */
-public class Camada implements java.io.Serializable{
+public class Camada implements java.io.Serializable {
 
     private Material material;
     private Limite limite;
@@ -20,21 +19,21 @@ public class Camada implements java.io.Serializable{
     public Camada(Material material, double altura, double largura, double espessura, SimController d) {
         this.material = material;
         this.espessura = espessura;
-        this.dc=d;
+        this.dc = d;
     }
-    
+
     public Camada(Material material, Limite l, double espessura, SimController d) {
         this.material = material;
 
         this.limite = l;
         this.espessura = espessura;
-        this.dc=d;
+        this.dc = d;
     }
 
     public Camada(SimController d) {
         this.material = new Material();
         this.espessura = 0;
-        this.dc=d;
+        this.dc = d;
     }
 
     public Material getMaterial() {
@@ -44,12 +43,13 @@ public class Camada implements java.io.Serializable{
     public double getEspessura() {
         return espessura;
     }
-    
-     /**
-     * Multiplica a altura pela largura 
+
+    /**
+     * Multiplica a altura pela largura
+     *
      * @return area da abertura
      */
-    public double getArea(){
+    public double getArea() {
         return limite.getArea();
     }
 
@@ -60,6 +60,7 @@ public class Camada implements java.io.Serializable{
     public double getLargura() {
         return getLimite().getLargura();
     }
+
     public void setMaterial(Material material) {
         this.material = material;
     }
@@ -67,7 +68,6 @@ public class Camada implements java.io.Serializable{
     public void setMaterialPeloNome(String tipo) {
         this.material = dc.getMaterialpeloNome(tipo);
     }
-    
 
     public void setEspessura(double espessura) {
         this.espessura = espessura;
@@ -75,7 +75,7 @@ public class Camada implements java.io.Serializable{
 
     @Override
     public String toString() {
-        return  material.getNome() + " | "+altura  + " | "+largura +" | "+ espessura;
+        return material.getNome() + " | " + limite.getAltura() + " | " + limite.getLargura() + " | " + espessura;
     }
 
     /**
@@ -91,7 +91,5 @@ public class Camada implements java.io.Serializable{
     public void setLimite(Limite limite) {
         this.limite = limite;
     }
-  
 
 }
-

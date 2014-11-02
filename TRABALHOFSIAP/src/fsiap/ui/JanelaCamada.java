@@ -63,12 +63,12 @@ public class JanelaCamada extends JFrame {
     private Ar a;
     private Abertu alt;
 
-    public JanelaCamada(String titulo, SimController d,JanelaSimu js, boolean f, int po) {
+    public JanelaCamada(String titulo, SimController d, JanelaSimu js, boolean f, int po) {
         super(titulo);
 
         mensagens = d.getMensagens();
-        
-        this.js=js;
+
+        this.js = js;
         this.dc = d;
         this.flag = f;
         this.posi = po;
@@ -147,11 +147,11 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
-        
+
         panel1.add(label1);
         panel1.add(field1);
 
@@ -162,15 +162,14 @@ public class JanelaCamada extends JFrame {
         field2 = new JComboBox(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
         field2.setSelectedIndex(-1);
-        
-        
-        
+
         panel2.add(label2);
         panel2.add(field2);
 
         JPanel panel3 = new JPanel();
         JLabel label3;
         label3 = new JLabel(mensagens.getString("comprimento"), JLabel.RIGHT);
+        JLabel l1 = new JLabel("m", JLabel.LEFT);
         label3.setPreferredSize(LABEL_TAMANHO2);
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
@@ -209,16 +208,18 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
         panel3.add(label3);
         panel3.add(field3);
+        panel3.add(l1);
 
         JPanel panel4 = new JPanel();
         JLabel label4;
         label4 = new JLabel(mensagens.getString("largura"), JLabel.RIGHT);
+        JLabel l2 = new JLabel("m", JLabel.LEFT);
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setEditable(false);
@@ -257,23 +258,26 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
 
         panel4.add(label4);
         panel4.add(field4);
+        panel4.add(l2);
 
         JPanel panel6 = new JPanel();
         JLabel label6;
         label6 = new JLabel(mensagens.getString("espessura"), JLabel.RIGHT);
+        JLabel l3 = new JLabel("m", JLabel.LEFT);
         label6.setPreferredSize(LABEL_TAMANHO2);
         field6 = new JTextField();
         field6.setPreferredSize(Campo2_TAMANHO);
 
         panel6.add(label6);
         panel6.add(field6);
+        panel6.add(l3);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1;
@@ -288,46 +292,77 @@ public class JanelaCamada extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Limite lim = (Limite) field1.getSelectedItem();
+
+                    try {
+
+                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
+
+                            Limite lim = (Limite) field1.getSelectedItem();
 //                    Camada cam = new Camada(dc);
 //                    cam.setAltura(Double.parseDouble(field3.getText()));
 //                    cam.setLargura(Double.parseDouble(field4.getText()));
 //                    cam.setMaterialPeloNome(field2.getSelectedItem().toString());
 //                    cam.setEspessura(Double.parseDouble(field6.getText()));
-                    Camada cam =  new Camada(dc);
-                    cam.setMaterialPeloNome(field2.getSelectedItem().toString());
-                    cam.setLimite(lim);
-                    cam.setEspessura(Double.parseDouble(field6.getText()));
-                    
-                    lim.addCamada(cam);
-                    
-                    posi = lim.getListaCamadas().size() - 1;
-                    dispose();
-                    JPanel a = new JPanel(new FlowLayout());
-                    JLabel b = new JLabel(cam.toString());
-                    JButton c = new JButton(js.icon);
-                    c.setPreferredSize(BTN_TAMANHO);
-                    a.add(b);
-                    a.add(c);
-                    js.jpanel3.add(a);
-                    js.jpanel3.revalidate();
+                            Camada cam = new Camada(dc);
+                            cam.setMaterialPeloNome(field2.getSelectedItem().toString());
+                            cam.setLimite(lim);
+                            cam.setEspessura(Double.parseDouble(field6.getText()));
 
-                    c.addActionListener(new ActionListener() {
+                            lim.addCamada(cam);
 
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
+                            posi = lim.getListaCamadas().size() - 1;
+                            dispose();
+                            JPanel a = new JPanel(new FlowLayout());
+                            JLabel b = new JLabel(cam.toString());
+                            JButton c = new JButton(js.icon);
+                            c.setPreferredSize(BTN_TAMANHO);
+                            JButton d = new JButton(js.icon2);
+                            d.setPreferredSize(BTN_TAMANHO);
+                            a.add(b);
+                            a.add(c);
+                            a.add(d);
+                            js.jpanel3.add(a);
+                            js.jpanel3.revalidate();
 
-                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"),dc, js, false, posi);
-                            Camada cam = lim.getListaCamadas().get(posi);
+                            c.addActionListener(new ActionListener() {
 
-                            jan.field1.setSelectedItem(field1.getSelectedItem());
-                            jan.field1.setEnabled(false);
-                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                            jan.field3.setText(Double.toString(lim.getAltura()));
-                            jan.field4.setText(Double.toString(lim.getLargura()));
-                            jan.field6.setText("" + cam.getEspessura());
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, js, false, posi);
+                                    Camada cam = lim.getListaCamadas().get(posi);
+
+                                    jan.field1.setSelectedItem(field1.getSelectedItem());
+                                    jan.field1.setEnabled(false);
+                                    jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                    jan.field3.setText(Double.toString(lim.getAltura()));
+                                    jan.field4.setText(Double.toString(lim.getLargura()));
+                                    jan.field6.setText("" + cam.getEspessura());
+                                }
+                            });
+
+                            d.addActionListener(new ActionListener() {
+
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    Camada cam = lim.getListaCamadas().get(posi);
+                                    lim.getListaCamadas().remove(cam);
+                                    js.jpanel3.remove(posi);
+                                    js.jpanel3.revalidate();
+                                    js.revalidate();
+                                    js.repaint();
+
+                                }
+                            });
+
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Preencha todos os dados", "Erro", JOptionPane.INFORMATION_MESSAGE);
                         }
-                    });
+
+                    } catch (Exception error) {
+                        JOptionPane.showMessageDialog(rootPane, "Dados inválidos", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                    }
 
                 }
             });
@@ -336,48 +371,78 @@ public class JanelaCamada extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Limite lim = (Limite) field1.getSelectedItem();
-                    Camada cam = lim.getListaCamadas().get(posi);
+
+                    try {
+
+                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
+                            Limite lim = (Limite) field1.getSelectedItem();
+                            Camada cam = lim.getListaCamadas().get(posi);
 
 //                    cam.setAltura(Double.parseDouble(field3.getText()));
 //                    cam.setLargura(Double.parseDouble(field4.getText()));
-                    cam.setEspessura(Double.parseDouble(field6.getText()));
-                    cam.setMaterialPeloNome(field2.getSelectedItem().toString());
-                    
+                            cam.setEspessura(Double.parseDouble(field6.getText()));
+                            cam.setMaterialPeloNome(field2.getSelectedItem().toString());
 
-                    lim.getListaCamadas().set(posi, cam);
-                    
-                    js.revalidate();
-                    js.repaint();
-                    dispose();
+                            lim.getListaCamadas().set(posi, cam);
 
-                    JPanel a = new JPanel(new FlowLayout());
-                    JLabel b = new JLabel(cam.toString());
-                    JButton c = new JButton(js.icon);
-                    c.setPreferredSize(BTN_TAMANHO);
-                    c.addActionListener(new ActionListener() {
+                            js.revalidate();
+                            js.repaint();
+                            dispose();
 
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
+                            JPanel a = new JPanel(new FlowLayout());
+                            JLabel b = new JLabel(cam.toString());
+                            JButton c = new JButton(js.icon);
+                            c.setPreferredSize(BTN_TAMANHO);
+                            JButton d = new JButton(js.icon2);
+                            d.setPreferredSize(BTN_TAMANHO);
+                            c.addActionListener(new ActionListener() {
 
-                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"),dc, js, false, posi);
-                            Camada cam = lim.getListaCamadas().get(posi);
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, js, false, posi);
+                                    Camada cam = lim.getListaCamadas().get(posi);
+
+                                    jan.field1.setSelectedItem(field1.getSelectedItem());
+                                    jan.field1.setEnabled(false);
+                                    jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                    jan.field3.setText(Double.toString(lim.getAltura()));
+                                    jan.field4.setText(Double.toString(lim.getLargura()));
+                                    jan.field6.setText("" + cam.getEspessura());
+
+                                }
+                            });
                             
-                            jan.field1.setSelectedItem(field1.getSelectedItem());
-                            jan.field1.setEnabled(false);
-                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                            jan.field3.setText(Double.toString(lim.getAltura()));
-                            jan.field4.setText(Double.toString(lim.getLargura()));
-                            jan.field6.setText("" + cam.getEspessura());
+                            
+                            d.addActionListener(new ActionListener() {
 
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    Camada cam = lim.getListaCamadas().get(posi);
+                                    lim.getListaCamadas().remove(cam);
+                                    js.jpanel3.remove(posi);
+                                    js.jpanel3.revalidate();
+                                    js.revalidate();
+                                    js.repaint();
+
+                                }
+                            });
+                            
+                            a.add(b);
+                            a.add(c);
+                            a.add(d);
+
+                            js.jpanel3.remove(posi);
+                            js.jpanel3.add(a, posi);
+                            js.jpanel3.revalidate();
+
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, "Preencha todos os dados", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
                         }
-                    });
-                    a.add(b);
-                    a.add(c);
-                    
-                    js.jpanel3.remove(posi);
-                    js.jpanel3.add(a, posi);
-                    js.jpanel3.revalidate();
+                    } catch (Exception erro) {
+                        JOptionPane.showMessageDialog(rootPane, "Preencha os dados correctamente", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
+                    }
 
                 }
             });
@@ -395,6 +460,5 @@ public class JanelaCamada extends JFrame {
         getRootPane().setDefaultButton(btnMoveRight1);
         return panel;
     }
-
 
 }

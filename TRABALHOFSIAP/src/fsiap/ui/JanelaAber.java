@@ -206,6 +206,7 @@ public class JanelaAber extends JFrame {
         JPanel panel3 = new JPanel();
         JLabel label3;
         label3 = new JLabel(mensagens.getString("altura")+":", JLabel.RIGHT);
+        JLabel l1 = new JLabel("m", JLabel.LEFT);        
         label3.setPreferredSize(LABEL_TAMANHO2);
         field3 = new JTextField();
         field3.setPreferredSize(Campo2_TAMANHO);
@@ -213,10 +214,12 @@ public class JanelaAber extends JFrame {
 
         panel3.add(label3);
         panel3.add(field3);
+        panel3.add(l1);
 
         JPanel panel4 = new JPanel();
         JLabel label4;
         label4 = new JLabel(mensagens.getString("largura")+":", JLabel.RIGHT);
+        JLabel l2 = new JLabel("m", JLabel.LEFT);
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(Campo2_TAMANHO);
@@ -224,16 +227,19 @@ public class JanelaAber extends JFrame {
 
         panel4.add(label4);
         panel4.add(field4);
+        panel4.add(l2);
 
         JPanel panel6 = new JPanel();
         JLabel label6;
         label6 = new JLabel(mensagens.getString("espessura")+":", JLabel.RIGHT);
+        JLabel l3 = new JLabel("m", JLabel.LEFT);
         label6.setPreferredSize(LABEL_TAMANHO2);
         field6 = new JTextField();
         field6.setPreferredSize(Campo2_TAMANHO);
 
         panel6.add(label6);
         panel6.add(field6);
+        panel6.add(l3);
 
         JButton btnMoveRight1;
         JPanel panel5 = new JPanel();

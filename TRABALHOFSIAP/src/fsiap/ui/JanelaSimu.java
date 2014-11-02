@@ -51,6 +51,7 @@ import trabalhofsiap.SimController;
 public class JanelaSimu extends JDialog {
 
     public Icon icon = new ImageIcon("icon_device_settings.gif");
+    public Icon icon2 = new ImageIcon("delete.png");
     private String fechar = "nao";
     private String resultado = "";
     private JTextField field1;
@@ -478,8 +479,12 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                jt.setEnabledAt(3, true);
-                jt.setSelectedIndex(3);
+                if (dc.getListaAberturas().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Introduza pelo menos 1 Abertura", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    jt.setEnabledAt(3, true);
+                    jt.setSelectedIndex(3);
+                }
             }
         }
         );
@@ -707,6 +712,7 @@ public class JanelaSimu extends JDialog {
 
         panel1 = new JPanel();
         label1 = new JLabel(mensagens.getString("temperaturadesej") + ": ", JLabel.RIGHT);
+        JLabel l1 = new JLabel("ºC", JLabel.LEFT);
 
         label1.setPreferredSize(LABEL_TAMANHO2);
         JTextField field1 = new JTextField();
@@ -716,10 +722,12 @@ public class JanelaSimu extends JDialog {
         field1.setPreferredSize(CAMPO_TAMANHO);
         panel1.add(label1);
         panel1.add(field1);
+        panel1.add(l1);
 
         JPanel panel2 = new JPanel();
         JLabel label2;
         label2 = new JLabel(mensagens.getString("temperaturaExt"), JLabel.RIGHT);
+        JLabel l2 = new JLabel("ºC", JLabel.LEFT);
 
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
@@ -729,16 +737,27 @@ public class JanelaSimu extends JDialog {
         field2.setPreferredSize(CAMPO_TAMANHO);
         panel2.add(label2);
         panel2.add(field2);
+        panel2.add(l2);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dc.setTemperaturaPre(Integer.valueOf(field1.getText()));
-                dc.setTemperaturaEx(Integer.valueOf(field2.getText()));
-                jt.setSelectedIndex(6);
-                jt.setEnabledAt(6, true);
+                try {
+                    if (!field1.getText().equals("") && !field2.getText().equals("")) {
+                        dc.setTemperaturaPre(Integer.valueOf(field1.getText()));
+                        dc.setTemperaturaEx(Integer.valueOf(field2.getText()));
+                        jt.setSelectedIndex(6);
+                        jt.setEnabledAt(6, true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Preencha todos os dados", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (Exception erro) {
+
+                    JOptionPane.showMessageDialog(null, "Preencha os dados correctamente", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
+
+                }
             }
         }
         );
