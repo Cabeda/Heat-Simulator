@@ -12,6 +12,7 @@ package trabalhofsiap;
 public class Abertu implements java.io.Serializable {
 
     private Material material;
+    private Limite limite;
     private double altura, largura, espessura;
 
     private SimController dc;
@@ -85,6 +86,20 @@ public class Abertu implements java.io.Serializable {
     public String toString() {
 
         return this.material.getNome() + " | " + this.altura + " | " + this.largura + " | " + " | " + this.espessura;
+    }
+
+    /**
+     * @return the l
+     */
+    public Limite getLimite() {
+        return limite;
+    }
+
+    /**
+     * @param limite the l to set
+     */
+    public void setLimite(Limite limite) {
+        this.limite = limite;
     }
 
 }

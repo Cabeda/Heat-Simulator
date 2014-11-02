@@ -269,11 +269,11 @@ listaMaterial= new HashMap<String,Material>();
             out3.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             int i = 1;
-            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("tipo") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m)</td>\n</tr>");
+            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m)</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Camada ls : temp.getListaCamadas()) {
-                    out3.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" + "</td></tr>");
+                    out3.write("<tr>\n<td>" + i + "</td>\n<td>" +ls.getLimite().getTipo()+ "</td>\n<td>" +ls.getMaterial().getNome()+ "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" +ls.getEspessura()+ "</td></tr>");
                     i++;
                 }
             }
@@ -294,11 +294,11 @@ listaMaterial= new HashMap<String,Material>();
             out4.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             i = 1;
-            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("tipo") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m)</td>\n</tr>");
+            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m)</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Abertu ls : temp.getListaAberturas()) {
-                    out4.write("<tr>\n<td>" + i + "</td>\n<td>" + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
+                    out4.write("<tr>\n<td>" + i + "</td>\n<td>" +ls.getLimite().getTipo()+ "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
                     i++;
                 }
             }
@@ -315,7 +315,7 @@ listaMaterial= new HashMap<String,Material>();
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "/styles(1).php\">\n");
             out5.write("<title>" + mensagens.getString("resultados") + ":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n" + "<h1>" + mensagens.getString("parametros") + ":</h1>\n");
-            out5.write("<ul>\n" + "  <li><a href=\"Resultados.html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"dimensoes.html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"limites.html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"aberturas.html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "</ul>");
+            out5.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "</ul>");
             out5.write("<h4>" + mensagens.getString("numPessoas") + " : " + getNumPessoas() + "</h4>\n");
             out5.write("<h4>" + mensagens.getString("numAparelhos") + " : " + getNumAparelhos() + "</h4>\n");
             out5.write("<h4>" + mensagens.getString("potenciaMedia") + " : " + getPotenciaMedia() + " Wh</h4>\n");

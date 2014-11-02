@@ -40,7 +40,7 @@ public class ImportarFicheiro {
                             if (selectedFile.getName().contains(".bin")) {
                                 dc.introduzirDados(selectedFile);
                                 pai.dispose();
-                                JanelaSimu js = new JanelaSimu(null, dc);
+                                JanelaSimu js = new JanelaSimu(dc.getMensagens().getString("janelaSimuTitulo"),null, dc);
                             } else {
                                     JOptionPane.showMessageDialog(fileChooser, mensagens.getString("selecionarFicheiroInv"), mensagens.getString("importarFich"), JOptionPane.INFORMATION_MESSAGE);
                             }

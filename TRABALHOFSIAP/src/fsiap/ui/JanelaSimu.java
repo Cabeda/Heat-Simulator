@@ -78,9 +78,9 @@ public class JanelaSimu extends JDialog {
 
     private JTabbedPane jt = new JTabbedPane();
 
-    public JanelaSimu(JFrame pai, SimController d) {
+    public JanelaSimu(String titulo,JFrame pai, SimController d) {
 
-        super(pai, "Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
+        super(pai,titulo);
 
         mensagens = d.getMensagens();
 
@@ -218,7 +218,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -292,7 +292,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -367,7 +367,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -399,7 +399,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (field1.getText().equals("") || field2.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
                     jt.setEnabledAt(1, true);
@@ -480,7 +480,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (dc.getListaAberturas().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Introduza pelo menos 1 Abertura", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, mensagens.getString("peloMenos1Abert"),mensagens.getString("dadosInv"), JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     jt.setEnabledAt(3, true);
                     jt.setSelectedIndex(3);
@@ -751,11 +751,11 @@ public class JanelaSimu extends JDialog {
                         jt.setSelectedIndex(6);
                         jt.setEnabledAt(6, true);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Preencha todos os dados", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (Exception erro) {
 
-                    JOptionPane.showMessageDialog(null, "Preencha os dados correctamente", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
                 }
             }

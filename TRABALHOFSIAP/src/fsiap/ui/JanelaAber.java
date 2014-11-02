@@ -261,6 +261,7 @@ public class JanelaAber extends JFrame {
 
                     Limite lim = (Limite) field1.getSelectedItem();
                     lim.addAbertura(aber);
+                    aber.setLimite(lim);
 
                     posi = lim.getListaAberturas().size() - 1;
                     dispose();

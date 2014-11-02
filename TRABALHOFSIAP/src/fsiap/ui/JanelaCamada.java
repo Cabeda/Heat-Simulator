@@ -147,7 +147,7 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -208,7 +208,7 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -258,7 +258,7 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -357,11 +357,11 @@ public class JanelaCamada extends JFrame {
                             });
 
                         } else {
-                            JOptionPane.showMessageDialog(rootPane, "Preencha todos os dados", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane,mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
 
                     } catch (Exception error) {
-                        JOptionPane.showMessageDialog(rootPane, "Dados inválidos", "Erro", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
 
                 }
@@ -438,10 +438,10 @@ public class JanelaCamada extends JFrame {
                             js.jpanel3.revalidate();
 
                         } else {
-                            JOptionPane.showMessageDialog(rootPane, "Preencha todos os dados", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane,mensagens.getString("preenchaTudo"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
                     } catch (Exception erro) {
-                        JOptionPane.showMessageDialog(rootPane, "Preencha os dados correctamente", "Dados Inválidos", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
 
                 }

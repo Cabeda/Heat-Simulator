@@ -51,9 +51,8 @@ public class Janela extends JFrame {
     public Janela() throws IOException {
 
         super("Capacidade Térmica de uma Sala de Computadores/Heat Capacity of a Computer Room");
-
         dc = new SimController();
-
+        
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         menuBar.add(criarMenu());
@@ -163,7 +162,7 @@ public class Janela extends JFrame {
                         currentLocale = new Locale(lingua, pais);
                         dc.setMensagens(currentLocale);
                         dc.criarListaMaterial();
-                        JanelaSimu jd = new JanelaSimu(null, dc);
+                        JanelaSimu jd = new JanelaSimu(dc.getMensagens().getString("janelaSimuTitulo"),null, dc);
                         Janela.this.dispose();
             }
         });
@@ -191,7 +190,7 @@ public class Janela extends JFrame {
                         currentLocale = new Locale(lingua, pais);
                         dc.setMensagens(currentLocale);
                         dc.criarListaMaterial();
-                        JanelaSimu jd = new JanelaSimu(null, dc);
+                        JanelaSimu jd = new JanelaSimu(dc.getMensagens().getString("janelaSimuTitulo"),null, dc);
                         Janela.this.dispose();
                     }
                 }
