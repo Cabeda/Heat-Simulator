@@ -78,9 +78,9 @@ public class JanelaSimu extends JDialog {
 
     private JTabbedPane jt = new JTabbedPane();
 
-    public JanelaSimu(String titulo,JFrame pai, SimController d) {
+    public JanelaSimu(String titulo, JFrame pai, SimController d) {
 
-        super(pai,titulo);
+        super(pai, titulo);
 
         mensagens = d.getMensagens();
 
@@ -218,7 +218,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -292,7 +292,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -367,7 +367,7 @@ public class JanelaSimu extends JDialog {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -399,7 +399,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (field1.getText().equals("") || field2.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
                 } else {
                     jt.setEnabledAt(1, true);
@@ -470,9 +470,27 @@ public class JanelaSimu extends JDialog {
                 panel1.revalidate();
             }
         });
-
+        
         btnAdicionar.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(btnAdicionar);
+        
+        
+        JButton btnRemover;
+        btnRemover = new JButton(icon2);
+        btnRemover.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (Limite l : dc.getListaLim()) {
+                    l.getListaAberturas().clear();
+                }
+                jpanel2.removeAll();
+                jpanel2.revalidate();
+                jpanel2.repaint();
+            }
+
+        });
+        btnRemover.setPreferredSize(CAMPO_TAMANHO);
+        panel3.add(btnRemover);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
@@ -480,7 +498,7 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (dc.getListaAberturas().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, mensagens.getString("peloMenos1Abert"),mensagens.getString("dadosInv"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, mensagens.getString("peloMenos1Abert"), mensagens.getString("dadosInv"), JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     jt.setEnabledAt(3, true);
                     jt.setSelectedIndex(3);
@@ -581,7 +599,7 @@ public class JanelaSimu extends JDialog {
 
         panel1.add(scroll, BorderLayout.SOUTH);
 
-        JPanel panel3 = new JPanel();
+        JPanel panel3 = new JPanel(new FlowLayout());
         JButton btnAdicionar;
 
         btnAdicionar = new JButton(mensagens.getString("adicionar"));
@@ -599,6 +617,25 @@ public class JanelaSimu extends JDialog {
 
         btnAdicionar.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(btnAdicionar);
+
+        JButton btnRemover;
+
+        btnRemover = new JButton(icon2);
+        btnRemover.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (Limite l : dc.getListaLim()) {
+                    l.getListaCamadas().clear();
+                }
+                jpanel3.removeAll();
+                jpanel3.revalidate();
+                jpanel3.repaint();
+            }
+
+        });
+
+        btnRemover.setPreferredSize(CAMPO_TAMANHO);
+        panel3.add(btnRemover);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
@@ -755,7 +792,7 @@ public class JanelaSimu extends JDialog {
                     }
                 } catch (Exception erro) {
 
-                    JOptionPane.showMessageDialog(null,mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
                 }
             }
