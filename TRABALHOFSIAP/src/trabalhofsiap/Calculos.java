@@ -10,7 +10,11 @@ package trabalhofsiap;
 import java.util.List;
 
 /**
- * CLASSE EM MANUTENÇÃO
+ * CLASSE CÁLCULOS
+ * Q/t gerado = T/Rt
+ * Rtotal = 1 / Somatorio (1/Rt)
+ * Q/t desejado = T/Rt
+ * P ar condicionado = Q/t gerado - Q/t desejado
  */
 public class Calculos {
     
@@ -42,45 +46,30 @@ public double calcularResistenciaTermica(List<Limite> listaLim){
 }
 
 /**
- * Este método irá retornar a energia que as pessoas e os aparelhos emitem
+ * Este método irá retornar o fluxo de calor que as pessoas e os aparelhos emitem
  * @param numPessoas numero de pessoas existentes no ambiente
  * @param numAparelhos numero de aparelhos existentes no ambiente
+ * 175,8 W - Potencia das pessoas
  * @return fluxo de calor
  */
-public double PessoasEAparelhos (int numPessoas, int numAparelhos){
-    return (numPessoas+numAparelhos)*175.8;
-}
-
-/**
- * Cálculo da temperatura Interior do ambiente 
- * @return temperatura interior
- */
-public double temperaturaInterior(){
-    return dc.getTemperaturaEx() + calcularResistenciaTermica(dc.getListaLim())*PessoasEAparelhos(dc.numPessoas, dc.numAparelhos);
+public double FluxoCalor1 (){
+    return (dc.numPessoas + dc.numAparelhos)*175.8;
 }
 
 /**
  * Calcula o fluxo de calor que é obtido com a temperatura pretendida pelo utilizador
  * @return fluxo de calor com a temperatura pretendida
  */
-public double FluxoCalor1(){
+public double FluxoCalor2(){
     return (dc.getTemperaturaPre()-dc.getTemperaturaEx())/calcularResistenciaTermica(dc.getListaLim());
 }
 
 /**
- * Calcula o fluxo de calor que existia na sala evocando o método temperatura interior
- * @return fluxo de calor que existia na sala
- */
-public double FluxoCalor2(){
-    return (temperaturaInterior()-dc.getTemperaturaEx())/calcularResistenciaTermica(dc.getListaLim());
-}
-
-/**
- * A Potência Final do ar condicionado que e calculada por Q2/T2 - Q2/T2
+ * A Potência Final do ar condicionado que e calculada pela diferença de fluxos de calor
  * @return potenciaFinal
  */
 public double PotenciaFinal(){
-    return FluxoCalor2()-FluxoCalor1();
+    return Math.abs(FluxoCalor1()-FluxoCalor2());
 }
 
 /**
@@ -102,7 +91,7 @@ public double calculosIntermedios(List<Abertu> la, List<Camada> lc){
         soma += Resistencia (lc.get(i).getEspessura(), lc.get(i).getArea(), lc.get(i).getMaterial().getCondutibilidadeTermica());
     }
     
-    return soma;
+    return 1/soma;
 }
 
 /**
@@ -114,7 +103,7 @@ public double calculosIntermedios(List<Abertu> la, List<Camada> lc){
  */
 public double Resistencia(double espessura, double Area, double condutividadeMaterial){
     
-    return (espessura / (condutividadeMaterial*Area));
+    return 1/(espessura / (condutividadeMaterial*Area));
 }
 
 }
