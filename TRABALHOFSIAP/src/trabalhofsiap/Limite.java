@@ -20,23 +20,10 @@ public class Limite implements java.io.Serializable {
     private List<Abertu> listaAberturas;
     private List<Camada> listaCamadas;
 
-    public Limite(String tipo, double altura, double largura, SimController d) {
-        this.tipo = tipo;
-        this.altura = altura;
-        this.largura = largura;
-        this.area = altura*largura;
-        this.dc = d;
-        listaAberturas = new ArrayList<Abertu>();
-        listaCamadas = new ArrayList<>();
-    }
-
     public Limite(String tipo, SimController d) {
         this.tipo = tipo;
-        this.altura = altura;
-        this.largura = largura;
-        this.area = altura*largura;
         this.dc = d;
-        listaAberturas = new ArrayList<Abertu>();
+        listaAberturas = new ArrayList<>();
         listaCamadas = new ArrayList<>();
     }
 
@@ -45,7 +32,7 @@ public class Limite implements java.io.Serializable {
         this.largura = 0;
         this.dc = d;
         this.area = altura*largura;
-        listaAberturas = new ArrayList<Abertu>();
+        listaAberturas = new ArrayList<>();
         listaCamadas = new ArrayList<>();
     }
 

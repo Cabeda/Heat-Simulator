@@ -49,7 +49,7 @@ public class SimController implements Serializable {
         this.listaLim = listaLim;
         this.cint = 0;
         this.cint2 = 0;
-        listaMaterial= new HashMap<String,Material>(); 
+        listaMaterial = new HashMap<String, Material>();
         mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
     }
 
@@ -64,7 +64,7 @@ public class SimController implements Serializable {
         this.listaLim = new ArrayList();
         this.cint = 0;
         this.cint2 = 0;
-listaMaterial= new HashMap<String,Material>(); 
+        listaMaterial = new HashMap<String, Material>();
         mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
     }
 
@@ -78,7 +78,7 @@ listaMaterial= new HashMap<String,Material>();
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         this.potenciaMedia = dc.potenciaMedia;
-        listaMaterial= new HashMap<String,Material>(); 
+        listaMaterial = new HashMap<String, Material>();
         mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
 
     }
@@ -141,8 +141,8 @@ listaMaterial= new HashMap<String,Material>();
 
     }
 
-    public void setAreaTotal(float volume) {
-        this.areaTotal = volume;
+    public void setAreaTotal(float area) {
+        this.areaTotal = area;
     }
 
     public void setNumPessoas(int numPessoas) {
@@ -273,7 +273,7 @@ listaMaterial= new HashMap<String,Material>();
 
             for (Limite temp : listaLim) {
                 for (Camada ls : temp.getListaCamadas()) {
-                    out3.write("<tr>\n<td>" + i + "</td>\n<td>" +ls.getLimite().getTipo()+ "</td>\n<td>" +ls.getMaterial().getNome()+ "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" +ls.getEspessura()+ "</td></tr>");
+                    out3.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getLimite().getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "</td>\n<td>" + ls.getEspessura() + "</td></tr>");
                     i++;
                 }
             }
@@ -298,7 +298,7 @@ listaMaterial= new HashMap<String,Material>();
 
             for (Limite temp : listaLim) {
                 for (Abertu ls : temp.getListaAberturas()) {
-                    out4.write("<tr>\n<td>" + i + "</td>\n<td>" +ls.getLimite().getTipo()+ "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
+                    out4.write("<tr>\n<td>" + i + "</td>\n<td>" + ls.getLimite().getTipo() + "</td>\n<td>" + ls.getMaterial().getNome() + "</td>\n<td>" + ls.getAltura() + "</td>\n<td>" + ls.getLargura() + "\n<td>" + ls.getEspessura() + "</td></tr>");
                     i++;
                 }
             }
@@ -315,7 +315,7 @@ listaMaterial= new HashMap<String,Material>();
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "/styles(1).php\">\n");
             out5.write("<title>" + mensagens.getString("resultados") + ":</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
                     + "</div>\n" + "<hr>\n" + "<h1>" + mensagens.getString("parametros") + ":</h1>\n");
-            out5.write("<ul>\n" + "  <li><a href=\""+mensagens.getString("resultados")+".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\""+mensagens.getString("dimTitulo")+".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\""+mensagens.getString("limites")+".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\""+mensagens.getString("aberturas")+".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "</ul>");
+            out5.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "</ul>");
             out5.write("<h4>" + mensagens.getString("numPessoas") + " : " + getNumPessoas() + "</h4>\n");
             out5.write("<h4>" + mensagens.getString("numAparelhos") + " : " + getNumAparelhos() + "</h4>\n");
             out5.write("<h4>" + mensagens.getString("potenciaMedia") + " : " + getPotenciaMedia() + " Wh</h4>\n");
@@ -344,18 +344,11 @@ listaMaterial= new HashMap<String,Material>();
             out.writeObject(getComprimento());
             out.writeObject(getAreaTotal());
 
+            out.writeObject(listaLim.size());
             for (Limite temp : listaLim) {
-                out.writeObject(temp.getListaCamadas().size());
-                for (Camada listaCam1 : temp.getListaCamadas()) {
-                    out.writeObject(listaCam1);
-                }
+                out.writeObject(temp);
             }
-            for (Limite temp : listaLim) {
-                out.writeObject(temp.getListaAberturas().size());
-                for (Abertu listaAber1 : temp.getListaAberturas()) {
-                    out.writeObject(listaAber1);
-                }
-            }
+
             out.writeObject(getNumPessoas());
             out.writeObject(getNumAparelhos());
             out.writeObject(getPotenciaMedia());
@@ -380,17 +373,15 @@ listaMaterial= new HashMap<String,Material>();
             setLargura((float) in.readObject());
             setComprimento((float) in.readObject());
             setAreaTotal((float) in.readObject());
+            
+            
+
             List<Limite> lsl = new ArrayList<>();
             int cont = (int) in.readObject();
             for (int i = 0; i < cont; i++) {
                 lsl.add((Limite) (in.readObject()));
             }
             setListaLim(lsl);
-            cont = (int) in.readObject();
-            List<Abertu> lsa = new ArrayList<>();
-            for (int i = 0; i < cont; i++) {
-                lsa.add((Abertu) (in.readObject()));
-            }
 
             setNumPessoas((int) in.readObject());
             setNumAparelhos((int) in.readObject());
@@ -435,7 +426,7 @@ listaMaterial= new HashMap<String,Material>();
      */
     public void setMensagens(Locale currentLocale) {
         this.mensagens = ResourceBundle.getBundle("MensagensBundle", currentLocale);
-        
+
     }
 
     /**
@@ -449,7 +440,7 @@ listaMaterial= new HashMap<String,Material>();
      * @param listaMaterial the listaMaterial to set
      */
     public void criarListaMaterial() {
-        listaMaterial.put(mensagens.getString("aluminio"),new Aluminio(this));
+        listaMaterial.put(mensagens.getString("aluminio"), new Aluminio(this));
         listaMaterial.put(mensagens.getString("ar"), new Ar(this));
         listaMaterial.put(mensagens.getString("betao"), new Betao(this));
         listaMaterial.put(mensagens.getString("cimento"), new Cimento(this));

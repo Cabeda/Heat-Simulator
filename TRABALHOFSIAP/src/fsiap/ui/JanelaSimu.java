@@ -191,34 +191,42 @@ public class JanelaSimu extends JDialog {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
-                        tecto.setAltura((Float.parseFloat(field1.getText())));
-                        tecto.setLargura((Float.parseFloat(field2.getText())));
+                        if (Float.parseFloat(field1.getText()) > 0) {
 
-                        paredeNorte.setAltura((Float.parseFloat(field3.getText())));
-                        paredeNorte.setLargura((Float.parseFloat(field2.getText())));
+                            tecto.setAltura((Float.parseFloat(field1.getText())));
+                            tecto.setLargura((Float.parseFloat(field2.getText())));
 
-                        paredeOeste.setAltura((Float.parseFloat(field3.getText())));
-                        paredeOeste.setLargura((Float.parseFloat(field1.getText())));
+                            paredeNorte.setAltura((Float.parseFloat(field3.getText())));
+                            paredeNorte.setLargura((Float.parseFloat(field2.getText())));
 
-                        paredeSul.setAltura((Float.parseFloat(field3.getText())));
-                        paredeSul.setLargura((Float.parseFloat(field2.getText())));
+                            paredeOeste.setAltura((Float.parseFloat(field3.getText())));
+                            paredeOeste.setLargura((Float.parseFloat(field1.getText())));
 
-                        paredeEste.setAltura((Float.parseFloat(field3.getText())));
-                        paredeEste.setLargura((Float.parseFloat(field1.getText())));
+                            paredeSul.setAltura((Float.parseFloat(field3.getText())));
+                            paredeSul.setLargura((Float.parseFloat(field2.getText())));
 
-                        chao.setAltura((Float.parseFloat(field1.getText())));
-                        chao.setLargura((Float.parseFloat(field2.getText())));
+                            paredeEste.setAltura((Float.parseFloat(field3.getText())));
+                            paredeEste.setLargura((Float.parseFloat(field1.getText())));
 
-                        dc.setAltura((Float.parseFloat(field3.getText())));
-                        dc.setComprimento((Float.parseFloat(field1.getText())));
-                        dc.setLargura((Float.parseFloat(field2.getText())));
-                        dc.setAreaTotal();
-                        field4.setText(Float.toString(dc.getAreaTotal()));
-                        revalidate();
+                            chao.setAltura((Float.parseFloat(field1.getText())));
+                            chao.setLargura((Float.parseFloat(field2.getText())));
+
+                            dc.setAltura((Float.parseFloat(field3.getText())));
+                            dc.setComprimento((Float.parseFloat(field1.getText())));
+                            dc.setLargura((Float.parseFloat(field2.getText())));
+                            dc.setAreaTotal();
+                            field4.setText(Float.toString(dc.getAreaTotal()));
+                            revalidate();
+                        } else {
+                            field1.setText("");
+                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+
+                        }
                     }
                     revalidate();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    field1.setText("");
                 }
             }
         });
@@ -265,34 +273,42 @@ public class JanelaSimu extends JDialog {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
-                        tecto.setAltura((Float.parseFloat(field1.getText())));
-                        tecto.setLargura((Float.parseFloat(field2.getText())));
+                        if (Float.parseFloat(field2.getText()) > 0) {
 
-                        paredeNorte.setAltura((Float.parseFloat(field3.getText())));
-                        paredeNorte.setLargura((Float.parseFloat(field2.getText())));
+                            tecto.setAltura((Float.parseFloat(field1.getText())));
+                            tecto.setLargura((Float.parseFloat(field2.getText())));
 
-                        paredeOeste.setAltura((Float.parseFloat(field3.getText())));
-                        paredeOeste.setLargura((Float.parseFloat(field1.getText())));
+                            paredeNorte.setAltura((Float.parseFloat(field3.getText())));
+                            paredeNorte.setLargura((Float.parseFloat(field2.getText())));
 
-                        paredeSul.setAltura((Float.parseFloat(field3.getText())));
-                        paredeSul.setLargura((Float.parseFloat(field2.getText())));
+                            paredeOeste.setAltura((Float.parseFloat(field3.getText())));
+                            paredeOeste.setLargura((Float.parseFloat(field1.getText())));
 
-                        paredeEste.setAltura((Float.parseFloat(field3.getText())));
-                        paredeEste.setLargura((Float.parseFloat(field1.getText())));
+                            paredeSul.setAltura((Float.parseFloat(field3.getText())));
+                            paredeSul.setLargura((Float.parseFloat(field2.getText())));
 
-                        chao.setAltura((Float.parseFloat(field1.getText())));
-                        chao.setLargura((Float.parseFloat(field2.getText())));
+                            paredeEste.setAltura((Float.parseFloat(field3.getText())));
+                            paredeEste.setLargura((Float.parseFloat(field1.getText())));
 
-                        dc.setAltura((Float.parseFloat(field3.getText())));
-                        dc.setComprimento((Float.parseFloat(field1.getText())));
-                        dc.setLargura((Float.parseFloat(field2.getText())));
-                        dc.setAreaTotal();
-                        field4.setText(Float.toString(dc.getAreaTotal()));
-                        revalidate();
+                            chao.setAltura((Float.parseFloat(field1.getText())));
+                            chao.setLargura((Float.parseFloat(field2.getText())));
+
+                            dc.setAltura((Float.parseFloat(field3.getText())));
+                            dc.setComprimento((Float.parseFloat(field1.getText())));
+                            dc.setLargura((Float.parseFloat(field2.getText())));
+                            dc.setAreaTotal();
+                            field4.setText(Float.toString(dc.getAreaTotal()));
+                            revalidate();
+                        } else {
+                            field2.setText("");
+                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+
+                        }
                     }
                     revalidate();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    field2.setText("");
                 }
             }
         });
@@ -340,34 +356,41 @@ public class JanelaSimu extends JDialog {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
-                        tecto.setAltura((Float.parseFloat(field1.getText())));
-                        tecto.setLargura((Float.parseFloat(field2.getText())));
+                        if (Float.parseFloat(field3.getText()) > 0) {
+                            tecto.setAltura((Float.parseFloat(field1.getText())));
+                            tecto.setLargura((Float.parseFloat(field2.getText())));
 
-                        paredeNorte.setAltura((Float.parseFloat(field3.getText())));
-                        paredeNorte.setLargura((Float.parseFloat(field2.getText())));
+                            paredeNorte.setAltura((Float.parseFloat(field3.getText())));
+                            paredeNorte.setLargura((Float.parseFloat(field2.getText())));
 
-                        paredeOeste.setAltura((Float.parseFloat(field3.getText())));
-                        paredeOeste.setLargura((Float.parseFloat(field1.getText())));
+                            paredeOeste.setAltura((Float.parseFloat(field3.getText())));
+                            paredeOeste.setLargura((Float.parseFloat(field1.getText())));
 
-                        paredeSul.setAltura((Float.parseFloat(field3.getText())));
-                        paredeSul.setLargura((Float.parseFloat(field2.getText())));
+                            paredeSul.setAltura((Float.parseFloat(field3.getText())));
+                            paredeSul.setLargura((Float.parseFloat(field2.getText())));
 
-                        paredeEste.setAltura((Float.parseFloat(field3.getText())));
-                        paredeEste.setLargura((Float.parseFloat(field1.getText())));
+                            paredeEste.setAltura((Float.parseFloat(field3.getText())));
+                            paredeEste.setLargura((Float.parseFloat(field1.getText())));
 
-                        chao.setAltura((Float.parseFloat(field1.getText())));
-                        chao.setLargura((Float.parseFloat(field2.getText())));
+                            chao.setAltura((Float.parseFloat(field1.getText())));
+                            chao.setLargura((Float.parseFloat(field2.getText())));
 
-                        dc.setAltura((Float.parseFloat(field3.getText())));
-                        dc.setComprimento((Float.parseFloat(field1.getText())));
-                        dc.setLargura((Float.parseFloat(field2.getText())));
-                        dc.setAreaTotal();
-                        field4.setText(Float.toString(dc.getAreaTotal()));
-                        revalidate();
+                            dc.setAltura((Float.parseFloat(field3.getText())));
+                            dc.setComprimento((Float.parseFloat(field1.getText())));
+                            dc.setLargura((Float.parseFloat(field2.getText())));
+                            dc.setAreaTotal();
+                            field4.setText(Float.toString(dc.getAreaTotal()));
+                            revalidate();
+                        } else {
+                            field3.setText("");
+                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+
+                        }
                     }
                     revalidate();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    field3.setText("");
                 }
             }
         });
@@ -384,9 +407,7 @@ public class JanelaSimu extends JDialog {
         label4.setPreferredSize(LABEL_TAMANHO2);
         field4 = new JTextField();
         field4.setPreferredSize(CAMPO_TAMANHO);
-        if (dc.getAreaTotal() != 0) {
-            field4.setText("" + dc.getAreaTotal());
-        }
+
         field4.setEditable(false);
 
         panel4.add(label4);
@@ -395,15 +416,35 @@ public class JanelaSimu extends JDialog {
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
+
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (field1.getText().equals("") || field2.getText().equals("")) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    if (field1.getText().equals("") || field2.getText().equals("") || field3.getText().equals("")) {
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
-                } else {
-                    jt.setEnabledAt(1, true);
-                    jt.setSelectedIndex(1);
+                    } else if (Float.parseFloat(field1.getText()) <= 0) {
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                        field1.setText("");
+
+                    } else if (Float.parseFloat(field2.getText()) <= 0) {
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                        field2.setText("");
+
+                    } else if (Float.parseFloat(field3.getText()) <= 0) {
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                        field3.setText("");
+
+                    } else {
+                        jt.setEnabledAt(1, true);
+                        jt.setSelectedIndex(1);
+                    }
+                } catch (NumberFormatException erro) {
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    field1.setText("");
+                    field2.setText("");
+                    field3.setText("");
                 }
             }
         }
@@ -470,11 +511,10 @@ public class JanelaSimu extends JDialog {
                 panel1.revalidate();
             }
         });
-        
+
         btnAdicionar.setPreferredSize(CAMPO_TAMANHO);
         panel3.add(btnAdicionar);
-        
-        
+
         JButton btnRemover;
         btnRemover = new JButton(icon2);
         btnRemover.addActionListener(new ActionListener() {
