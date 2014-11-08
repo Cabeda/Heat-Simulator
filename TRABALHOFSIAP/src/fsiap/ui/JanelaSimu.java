@@ -873,26 +873,34 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nomeDiretorio = null;
+                int n=1;
                 String separador = java.io.File.separator;
                 String s;
                 do {
                     s = JOptionPane.showInputDialog(null, mensagens.getString("inserNomePasta"), mensagens.getString("guardarResult"), JOptionPane.PLAIN_MESSAGE);
-
-                    if (!new File(s).exists()) {
-                        File f = new File(s);
-
-                        f.mkdir();
-
-                        try {
-                            dc.criarFicheiroHTML(f.getPath());
-                            dc.guardarDados(f.getPath());
-                        } catch (IOException ex) {
-                            System.out.println(mensagens.getString("ficheiroNCriado"));
+                    if (s.equals("")) {
+                        
+                        s="sala"+n;
+                        while(new File(s).exists()){
+                            n++;
+                            s="sala"+n;
                         }
-
-                    } else {
-                        JOptionPane.showMessageDialog(null, mensagens.getString("pastaJaExiste"), mensagens.getString("guardarResult"), WIDTH);
                     }
+                        if (!new File(s).exists()) {
+                            File f = new File(s);
+
+                            f.mkdir();
+
+                            try {
+                                dc.criarFicheiroHTML(f.getPath());
+                                dc.guardarDados(f.getPath());
+                            } catch (IOException ex) {
+                                System.out.println(mensagens.getString("ficheiroNCriado"));
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null, mensagens.getString("pastaJaExiste"), mensagens.getString("guardarResult"), WIDTH);
+                        }
                 } while (!new File(s).exists());
             }
         });
