@@ -724,21 +724,6 @@ public class JanelaSimu extends JDialog {
         panel1.add(field1);
         panel1.add(l1);
 
-        JPanel panel2 = new JPanel();
-        JLabel label2, l2;
-
-        label2 = new JLabel(mensagens.getString("potenciaMedia"), JLabel.RIGHT);
-        l2 = new JLabel("Wh");
-        label2.setPreferredSize(LABEL_TAMANHO2);
-        JTextField field2 = new JTextField();
-        if (dc.getPotenciaMedia() != 0) {
-            field2.setText("" + dc.getPotenciaMedia());
-        }
-        field2.setPreferredSize(CAMPO_TAMANHO);
-
-        panel2.add(label2);
-        panel2.add(field2);
-        panel2.add(l2);
 
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
@@ -751,7 +736,6 @@ public class JanelaSimu extends JDialog {
 
                     } else {
                         dc.setNumAparelhos((Integer.parseInt(field1.getText())));
-                        dc.setPotenciaMedia((Float.parseFloat(field2.getText())));
                         jt.setSelectedIndex(5);
                         jt.setEnabledAt(5, true);
                     }
@@ -769,7 +753,6 @@ public class JanelaSimu extends JDialog {
 
         panel.add(panel0, BorderLayout.NORTH);
         grid.add(panel1);
-        grid.add(panel2);
         panel.add(grid, BorderLayout.CENTER);
         panel.add(panel5, BorderLayout.SOUTH);
         return panel;

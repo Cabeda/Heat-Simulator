@@ -208,7 +208,7 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -258,7 +258,7 @@ public class JanelaCamada extends JFrame {
                     }
                     revalidate();
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -296,54 +296,52 @@ public class JanelaCamada extends JFrame {
                     try {
 
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
+                            if (Integer.parseInt(field6.getText()) <= 0) {
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                Limite lim = (Limite) field1.getSelectedItem();
+                                Camada cam = new Camada(dc);
+                                cam.setMaterialPeloNome(field2.getSelectedItem().toString());
+                                cam.setLimite(lim);
+                                cam.setEspessura(Double.parseDouble(field6.getText()));
 
-                            Limite lim = (Limite) field1.getSelectedItem();
-//                    Camada cam = new Camada(dc);
-//                    cam.setAltura(Double.parseDouble(field3.getText()));
-//                    cam.setLargura(Double.parseDouble(field4.getText()));
-//                    cam.setMaterialPeloNome(field2.getSelectedItem().toString());
-//                    cam.setEspessura(Double.parseDouble(field6.getText()));
-                            Camada cam = new Camada(dc);
-                            cam.setMaterialPeloNome(field2.getSelectedItem().toString());
-                            cam.setLimite(lim);
-                            cam.setEspessura(Double.parseDouble(field6.getText()));
+                                lim.addCamada(cam);
 
-                            lim.addCamada(cam);
+                                posi = lim.getListaCamadas().size() - 1;
+                                dispose();
+                                JPanel a = new JPanel(new FlowLayout());
+                                JLabel b = new JLabel(cam.toString());
+                                JButton c = new JButton(js.icon);
+                                c.setPreferredSize(BTN_TAMANHO);
+                                a.add(b);
+                                a.add(c);
+                                js.jpanel3.add(a);
+                                js.jpanel3.revalidate();
 
-                            posi = lim.getListaCamadas().size() - 1;
-                            dispose();
-                            JPanel a = new JPanel(new FlowLayout());
-                            JLabel b = new JLabel(cam.toString());
-                            JButton c = new JButton(js.icon);
-                            c.setPreferredSize(BTN_TAMANHO);
-                            a.add(b);
-                            a.add(c);
-                            js.jpanel3.add(a);
-                            js.jpanel3.revalidate();
+                                c.addActionListener(new ActionListener() {
 
-                            c.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
 
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
+                                        JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, js, false, posi);
+                                        Camada cam = lim.getListaCamadas().get(posi);
 
-                                    JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, js, false, posi);
-                                    Camada cam = lim.getListaCamadas().get(posi);
-
-                                    jan.field1.setSelectedItem(field1.getSelectedItem());
-                                    jan.field1.setEnabled(false);
-                                    jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                                    jan.field3.setText(Double.toString(lim.getAltura()));
-                                    jan.field4.setText(Double.toString(lim.getLargura()));
-                                    jan.field6.setText("" + cam.getEspessura());
-                                }
-                            });
-
+                                        jan.field1.setSelectedItem(field1.getSelectedItem());
+                                        jan.field1.setEnabled(false);
+                                        jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                        jan.field3.setText(Double.toString(lim.getAltura()));
+                                        jan.field4.setText(Double.toString(lim.getLargura()));
+                                        jan.field6.setText("" + cam.getEspessura());
+                                    }
+                                });
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(rootPane,mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
 
                     } catch (Exception error) {
-                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
 
                 }
@@ -357,54 +355,58 @@ public class JanelaCamada extends JFrame {
                     try {
 
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
-                            Limite lim = (Limite) field1.getSelectedItem();
-                            Camada cam = lim.getListaCamadas().get(posi);
+                            if (Integer.parseInt(field6.getText()) <= 0) {
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                Limite lim = (Limite) field1.getSelectedItem();
+                                Camada cam = lim.getListaCamadas().get(posi);
 
 //                    cam.setAltura(Double.parseDouble(field3.getText()));
 //                    cam.setLargura(Double.parseDouble(field4.getText()));
-                            cam.setEspessura(Double.parseDouble(field6.getText()));
-                            cam.setMaterialPeloNome(field2.getSelectedItem().toString());
+                                cam.setEspessura(Double.parseDouble(field6.getText()));
+                                cam.setMaterialPeloNome(field2.getSelectedItem().toString());
 
-                            lim.getListaCamadas().set(posi, cam);
+                                lim.getListaCamadas().set(posi, cam);
 
-                            js.revalidate();
-                            js.repaint();
-                            dispose();
+                                js.revalidate();
+                                js.repaint();
+                                dispose();
 
-                            JPanel a = new JPanel(new FlowLayout());
-                            JLabel b = new JLabel(cam.toString());
-                            JButton c = new JButton(js.icon);
-                            c.setPreferredSize(BTN_TAMANHO);
-                            c.addActionListener(new ActionListener() {
+                                JPanel a = new JPanel(new FlowLayout());
+                                JLabel b = new JLabel(cam.toString());
+                                JButton c = new JButton(js.icon);
+                                c.setPreferredSize(BTN_TAMANHO);
+                                c.addActionListener(new ActionListener() {
 
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
 
-                                    JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, js, false, posi);
-                                    Camada cam = lim.getListaCamadas().get(posi);
+                                        JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, js, false, posi);
+                                        Camada cam = lim.getListaCamadas().get(posi);
 
-                                    jan.field1.setSelectedItem(field1.getSelectedItem());
-                                    jan.field1.setEnabled(false);
-                                    jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                                    jan.field3.setText(Double.toString(lim.getAltura()));
-                                    jan.field4.setText(Double.toString(lim.getLargura()));
-                                    jan.field6.setText("" + cam.getEspessura());
+                                        jan.field1.setSelectedItem(field1.getSelectedItem());
+                                        jan.field1.setEnabled(false);
+                                        jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                        jan.field3.setText(Double.toString(lim.getAltura()));
+                                        jan.field4.setText(Double.toString(lim.getLargura()));
+                                        jan.field6.setText("" + cam.getEspessura());
 
-                                }
-                            });
+                                    }
+                                });
 
-                            a.add(b);
-                            a.add(c);
+                                a.add(b);
+                                a.add(c);
 
-                            js.jpanel3.remove(posi);
-                            js.jpanel3.add(a, posi);
-                            js.jpanel3.revalidate();
-
+                                js.jpanel3.remove(posi);
+                                js.jpanel3.add(a, posi);
+                                js.jpanel3.revalidate();
+                            }
                         } else {
-                            JOptionPane.showMessageDialog(rootPane,mensagens.getString("preenchaTudo"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
                     } catch (Exception erro) {
-                        JOptionPane.showMessageDialog(rootPane,mensagens.getString("dadosInv"),mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
 
                 }

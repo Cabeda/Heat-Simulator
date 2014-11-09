@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  */
 public class SimController implements Serializable {
 
-    private float comprimento, largura, altura, areaTotal, potenciaMedia;
+    private float comprimento, largura, altura, areaTotal;
     int numPessoas, numAparelhos;
     float temperaturaEx, temperaturaPre;
     private List<Limite> listaLim;
@@ -36,12 +36,11 @@ public class SimController implements Serializable {
     private int cint, cint2, lingua;
     ResourceBundle mensagens;
 
-    public SimController(float comprimento, float largura, float altura, float volume, float potenciaMedia, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
+    public SimController(float comprimento, float largura, float altura, float volume, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
         this.areaTotal = volume;
-        this.potenciaMedia = potenciaMedia;
         this.numPessoas = numPessoas;
         this.temperaturaEx = temperaturaEx;
         this.temperaturaPre = temperaturaPre;
@@ -77,7 +76,6 @@ public class SimController implements Serializable {
         this.temperaturaEx = dc.temperaturaEx;
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
-        this.potenciaMedia = dc.potenciaMedia;
         listaMaterial = new HashMap<String, Material>();
         mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
 
@@ -112,10 +110,6 @@ public class SimController implements Serializable {
         return numPessoas;
     }
 
-    public float getPotenciaMedia() {
-        return potenciaMedia;
-    }
-
     public int getNumAparelhos() {
         return numAparelhos;
     }
@@ -147,10 +141,6 @@ public class SimController implements Serializable {
 
     public void setNumPessoas(int numPessoas) {
         this.numPessoas = numPessoas;
-    }
-
-    public void setPotenciaMedia(float potenciaMedia) {
-        this.potenciaMedia = potenciaMedia;
     }
 
     public void setTemperaturaEx(float temperatura) {
@@ -207,7 +197,7 @@ public class SimController implements Serializable {
 
         return mensagens.getString("comprimento") + ":" + comprimento + ", " + mensagens.getString("largura") + ":" + largura + ", " + mensagens.getString("altura") + ":"
                 + altura + ", " + mensagens.getString("areaTotal") + ":" + areaTotal + ", " + mensagens.getString("potenciaMedia") + ":"
-                + +potenciaMedia + ", " + mensagens.getString("numPessoas") + ":" + numPessoas + ", " + mensagens.getString("temperatura") + ":"
+                + ", " + mensagens.getString("numPessoas") + ":" + numPessoas + ", " + mensagens.getString("temperatura") + ":"
                 + temperaturaEx + ", " + mensagens.getString("numAparelhos") + ":" + numAparelhos;
     }
 
@@ -318,7 +308,6 @@ public class SimController implements Serializable {
             out5.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "</ul>");
             out5.write("<h4>" + mensagens.getString("numPessoas") + " : " + getNumPessoas() + "</h4>\n");
             out5.write("<h4>" + mensagens.getString("numAparelhos") + " : " + getNumAparelhos() + "</h4>\n");
-            out5.write("<h4>" + mensagens.getString("potenciaMedia") + " : " + getPotenciaMedia() + " Wh</h4>\n");
             out5.write("<h4>" + mensagens.getString("temperaturaExt") + " : " + getTemperaturaEx() + " &deg;C</h4>\n");
             out5.write("<h4>" + mensagens.getString("temperaturadesej") + ": " + getTemperaturaPre() + " &deg;C</h4>\n");
 
@@ -351,7 +340,6 @@ public class SimController implements Serializable {
 
             out.writeObject(getNumPessoas());
             out.writeObject(getNumAparelhos());
-            out.writeObject(getPotenciaMedia());
             out.writeObject(getTemperaturaEx());
             out.writeObject(getTemperaturaPre());
 
@@ -385,7 +373,6 @@ public class SimController implements Serializable {
 
             setNumPessoas((int) in.readObject());
             setNumAparelhos((int) in.readObject());
-            setPotenciaMedia((float) in.readObject());
             setTemperaturaEx((int) in.readObject());
             setTemperaturaPre((int) in.readObject());
 

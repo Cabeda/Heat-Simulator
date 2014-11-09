@@ -75,7 +75,7 @@ public class Camada implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return material.getNome() + " | " + limite.getAltura() + " | " + limite.getLargura() + " | " + espessura;
+        return limite.getTipo()+ " | "+material.getNome() + " | " + limite.getAltura() + " | " + limite.getLargura() + " | " + espessura;
     }
 
     /**

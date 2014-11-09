@@ -253,6 +253,13 @@ public class JanelaAber extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                                        try {
+
+                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
+                            if (Integer.parseInt(field6.getText()) <= 0) {
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            } else {
                     Abertu aber = new Abertu(dc);
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
@@ -288,8 +295,16 @@ public class JanelaAber extends JFrame {
                             jan.field3.setText(Double.toString(lim.getAltura()));
                             jan.field4.setText(Double.toString(lim.getLargura()));
                             jan.field6.setText("" + aber.getEspessura());
+                         }
+                                });
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
-                    });
+
+                    } catch (Exception error) {
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    }
 
                 }
             });
@@ -298,6 +313,13 @@ public class JanelaAber extends JFrame {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                     try {
+
+                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
+                            if (Integer.parseInt(field6.getText()) <= 0) {
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            } else {
                     Limite lim = (Limite) field1.getSelectedItem();
                     Abertu aber = lim.getListaAberturas().get(posi);
 
@@ -339,6 +361,13 @@ public class JanelaAber extends JFrame {
                     js.jpanel2.remove(posi);
                     js.jpanel2.add(a, posi);
                     js.jpanel2.revalidate();
+ }
+                        } else {
+                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    } catch (Exception erro) {
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    }
 
                 }
             });
