@@ -1,7 +1,7 @@
 
 package trabalhofsiap;
 
-import fsiap.ui.Janela;
+import fsiap.ui.JanelaSelLing;
 import java.io.IOException;
 
 /**
@@ -11,7 +11,8 @@ import java.io.IOException;
 public class TRABALHOFSIAP {
 
     public static void main(String[] args) throws IOException {
-            Janela jan = new Janela();
+             
+            JanelaSelLing jan = new JanelaSelLing();
         
 
     }
