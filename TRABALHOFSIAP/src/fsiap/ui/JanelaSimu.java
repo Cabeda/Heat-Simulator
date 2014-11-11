@@ -19,19 +19,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.print.attribute.ResolutionSyntax;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -875,7 +870,7 @@ public class JanelaSimu extends JDialog {
 
                 do {
 
-                    s = JOptionPane.showInputDialog(null, mensagens.getString("inserNomePasta"), mensagens.getString("guardarResult"), JOptionPane.PLAIN_MESSAGE);
+                    s = JOptionPane.showInputDialog(null, mensagens.getString("inserNomePasta"), mensagens.getString("guardarResult"),JOptionPane.PLAIN_MESSAGE);
                     if (s != null) {
                         if (s.equals("")) {
 
