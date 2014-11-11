@@ -53,7 +53,7 @@ public double calcularResistenciaTermica(List<Limite> listaLim){
  * @return fluxo de calor
  */
 public double FluxoCalor1 (){
-    return (dc.numPessoas + dc.numAparelhos)*175.8;
+    return (dc.numPessoas)*175.8 +(dc.numAparelhos)*250;
 }
 
 /**
