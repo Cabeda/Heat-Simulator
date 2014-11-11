@@ -191,7 +191,7 @@ public class JanelaSimu extends JDialog {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
-                        if (Float.parseFloat(field1.getText()) > 0) {
+                        if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
 
                             tecto.setAltura((Float.parseFloat(field1.getText())));
                             tecto.setLargura((Float.parseFloat(field2.getText())));
@@ -219,6 +219,9 @@ public class JanelaSimu extends JDialog {
                             revalidate();
                         } else {
                             field1.setText("");
+                            field2.setText("");
+                            field3.setText("");
+                            field4.setText("");
                             JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
                         }
@@ -227,6 +230,9 @@ public class JanelaSimu extends JDialog {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     field1.setText("");
+                    field2.setText("");
+                    field3.setText("");
+                    field4.setText("");
                 }
             }
         });
@@ -273,7 +279,7 @@ public class JanelaSimu extends JDialog {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
-                        if (Float.parseFloat(field2.getText()) > 0) {
+                        if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
 
                             tecto.setAltura((Float.parseFloat(field1.getText())));
                             tecto.setLargura((Float.parseFloat(field2.getText())));
@@ -300,7 +306,10 @@ public class JanelaSimu extends JDialog {
                             field4.setText(Float.toString(dc.getAreaTotal()));
                             revalidate();
                         } else {
+                            field1.setText("");
                             field2.setText("");
+                            field3.setText("");
+                            field4.setText("");
                             JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
                         }
@@ -308,7 +317,10 @@ public class JanelaSimu extends JDialog {
                     revalidate();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    field1.setText("");
                     field2.setText("");
+                    field3.setText("");
+                    field4.setText("");
                 }
             }
         });
@@ -356,7 +368,7 @@ public class JanelaSimu extends JDialog {
                 try {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
-                        if (Float.parseFloat(field3.getText()) > 0) {
+                        if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
                             tecto.setAltura((Float.parseFloat(field1.getText())));
                             tecto.setLargura((Float.parseFloat(field2.getText())));
 
@@ -382,7 +394,10 @@ public class JanelaSimu extends JDialog {
                             field4.setText(Float.toString(dc.getAreaTotal()));
                             revalidate();
                         } else {
+                            field1.setText("");
+                            field2.setText("");
                             field3.setText("");
+                            field4.setText("");
                             JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
                         }
@@ -390,7 +405,10 @@ public class JanelaSimu extends JDialog {
                     revalidate();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                    field1.setText("");
+                    field2.setText("");
                     field3.setText("");
+                    field4.setText("");
                 }
             }
         });
@@ -424,16 +442,10 @@ public class JanelaSimu extends JDialog {
                     if (field1.getText().equals("") || field2.getText().equals("") || field3.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
-                    } else if (Float.parseFloat(field1.getText()) <= 0) {
+                    } else if (Float.parseFloat(field1.getText()) <= 0 || Float.parseFloat(field2.getText()) <= 0 || Float.parseFloat(field3.getText()) <= 0) {
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         field1.setText("");
-
-                    } else if (Float.parseFloat(field2.getText()) <= 0) {
-                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         field2.setText("");
-
-                    } else if (Float.parseFloat(field3.getText()) <= 0) {
-                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         field3.setText("");
 
                     } else {
@@ -724,15 +736,18 @@ public class JanelaSimu extends JDialog {
         panel1.add(field1);
         panel1.add(l1);
 
-
         JPanel panel5 = new JPanel();
         JButton btnMoveRight1 = new JButton(">>");
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (field1.getText().equals("") || field2.getText().equals("")) {
+                    if (field1.getText().equals("")) {
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
+
+                    } else if (Float.parseFloat(field1.getText()) < 0) {
+                        field1.setText("");
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
 
                     } else {
                         dc.setNumAparelhos((Integer.parseInt(field1.getText())));
@@ -855,20 +870,21 @@ public class JanelaSimu extends JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nomeDiretorio = null;
-                int n=1;
-                String separador = java.io.File.separator;
+                int n = 1;
                 String s;
+
                 do {
+
                     s = JOptionPane.showInputDialog(null, mensagens.getString("inserNomePasta"), mensagens.getString("guardarResult"), JOptionPane.PLAIN_MESSAGE);
-                    if (s.equals("")) {
-                        
-                        s="sala"+n;
-                        while(new File(s).exists()){
-                            n++;
-                            s="sala"+n;
+                    if (s != null) {
+                        if (s.equals("")) {
+
+                            s = "sala" + n;
+                            while (new File(s).exists()) {
+                                n++;
+                                s = "sala" + n;
+                            }
                         }
-                    }
                         if (!new File(s).exists()) {
                             File f = new File(s);
 
@@ -884,6 +900,9 @@ public class JanelaSimu extends JDialog {
                         } else {
                             JOptionPane.showMessageDialog(null, mensagens.getString("pastaJaExiste"), mensagens.getString("guardarResult"), WIDTH);
                         }
+                    }else{
+                        break;
+                    }
                 } while (!new File(s).exists());
             }
         });
