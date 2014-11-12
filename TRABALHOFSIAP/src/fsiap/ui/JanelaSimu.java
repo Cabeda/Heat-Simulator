@@ -972,7 +972,7 @@ public class JanelaSimu extends JDialog {
 
                 do {
 
-                    s = JOptionPane.showInputDialog(null, mensagens.getString("inserNomePasta"), mensagens.getString("guardarResult"), JOptionPane.PLAIN_MESSAGE);
+                    s = JOptionPane.showInputDialog(null, mensagens.getString("inserNomePasta"), mensagens.getString("guardarResult"),JOptionPane.PLAIN_MESSAGE);
                     if (s != null) {
                         if (s.equals("")) {
 
