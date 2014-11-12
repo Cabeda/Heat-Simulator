@@ -6,7 +6,6 @@
 package fsiap.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,8 +14,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -361,9 +358,6 @@ public class JanelaCamada extends JFrame {
                             } else {
                                 Limite lim = (Limite) field1.getSelectedItem();
                                 Camada cam = lim.getListaCamadas().get(posi);
-
-//                    cam.setAltura(Double.parseDouble(field3.getText()));
-//                    cam.setLargura(Double.parseDouble(field4.getText()));
                                 cam.setEspessura(Double.parseDouble(field6.getText()));
                                 cam.setMaterialPeloNome(field2.getSelectedItem().toString());
 

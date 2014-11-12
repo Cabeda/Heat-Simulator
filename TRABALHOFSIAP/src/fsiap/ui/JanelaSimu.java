@@ -19,19 +19,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.print.attribute.ResolutionSyntax;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -53,6 +48,7 @@ public class JanelaSimu extends JDialog {
     public Icon icon = new ImageIcon("icon_device_settings.gif");
     public Icon icon2 = new ImageIcon("delete.png");
     private String fechar = "nao";
+    int posi = 0;
     private String resultado = "";
     private JTextField field1;
     private JTextField field2;
@@ -61,7 +57,7 @@ public class JanelaSimu extends JDialog {
     private Dimension CAMPO_TAMANHO = new Dimension(200, 20);
     private Dimension SCROLL_TAMANHO = new Dimension(200, 100);
     private Dimension RESULTADO_TAMANHO = new Dimension(300, 70);
-    private Dimension BTN_TAMANHO = new Dimension(70, 40);
+    private Dimension BTN_TAMANHO = new Dimension(40, 40);
     private SimController dc;
     ResourceBundle mensagens;
 
@@ -217,6 +213,39 @@ public class JanelaSimu extends JDialog {
                             dc.setAreaTotal();
                             field4.setText(Float.toString(dc.getAreaTotal()));
                             revalidate();
+                            jpanel3.removeAll();
+                            for (Limite lim : dc.getListaLim()) {
+                                for (Camada cam : lim.getListaCamadas()) {
+                                    JPanel a = new JPanel(new FlowLayout());
+                                    JLabel b = new JLabel(cam.toString());
+                                    JButton c = new JButton(icon);
+                                    c.setPreferredSize(BTN_TAMANHO);
+                                    c.addActionListener(new ActionListener() {
+
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+
+                                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
+
+                                            jan.field1.setSelectedItem(lim);
+                                            jan.field1.setEnabled(false);
+                                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                            jan.field3.setText(Double.toString(lim.getAltura()));
+                                            jan.field4.setText(Double.toString(lim.getLargura()));
+                                            jan.field6.setText("" + cam.getEspessura());
+                                                                                        
+                                        }
+                                    });
+
+                                    a.add(b);
+                                    a.add(c);
+
+                                    jpanel3.add(a, posi);
+                                    jpanel3.revalidate();
+                                    posi++;
+                                }
+                            }
+                            posi = 0;
                         } else {
                             field1.setText("");
                             field2.setText("");
@@ -304,6 +333,40 @@ public class JanelaSimu extends JDialog {
                             dc.setLargura((Float.parseFloat(field2.getText())));
                             dc.setAreaTotal();
                             field4.setText(Float.toString(dc.getAreaTotal()));
+                            jpanel3.removeAll();
+                            for (Limite lim : dc.getListaLim()) {
+                                for (Camada cam : lim.getListaCamadas()) {
+
+                                    JPanel a = new JPanel(new FlowLayout());
+                                    JLabel b = new JLabel(cam.toString());
+                                    JButton c = new JButton(icon);
+                                    c.setPreferredSize(BTN_TAMANHO);
+                                    c.addActionListener(new ActionListener() {
+
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+
+                                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
+
+                                            jan.field1.setSelectedItem(lim);
+                                            jan.field1.setEnabled(false);
+                                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                            jan.field3.setText(Double.toString(lim.getAltura()));
+                                            jan.field4.setText(Double.toString(lim.getLargura()));
+                                            jan.field6.setText("" + cam.getEspessura());
+
+                                        }
+                                    });
+
+                                    a.add(b);
+                                    a.add(c);
+
+                                    jpanel3.add(a, posi);
+                                    jpanel3.revalidate();
+                                    posi++;
+                                }
+                            }
+                            posi = 0;
                             revalidate();
                         } else {
                             field1.setText("");
@@ -392,6 +455,40 @@ public class JanelaSimu extends JDialog {
                             dc.setLargura((Float.parseFloat(field2.getText())));
                             dc.setAreaTotal();
                             field4.setText(Float.toString(dc.getAreaTotal()));
+                            jpanel3.removeAll();
+                            for (Limite lim : dc.getListaLim()) {
+                                for (Camada cam : lim.getListaCamadas()) {
+
+                                    JPanel a = new JPanel(new FlowLayout());
+                                    JLabel b = new JLabel(cam.toString());
+                                    JButton c = new JButton(icon);
+                                    c.setPreferredSize(BTN_TAMANHO);
+                                    c.addActionListener(new ActionListener() {
+
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+
+                                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
+
+                                            jan.field1.setSelectedItem(lim);
+                                            jan.field1.setEnabled(false);
+                                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                            jan.field3.setText(Double.toString(lim.getAltura()));
+                                            jan.field4.setText(Double.toString(lim.getLargura()));
+                                            jan.field6.setText("" + cam.getEspessura());
+
+                                        }
+                                    });
+
+                                    a.add(b);
+                                    a.add(c);
+
+                                    jpanel3.add(a, posi);
+                                    jpanel3.revalidate();
+                                    posi++;
+                                }
+                            }
+                            posi = 0;
                             revalidate();
                         } else {
                             field1.setText("");
@@ -900,7 +997,7 @@ public class JanelaSimu extends JDialog {
                         } else {
                             JOptionPane.showMessageDialog(null, mensagens.getString("pastaJaExiste"), mensagens.getString("guardarResult"), WIDTH);
                         }
-                    }else{
+                    } else {
                         break;
                     }
                 } while (!new File(s).exists());
