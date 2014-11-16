@@ -1,4 +1,13 @@
- package fsiap.ui;
+ 
+/*
+TRABALHO DE FÍSICA
+António Pinheiro 1130339
+Cristina Lopes 1130371
+Egídio Santos 1130348
+José Cabeda 1130395
+ */
+
+package fsiap.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -267,9 +276,9 @@ public class JanelaAber extends JFrame {
                     aber.setAltura(Double.parseDouble(field3.getText()));
                     aber.setLargura(Double.parseDouble(field4.getText()));
                     aber.setMaterialPeloNome(field2.getSelectedItem().toString());
-                    aber.setEspessura(Double.parseDouble(field6.getText()));
 
                     Limite lim = (Limite) field1.getSelectedItem();
+                    aber.setEspessura(lim.getEspessura());
                     lim.addAbertura(aber);
                     aber.setLimite(lim);
 

@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+TRABALHO DE FÍSICA
+António Pinheiro 1130339
+Cristina Lopes 1130371
+Egídio Santos 1130348
+José Cabeda 1130395
  */
 package trabalhofsiap;
 
@@ -31,6 +33,7 @@ public class SimController implements Serializable {
     private List<Limite> listaLim;
     private Map<String, Material> listaMaterial;
     private transient ResourceBundle mensagens;
+    private Calculos calc;
 
     public SimController(float comprimento, float largura, float altura, float volume, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
         this.comprimento = comprimento;
@@ -43,6 +46,7 @@ public class SimController implements Serializable {
         this.numAparelhos = numAparelhos;
         this.listaLim = listaLim;
         listaMaterial = new HashMap<String, Material>();
+        this.calc = new Calculos(this);
     }
 
     public SimController() {
@@ -55,6 +59,7 @@ public class SimController implements Serializable {
         this.temperaturaPre = 0;
         this.listaLim = new ArrayList();
         listaMaterial = new HashMap<String, Material>();
+        this.calc = new Calculos(this);
     }
 
     public SimController(SimController dc) {
@@ -67,7 +72,7 @@ public class SimController implements Serializable {
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         listaMaterial = new HashMap<String, Material>();
-
+        this.calc = new Calculos(this);
     }
 
     public float getComprimento() {
@@ -177,7 +182,6 @@ public class SimController implements Serializable {
                 listaLim1.setTipo(listaLim2.getTipo());
             }
         }
-
     }
 
     @Override
@@ -187,13 +191,6 @@ public class SimController implements Serializable {
                 + altura + ", " + mensagens.getString("areaTotal") + ":" + areaTotal + ", " + mensagens.getString("potenciaMedia") + ":"
                 + ", " + mensagens.getString("numPessoas") + ":" + numPessoas + ", " + mensagens.getString("temperatura") + ":"
                 + temperaturaEx + ", " + mensagens.getString("numAparelhos") + ":" + numAparelhos;
-    }
-
-    public String calcular() {
-        String x = "";
-        double resultado = 0;
-
-        return x;
     }
 
     public String ultimoLim() {
@@ -215,9 +212,12 @@ public class SimController implements Serializable {
             out.write("<script type=\"text/javascript\" src=\"./" + mensagens.getString("resultados") + "_files/ufo.js\"></script>\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n"
                     + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles.php\">\n" + "<link rel=\"stylesheet\" type=\"text/css\" href=\"./" + mensagens.getString("resultados") + "_files/styles(1).php\">\n");
             out.write("<title>" + mensagens.getString("resultados") + ":" + "</title>\n" + "<link rel=\"icon\" type=\"image/ico\" href=\"http://www.isep.ipp.pt/favicon.ico\">\n" + "</head>\n" + "<body>\n" + "<div>\n" + "<img src=\"http://www.dei.isep.ipp.pt/images/topo_index.png\" alt=\"Logotipo ISEP\">\n"
-                    + "</div>\n" + "<hr>\n" + "<h1>" + mensagens.getString("parametros") + ":" + "</h1>\n");
+                    + "</div>\n" + "<hr>\n" + "<h2>" + mensagens.getString("parametros") + ":" + "</h2>\n");
             out.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
-
+            out.write("<h1>" + mensagens.getString("resultados") + ":" + "</h1>\n");
+            out.write("<h4>" + mensagens.getString("fluxoCalor1") + " : " + calc.FluxoCalor1() + " W/m&sup2</h4>\n");
+            out.write("<h4>" + mensagens.getString("fluxoCalor2") + " : " + calc.FluxoCalor2() +  " W/m&sup2</h4>\n");
+            out.write("<h4>" + mensagens.getString("potenciaRecomendada") + " : " + calc.PotenciaFinal() + " W</h4>\n");
             out.write("<hr>\n</body></html>");
             out.close();
 

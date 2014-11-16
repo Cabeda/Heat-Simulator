@@ -7,6 +7,7 @@ José Cabeda 1130395
  */
 package trabalhofsiap;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  * Q/t desejado = T/Rt
  * P ar condicionado = Q/t gerado - Q/t desejado
  */
-public class Calculos {
+public class Calculos implements Serializable{
     
     SimController dc;
     
@@ -38,9 +39,9 @@ public double calcularResistenciaTermica(List<Limite> listaLim){
     
     double resistencia = 0;
     for (int i = 0; i < listaLim.size(); i++){
-    List<Abertu> la = listaLim.get(i).getListaAberturas();
-    List<Camada> lc = listaLim.get(i).getListaCamadas();
-    resistencia += calculosIntermedios(la, lc);
+        List<Abertu> la = listaLim.get(i).getListaAberturas();
+        List<Camada> lc = listaLim.get(i).getListaCamadas();
+        resistencia += calculosIntermedios(la, lc);
     }
         return resistencia;
 }
@@ -50,6 +51,7 @@ public double calcularResistenciaTermica(List<Limite> listaLim){
  * @param numPessoas numero de pessoas existentes no ambiente
  * @param numAparelhos numero de aparelhos existentes no ambiente
  * 175,8 W - Potencia das pessoas
+ * 250 W - Potencia dos aparelhos eletronicos
  * @return fluxo de calor
  */
 public double FluxoCalor1 (){

@@ -1,14 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+TRABALHO DE FÍSICA
+António Pinheiro 1130339
+Cristina Lopes 1130371
+Egídio Santos 1130348
+José Cabeda 1130395
  */
 package trabalhofsiap;
 
-/**
- *
- * @author Jecabeda
- */
 public class Abertu implements java.io.Serializable {
 
     private Material material;

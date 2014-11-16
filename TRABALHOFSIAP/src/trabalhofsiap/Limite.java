@@ -56,6 +56,15 @@ public class Limite implements java.io.Serializable {
     public List<Camada> getListaCamadas() {
         return listaCamadas;
     }
+    
+    public double getEspessura(){
+        double espessura = 0;
+        for (Camada c: listaCamadas){
+            espessura += c.getEspessura();
+        }
+        return espessura;
+    }
+    
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
