@@ -9,8 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -23,10 +21,11 @@ import trabalhofsiap.Abertu;
 import trabalhofsiap.Aluminio;
 import trabalhofsiap.Ar;
 import trabalhofsiap.Betao;
-import trabalhofsiap.Camada;
+import trabalhofsiap.Cimento;
 import trabalhofsiap.Limite;
 import trabalhofsiap.Madeira;
 import trabalhofsiap.SimController;
+import trabalhofsiap.Tijolo;
 import trabalhofsiap.Vidro;
 
 /*
@@ -62,6 +61,8 @@ public class JanelaAber extends JFrame {
     private Betao be;
     private Vidro vi;
     private Ar a;
+    private Tijolo ti;
+    private Cimento ci;
     private Abertu alt;
     ResourceBundle mensagens;
 
@@ -73,11 +74,13 @@ public class JanelaAber extends JFrame {
         this.flag = f;
         this.posi = po;
 
-        al = new Aluminio(dc);
-        ma = new Madeira(dc);
-        vi = new Vidro(dc);
-        a = new Ar(dc);
-        be = new Betao(dc);
+        al = (Aluminio) d.getMaterialpeloNome(mensagens.getString("aluminio"));
+        ma = (Madeira) d.getMaterialpeloNome(mensagens.getString("madeira"));
+        vi = (Vidro) d.getMaterialpeloNome(mensagens.getString("vidro"));
+        a = (Ar) d.getMaterialpeloNome(mensagens.getString("ar"));
+        be = (Betao) d.getMaterialpeloNome(mensagens.getString("betao"));
+        ti  = (Tijolo) d.getMaterialpeloNome(mensagens.getString("tijolo"));
+        ci  = (Cimento)d.getMaterialpeloNome(mensagens.getString("cimento"));
 
         BorderLayout gl = new BorderLayout();
         setLayout(gl);
@@ -158,7 +161,7 @@ public class JanelaAber extends JFrame {
         JLabel label2 = new JLabel(mensagens.getString("material")+":", JLabel.RIGHT);
         label2.setPreferredSize(LABEL_TAMANHO2);
 
-        String opcoes2[] = {ma.getNome(), vi.getNome(), al.getNome()};
+        String opcoes2[] = {ma.getNome(), vi.getNome(), al.getNome(), be.getNome(),ci.getNome(),ti.getNome(),a.getNome()};
         field2 = new JComboBox(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
         field2.setSelectedIndex(-1);

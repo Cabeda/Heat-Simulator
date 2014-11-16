@@ -22,10 +22,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-/**
- *
- * @author Jecabeda
- */
+
 public class SimController implements Serializable {
 
     private float comprimento, largura, altura, areaTotal;
@@ -33,8 +30,7 @@ public class SimController implements Serializable {
     float temperaturaEx, temperaturaPre;
     private List<Limite> listaLim;
     private Map<String, Material> listaMaterial;
-    private int cint, cint2, lingua;
-    ResourceBundle mensagens;
+    private transient ResourceBundle mensagens;
 
     public SimController(float comprimento, float largura, float altura, float volume, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
         this.comprimento = comprimento;
@@ -46,10 +42,7 @@ public class SimController implements Serializable {
         this.temperaturaPre = temperaturaPre;
         this.numAparelhos = numAparelhos;
         this.listaLim = listaLim;
-        this.cint = 0;
-        this.cint2 = 0;
         listaMaterial = new HashMap<String, Material>();
-        mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
     }
 
     public SimController() {
@@ -61,10 +54,7 @@ public class SimController implements Serializable {
         this.temperaturaEx = 0;
         this.temperaturaPre = 0;
         this.listaLim = new ArrayList();
-        this.cint = 0;
-        this.cint2 = 0;
         listaMaterial = new HashMap<String, Material>();
-        mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
     }
 
     public SimController(SimController dc) {
@@ -77,7 +67,6 @@ public class SimController implements Serializable {
         this.temperaturaPre = dc.temperaturaPre;
         this.numAparelhos = dc.numAparelhos;
         listaMaterial = new HashMap<String, Material>();
-        mensagens = ResourceBundle.getBundle("MensagensBundle", new Locale("pt", "PT"));
 
     }
 
@@ -158,7 +147,6 @@ public class SimController implements Serializable {
     public void addLim(Limite listaLim) {
 
         (this.listaLim).add(listaLim);
-        cint++;
     }
 
     public List<Abertu> getListaAberturas() {
@@ -209,7 +197,7 @@ public class SimController implements Serializable {
     }
 
     public String ultimoLim() {
-        if (listaLim.size() != 0) {
+        if (!listaLim.isEmpty()) {
             Limite lim = listaLim.get(listaLim.size() - 1);
             return lim.toString();
         } else {
@@ -327,7 +315,7 @@ public class SimController implements Serializable {
             FileOutputStream fileOut = new FileOutputStream(f + "\\" + f + ".bin");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
-            out.writeObject(getLinguagem());
+
             out.writeObject(getAltura());
             out.writeObject(getLargura());
             out.writeObject(getComprimento());
@@ -356,7 +344,7 @@ public class SimController implements Serializable {
             FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream in = new ObjectInputStream(fileIn);
 
-            setLinguagem((int) in.readObject());
+
             setAltura((float) in.readObject());
             setLargura((float) in.readObject());
             setComprimento((float) in.readObject());
@@ -373,25 +361,53 @@ public class SimController implements Serializable {
 
             setNumPessoas((int) in.readObject());
             setNumAparelhos((int) in.readObject());
-            setTemperaturaEx((int) in.readObject());
-            setTemperaturaPre((int) in.readObject());
+            setTemperaturaEx((float) in.readObject());
+            setTemperaturaPre((float) in.readObject());
 
             in.close();
             fileIn.close();
+        
+        Aluminio al = (Aluminio) getMaterialpeloNome(mensagens.getString("aluminio"));
+        al.setMensagens(mensagens);
+        listaMaterial.replace(mensagens.getString("aluminio"),al);
+        Madeira ma = (Madeira) getMaterialpeloNome(mensagens.getString("madeira"));
+        ma.setMensagens(mensagens);
+        listaMaterial.replace(mensagens.getString("madeira"),ma);
+        Vidro vi = (Vidro) getMaterialpeloNome(mensagens.getString("vidro"));
+        vi.setMensagens(mensagens);
+        listaMaterial.replace(mensagens.getString("vidro"),vi);
+        Ar ar = (Ar) getMaterialpeloNome(mensagens.getString("ar"));
+        ar.setMensagens(mensagens);
+        listaMaterial.replace(mensagens.getString("ar"),ar);
+        Betao be  = (Betao)getMaterialpeloNome(mensagens.getString("betao"));
+        be.setMensagens(mensagens);
+        listaMaterial.replace(mensagens.getString("betao"),be);
+        Cimento ci  = (Cimento)getMaterialpeloNome(mensagens.getString("cimento"));
+        ci.setMensagens(mensagens);
+        listaMaterial.replace(mensagens.getString("cimento"),ci);
+        Tijolo ti  = (Tijolo) getMaterialpeloNome(mensagens.getString("tijolo"));
+        ti.setMensagens(mensagens);
+        listaMaterial.replace(mensagens.getString("tijolo"),ti);
+        
+        for (Limite l : listaLim)
+        {
+            l.setMensagens(mensagens);
+            for(Camada c : l.getListaCamadas())
+            {
+                c.getMaterial().setMensagens(mensagens);
+            }
+            for(Abertu a: l.getListaAberturas())
+            {
+                a.getMaterial().setMensagens(mensagens);
+            }
+        }
+        
         } catch (IOException i) {
             System.out.println("IOException");
         } catch (ClassNotFoundException c) {
 
             System.out.println("Class Not Found Exception");
         }
-    }
-
-    public void setLinguagem(int i) {
-        lingua = i;
-    }
-
-    public int getLinguagem() {
-        return lingua;
     }
 
     /**
@@ -427,13 +443,13 @@ public class SimController implements Serializable {
      * @param listaMaterial the listaMaterial to set
      */
     public void criarListaMaterial() {
-        listaMaterial.put(mensagens.getString("aluminio"), new Aluminio(this));
-        listaMaterial.put(mensagens.getString("ar"), new Ar(this));
-        listaMaterial.put(mensagens.getString("betao"), new Betao(this));
-        listaMaterial.put(mensagens.getString("cimento"), new Cimento(this));
-        listaMaterial.put(mensagens.getString("madeira"), new Madeira(this));
-        listaMaterial.put(mensagens.getString("tijolo"), new Tijolo(this));
-        listaMaterial.put(mensagens.getString("vidro"), new Vidro(this));
+        listaMaterial.put(mensagens.getString("aluminio"), new Aluminio(this.getMensagens()));
+        listaMaterial.put(mensagens.getString("ar"), new Ar(this.getMensagens()));
+        listaMaterial.put(mensagens.getString("betao"), new Betao(this.getMensagens()));
+        listaMaterial.put(mensagens.getString("cimento"), new Cimento(this.getMensagens()));
+        listaMaterial.put(mensagens.getString("madeira"), new Madeira(this.getMensagens()));
+        listaMaterial.put(mensagens.getString("tijolo"), new Tijolo(this.getMensagens()));
+        listaMaterial.put(mensagens.getString("vidro"), new Vidro(this.getMensagens()));
     }
 
 }

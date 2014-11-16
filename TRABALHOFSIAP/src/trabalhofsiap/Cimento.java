@@ -8,18 +8,18 @@ José Cabeda 1130395
 package trabalhofsiap;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 public class Cimento extends Material implements Serializable{
 
-        private SimController dc;
-        
+  
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Cimento(SimController dc) {
-        super(0.13, dc.getMensagens().getString("cimento"));
-        this.dc = dc;
+    public Cimento(ResourceBundle mens) {
+        super(0.13, mens.getString("cimento"),mens);
+        this.mensagens = mens;
     }
     
     public String getNome() {
-         return dc.getMensagens().getString("cimento");
+         return mensagens.getString("cimento");
     }
 }

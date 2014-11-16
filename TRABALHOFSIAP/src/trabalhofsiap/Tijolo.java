@@ -8,18 +8,19 @@ José Cabeda 1130395
 package trabalhofsiap;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 public class Tijolo extends Material implements Serializable{
 
-    private SimController dc;
 
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Tijolo(SimController dc) {
-        super(0.6,dc.getMensagens().getString("tijolo"));
-        this.dc = dc;
+    public Tijolo(ResourceBundle mens) {
+        super(0.6,mens.getString("tijolo"),mens);
+       this.mensagens=mens;
     }
 
     public String getNome() {
-         return dc.getMensagens().getString("tijolo");
+         return mensagens.getString("tijolo");
 }
+
 }

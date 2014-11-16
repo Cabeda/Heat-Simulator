@@ -8,18 +8,20 @@ José Cabeda 1130395
 package trabalhofsiap;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 public class Betao extends Material implements Serializable{
 
-        private SimController dc;
+
         
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Betao(SimController dc) {
-        super(1.7, dc.getMensagens().getString("betao"));
-        this.dc = dc;
+    public Betao(ResourceBundle mens) {
+        super(1.7, mens.getString("betao"),mens);
+        this.mensagens=mens;
     }
     
     public String getNome() {
-         return dc.getMensagens().getString("betao");
+         return mensagens.getString("betao");
     }
+
 }

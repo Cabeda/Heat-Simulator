@@ -19,6 +19,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
@@ -80,20 +81,23 @@ public class JanelaSimu extends JDialog {
 
         mensagens = d.getMensagens();
 
-        tecto = new Limite(mensagens.getString("tecto"), dc);
-        chao = new Limite(mensagens.getString("chao"), dc);
-        paredeNorte = new Limite(mensagens.getString("paredeNorte"), dc);
-        paredeOeste = new Limite(mensagens.getString("paredeOeste"), dc);
-        paredeSul = new Limite(mensagens.getString("paredeSul"), dc);
-        paredeEste = new Limite(mensagens.getString("paredeEste"), dc);
+        tecto = new Limite("tecto",mensagens);
+        chao = new Limite("chao", mensagens);
+        paredeNorte = new Limite("paredeNorte", mensagens);
+        paredeOeste = new Limite("paredeOeste", mensagens);
+        paredeSul = new Limite("paredeSul", mensagens);
+        paredeEste = new Limite("paredeEste",mensagens);
 
         dc = d;
-        dc.addLim(tecto);
-        dc.addLim(paredeNorte);
-        dc.addLim(paredeOeste);
-        dc.addLim(paredeEste);
-        dc.addLim(paredeSul);
-        dc.addLim(chao);
+        if(dc.getListaLim().isEmpty())
+        {
+            dc.addLim(tecto);
+            dc.addLim(paredeNorte);
+            dc.addLim(paredeOeste);
+            dc.addLim(paredeEste);
+            dc.addLim(paredeSul);
+            dc.addLim(chao);
+        }
 
         JPanel jp = new JPanel();
         jp.setLayout(new BorderLayout());

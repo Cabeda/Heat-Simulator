@@ -8,21 +8,21 @@ José Cabeda 1130395
 package trabalhofsiap;
 
 import java.io.Serializable;
+import java.util.ResourceBundle;
 
 public class Vidro extends Material implements Serializable{
 
-    private SimController dc;
+
     
     //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
-    public Vidro(SimController dc) {
-        super(0.79,dc.getMensagens().getString("vidro"));
-        this.dc=dc;
+    public Vidro(ResourceBundle mens) {
+        super(0.79,mens.getString("vidro"),mens);
+        this.mensagens=mens;
     }
         
      public String getNome() {
-        return dc.getMensagens().getString("vidro");
+        return mensagens.getString("vidro");
 
     }
 
-    
 }

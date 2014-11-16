@@ -7,6 +7,7 @@ package trabalhofsiap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -16,28 +17,28 @@ public class Limite implements java.io.Serializable {
 
     private String tipo;
     private double altura, largura, area;
-    private SimController dc;
+    private transient ResourceBundle mensagens;
     private List<Abertu> listaAberturas;
     private List<Camada> listaCamadas;
 
-    public Limite(String tipo, SimController d) {
+    public Limite(String tipo,ResourceBundle mens) {
         this.tipo = tipo;
-        this.dc = d;
+        this.mensagens=mens;
         listaAberturas = new ArrayList<>();
         listaCamadas = new ArrayList<>();
     }
 
-    public Limite(SimController d) {
+    public Limite(ResourceBundle mens) {
         this.altura = 0;
         this.largura = 0;
-        this.dc = d;
+        this.mensagens = mens;
         this.area = altura*largura;
         listaAberturas = new ArrayList<>();
         listaCamadas = new ArrayList<>();
     }
 
     public String getTipo() {
-        return tipo;
+        return mensagens.getString(tipo);
     }
 
     public double getAltura() {
@@ -94,6 +95,13 @@ public class Limite implements java.io.Serializable {
     @Override
     public String toString() {
         return getTipo() + " | " + getAltura() + " | " + getLargura();
+    }
+
+    /**
+     * @param mensagens the mensagens to set
+     */
+    public void setMensagens(ResourceBundle mensagens) {
+        this.mensagens = mensagens;
     }
 
 }
