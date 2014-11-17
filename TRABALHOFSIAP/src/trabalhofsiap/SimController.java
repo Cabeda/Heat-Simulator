@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class SimController implements Serializable {
 
-    private float comprimento, largura, altura, areaTotal;
+    private double comprimento, largura, altura, areaTotal;
     int numPessoas, numAparelhos;
     float temperaturaEx, temperaturaPre;
     private List<Limite> listaLim;
@@ -35,7 +35,7 @@ public class SimController implements Serializable {
     private transient ResourceBundle mensagens;
     private Calculos calc;
 
-    public SimController(float comprimento, float largura, float altura, float volume, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
+    public SimController(float comprimento, double largura, double altura, double volume, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
         this.comprimento = comprimento;
         this.largura = largura;
         this.altura = altura;
@@ -75,15 +75,15 @@ public class SimController implements Serializable {
         this.calc = new Calculos(this);
     }
 
-    public float getComprimento() {
+    public double getComprimento() {
         return comprimento;
     }
 
-    public float getLargura() {
+    public double getLargura() {
         return largura;
     }
 
-    public float getAltura() {
+    public double getAltura() {
         return altura;
     }
 
@@ -95,7 +95,7 @@ public class SimController implements Serializable {
         return temperaturaPre;
     }
 
-    public float getAreaTotal() {
+    public double getAreaTotal() {
 
         return areaTotal;
     }
@@ -112,15 +112,15 @@ public class SimController implements Serializable {
         return listaLim;
     }
 
-    public void setComprimento(float comprimento) {
+    public void setComprimento(double comprimento) {
         this.comprimento = comprimento;
     }
 
-    public void setLargura(float largura) {
+    public void setLargura(double largura) {
         this.largura = largura;
     }
 
-    public void setAltura(float altura) {
+    public void setAltura(double altura) {
         this.altura = altura;
     }
 
@@ -129,7 +129,7 @@ public class SimController implements Serializable {
 
     }
 
-    public void setAreaTotal(float area) {
+    public void setAreaTotal(double area) {
         this.areaTotal = area;
     }
 

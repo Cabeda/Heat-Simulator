@@ -83,7 +83,7 @@ public class Abertu implements java.io.Serializable {
     @Override
     public String toString() {
 
-        return limite.getTipo() + " | " +this.material.getNome() + " | " + this.altura + " | " + this.largura + " | " + " | " + this.espessura;
+        return limite.getTipo() + " | " +this.material.getNome() + " | " + this.altura + " | " + this.largura + " | " + this.espessura;
     }
 
     /**

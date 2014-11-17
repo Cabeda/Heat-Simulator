@@ -298,7 +298,7 @@ public class JanelaCamada extends JFrame {
                     try {
 
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
-                            if (Integer.parseInt(field6.getText()) <= 0) {
+                            if (Double.parseDouble(field6.getText()) <= 0) {
                                 field6.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
@@ -334,7 +334,7 @@ public class JanelaCamada extends JFrame {
                                         jan.field2.setSelectedItem(cam.getMaterial().getNome());
                                         jan.field3.setText(Double.toString(lim.getAltura()));
                                         jan.field4.setText(Double.toString(lim.getLargura()));
-                                        jan.field6.setText("" + cam.getEspessura());
+                                        jan.field6.setText(""+(cam.getEspessura()));
                                     }
                                 });
                             }
@@ -342,7 +342,7 @@ public class JanelaCamada extends JFrame {
                             JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
 
-                    } catch (Exception error) {
+                    } catch (NumberFormatException erro) {
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
 
@@ -357,7 +357,7 @@ public class JanelaCamada extends JFrame {
                     try {
 
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field6.getText().equals("")) {
-                            if (Integer.parseInt(field6.getText()) <= 0) {
+                            if (Double.parseDouble(field6.getText()) <= 0) {
                                 field6.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
@@ -404,7 +404,7 @@ public class JanelaCamada extends JFrame {
                         } else {
                             JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
-                    } catch (Exception erro) {
+                    } catch (NumberFormatException erro) {
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
 

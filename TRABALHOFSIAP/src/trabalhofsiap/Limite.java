@@ -103,7 +103,7 @@ public class Limite implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return getTipo() + " | " + getAltura() + " | " + getLargura();
+        return getTipo() + " | " + String.format("%1$,.2f", getAltura()) + " | " + String.format("%1$,.2f", getLargura());
     }
 
     /**
