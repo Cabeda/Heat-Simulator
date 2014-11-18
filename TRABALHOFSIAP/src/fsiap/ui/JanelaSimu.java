@@ -42,10 +42,12 @@ import trabalhofsiap.SimController;
 
 /**
  *
- * @author i130348
+ * Classe responsável por criar a Janela principal do Simulador
+ * 
  */
 public class JanelaSimu extends JDialog {
 
+    //Icone 
     public Icon icon = new ImageIcon("icon_device_settings.gif");
     public Icon icon2 = new ImageIcon("delete.png");
     private String fechar = "nao";
@@ -75,6 +77,14 @@ public class JanelaSimu extends JDialog {
 
     private JTabbedPane jt = new JTabbedPane();
 
+    /**
+     * 
+     * Método responsável por criar e apresentar a janela principal
+     * 
+     * @param titulo
+     * @param pai
+     * @param d 
+     */
     public JanelaSimu(String titulo, JFrame pai, SimController d) {
 
         super(pai, titulo);
@@ -142,6 +152,12 @@ public class JanelaSimu extends JDialog {
 
     }
 
+    /**
+     * 
+     * Método para criar a primeira tabbePane (Dimensões do ambiente)
+     * 
+     * @return 
+     */
     protected JPanel panel1() {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
@@ -163,6 +179,7 @@ public class JanelaSimu extends JDialog {
         if (dc.getComprimento() != 0) {
             field1.setText("" + dc.getComprimento());
         }
+        
         field1.addMouseListener(new MouseListener() {
 
             @Override
@@ -226,12 +243,13 @@ public class JanelaSimu extends JDialog {
                             for (Limite lim : dc.getListaLim()) {
                                 double areaTmp = lim.getArea();
                                 for (Abertu aber : lim.getListaAberturas()) {
-                                    if (areaTmp >= 0) {
-                                        areaTmp -= aber.getArea();
-                                    } else {
+                                    areaTmp -= aber.getArea();
+                                    if (areaTmp < 0) {
+                                        System.out.println("Área negativa");
                                         jpanel2.removeAll();
                                         lim.getListaAberturas().clear();
                                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                                        break;
                                     }
                                 }
                                 for (Camada cam : lim.getListaCamadas()) {
@@ -275,7 +293,7 @@ public class JanelaSimu extends JDialog {
                         }
                     }
                     revalidate();
-                } catch (Exception ex) {
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     field1.setText("");
                     field2.setText("");
@@ -328,10 +346,11 @@ public class JanelaSimu extends JDialog {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
                         if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
+
                             tecto.setAltura((Double.parseDouble(field1.getText())));
                             tecto.setLargura((Double.parseDouble(field2.getText())));
                             tecto.setArea(tecto.getAltura() * tecto.getLargura());
-                            
+
                             paredeNorte.setAltura((Double.parseDouble(field3.getText())));
                             paredeNorte.setLargura((Double.parseDouble(field2.getText())));
                             paredeNorte.setArea(paredeNorte.getAltura() * paredeNorte.getLargura());
@@ -357,10 +376,21 @@ public class JanelaSimu extends JDialog {
                             dc.setLargura((Double.parseDouble(field2.getText())));
                             dc.setAreaTotal();
                             field4.setText(Double.toString(dc.getAreaTotal()));
+                            revalidate();
                             jpanel3.removeAll();
                             for (Limite lim : dc.getListaLim()) {
+                                double areaTmp = lim.getArea();
+                                for (Abertu aber : lim.getListaAberturas()) {
+                                    areaTmp -= aber.getArea();
+                                    if (areaTmp < 0) {
+                                        System.out.println("Área negativa");
+                                        jpanel2.removeAll();
+                                        lim.getListaAberturas().clear();
+                                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                                        break;
+                                    }
+                                }
                                 for (Camada cam : lim.getListaCamadas()) {
-
                                     JPanel a = new JPanel(new FlowLayout());
                                     JLabel b = new JLabel(cam.toString());
                                     JButton c = new JButton(icon);
@@ -391,7 +421,6 @@ public class JanelaSimu extends JDialog {
                                 }
                             }
                             posi = 0;
-                            revalidate();
                         } else {
                             field1.setText("");
                             field2.setText("");
@@ -402,7 +431,7 @@ public class JanelaSimu extends JDialog {
                         }
                     }
                     revalidate();
-                } catch (Exception ex) {
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     field1.setText("");
                     field2.setText("");
@@ -456,6 +485,7 @@ public class JanelaSimu extends JDialog {
                     if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
 
                         if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
+
                             tecto.setAltura((Double.parseDouble(field1.getText())));
                             tecto.setLargura((Double.parseDouble(field2.getText())));
                             tecto.setArea(tecto.getAltura() * tecto.getLargura());
@@ -485,10 +515,21 @@ public class JanelaSimu extends JDialog {
                             dc.setLargura((Double.parseDouble(field2.getText())));
                             dc.setAreaTotal();
                             field4.setText(Double.toString(dc.getAreaTotal()));
+                            revalidate();
                             jpanel3.removeAll();
                             for (Limite lim : dc.getListaLim()) {
+                                double areaTmp = lim.getArea();
+                                for (Abertu aber : lim.getListaAberturas()) {
+                                    areaTmp -= aber.getArea();
+                                    if (areaTmp < 0) {
+                                        System.out.println("Área negativa");
+                                        jpanel2.removeAll();
+                                        lim.getListaAberturas().clear();
+                                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                                        break;
+                                    }
+                                }
                                 for (Camada cam : lim.getListaCamadas()) {
-
                                     JPanel a = new JPanel(new FlowLayout());
                                     JLabel b = new JLabel(cam.toString());
                                     JButton c = new JButton(icon);
@@ -519,7 +560,6 @@ public class JanelaSimu extends JDialog {
                                 }
                             }
                             posi = 0;
-                            revalidate();
                         } else {
                             field1.setText("");
                             field2.setText("");
@@ -530,7 +570,7 @@ public class JanelaSimu extends JDialog {
                         }
                     }
                     revalidate();
-                } catch (Exception ex) {
+                } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     field1.setText("");
                     field2.setText("");
@@ -602,6 +642,12 @@ public class JanelaSimu extends JDialog {
         return panel;
     }
 
+    /**
+     * 
+     * Método responsável por criar a 3ªTabbedPane (Aberturas da sala)
+     * 
+     * @return 
+     */
     protected JPanel panel2() {
 
         JPanel panel = new JPanel();
@@ -696,6 +742,12 @@ public class JanelaSimu extends JDialog {
         return panel;
     }
 
+    /**
+     * 
+     * Método responsável por criar a 4ª tabbedPane (Pessoas na sala)
+     * 
+     * @return 
+     */
     protected JPanel panel3() {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
@@ -745,6 +797,12 @@ public class JanelaSimu extends JDialog {
 
     }
 
+    /**
+     * 
+     * Método responsável por criar a 2ª tabbedPane (Camadas da 2ª sala) 
+     * 
+     * @return 
+     */
     protected JPanel panel5() {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
@@ -837,6 +895,12 @@ public class JanelaSimu extends JDialog {
         return panel;
     }
 
+    /**
+     * 
+     * Método para criar a 6ª tabbedPane (Número de aparelhos na sala)
+     * 
+     * @return 
+     */
     protected JPanel panel6() {
 
         JPanel panel = new JPanel();
@@ -900,6 +964,12 @@ public class JanelaSimu extends JDialog {
         return panel;
     }
 
+    /**
+     * 
+     * Método para criar a 6ª tabbedPane (Temperatura fora da sala e a pretendida )
+     * 
+     * @return 
+     */
     protected JPanel panel7() {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
@@ -975,6 +1045,12 @@ public class JanelaSimu extends JDialog {
         return panel;
     }
 
+    /**
+     * 
+     * Método para criar a 8ª tabbedPane (calcular o resultado)
+     * 
+     * @return 
+     */
     protected JPanel panel8() {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel(new GridLayout(4, 1));

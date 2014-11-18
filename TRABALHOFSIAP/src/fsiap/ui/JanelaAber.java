@@ -330,9 +330,8 @@ public class JanelaAber extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        System.out.println("Área antes:\n" + ((Limite) field1.getSelectedItem()).getArea());
-                        ((Limite) field1.getSelectedItem()).setArea(((Limite) field1.getSelectedItem()).getArea() - (((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getAltura() * ((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getLargura()));
-                        System.out.println("Área depois:\n" + ((Limite) field1.getSelectedItem()).getArea());
+                  
+                        ((Limite) field1.getSelectedItem()).setArea(((Limite) field1.getSelectedItem()).getArea() + (((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getAltura() * ((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getLargura()));
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("")) {
                             if (Double.parseDouble(field3.getText()) <= 0) {
                                 field3.setText("");
@@ -354,6 +353,7 @@ public class JanelaAber extends JFrame {
                                 aber.setLargura(Double.parseDouble(field4.getText()));
                                 aber.setEspessura(Double.parseDouble(field6.getText()));
                                 aber.setMaterialPeloNome(field2.getSelectedItem().toString());
+                                lim.setArea(lim.getArea()-(aber.getAltura()*aber.getLargura()));
 
                                 lim.getListaAberturas().set(posi, aber);
 

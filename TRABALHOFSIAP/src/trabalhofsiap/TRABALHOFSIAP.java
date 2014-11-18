@@ -5,8 +5,8 @@ import fsiap.ui.JanelaSelLing;
 import java.io.IOException;
 
 /**
- *
- * @author i130348
+ * 
+ * Main da aplicação
  */
 public class TRABALHOFSIAP {
 

@@ -27,7 +27,6 @@ public class Calculos implements Serializable{
      */
     public Calculos(SimController dc){
         this.dc = dc;
-        PotenciaFinal();
     }
    
     /**
@@ -55,6 +54,7 @@ public double calcularResistenciaTermica(List<Limite> listaLim){
  * @return fluxo de calor
  */
 public double FluxoCalor1 (){
+    System.out.println("Num pessoas: "+dc.numPessoas*175.8+"+"+dc.numAparelhos*250);
     return (dc.numPessoas)*175.8 +(dc.numAparelhos)*250;
 }
 
@@ -63,6 +63,7 @@ public double FluxoCalor1 (){
  * @return fluxo de calor com a temperatura pretendida
  */
 public double FluxoCalor2(){
+    System.out.println("Temperaturas: "+dc.getTemperaturaPre()+"-"+dc.getTemperaturaEx()+"/"+calcularResistenciaTermica(dc.getListaLim()));
     return (dc.getTemperaturaPre()-dc.getTemperaturaEx())/calcularResistenciaTermica(dc.getListaLim());
 }
 
