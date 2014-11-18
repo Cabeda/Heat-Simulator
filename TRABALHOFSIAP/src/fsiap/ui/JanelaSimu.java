@@ -19,7 +19,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
@@ -39,11 +38,16 @@ import trabalhofsiap.Abertu;
 import trabalhofsiap.Camada;
 import trabalhofsiap.Limite;
 import trabalhofsiap.SimController;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 
 /**
  *
  * Classe responsável por criar a Janela principal do Simulador
- * 
+ *
  */
 public class JanelaSimu extends JDialog {
 
@@ -78,12 +82,12 @@ public class JanelaSimu extends JDialog {
     private JTabbedPane jt = new JTabbedPane();
 
     /**
-     * 
+     *
      * Método responsável por criar e apresentar a janela principal
-     * 
+     *
      * @param titulo
      * @param pai
-     * @param d 
+     * @param d
      */
     public JanelaSimu(String titulo, JFrame pai, SimController d) {
 
@@ -152,11 +156,108 @@ public class JanelaSimu extends JDialog {
 
     }
 
+    protected void jfield1() {
+
+        try {
+            if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
+
+                if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
+
+                    tecto.setAltura((Double.parseDouble(field1.getText())));
+                    tecto.setLargura((Double.parseDouble(field2.getText())));
+                    tecto.setArea(tecto.getAltura() * tecto.getLargura());
+
+                    paredeNorte.setAltura((Double.parseDouble(field3.getText())));
+                    paredeNorte.setLargura((Double.parseDouble(field2.getText())));
+                    paredeNorte.setArea(paredeNorte.getAltura() * paredeNorte.getLargura());
+
+                    paredeOeste.setAltura((Double.parseDouble(field3.getText())));
+                    paredeOeste.setLargura((Double.parseDouble(field1.getText())));
+                    paredeOeste.setArea(paredeOeste.getAltura() * paredeOeste.getLargura());
+
+                    paredeSul.setAltura((Double.parseDouble(field3.getText())));
+                    paredeSul.setLargura((Double.parseDouble(field2.getText())));
+                    paredeSul.setArea(paredeSul.getAltura() * paredeSul.getLargura());
+
+                    paredeEste.setAltura((Double.parseDouble(field3.getText())));
+                    paredeEste.setLargura((Double.parseDouble(field1.getText())));
+                    paredeEste.setArea(paredeEste.getAltura() * paredeEste.getLargura());
+
+                    chao.setAltura((Double.parseDouble(field1.getText())));
+                    chao.setLargura((Double.parseDouble(field2.getText())));
+                    chao.setArea(chao.getAltura() * chao.getLargura());
+
+                    dc.setAltura((Double.parseDouble(field3.getText())));
+                    dc.setComprimento((Double.parseDouble(field1.getText())));
+                    dc.setLargura((Double.parseDouble(field2.getText())));
+                    dc.setAreaTotal();
+                    field4.setText(Double.toString(dc.getAreaTotal()));
+                    revalidate();
+                    jpanel3.removeAll();
+                    for (Limite lim : dc.getListaLim()) {
+                        double areaTmp = lim.getArea();
+                        for (Abertu aber : lim.getListaAberturas()) {
+                            areaTmp -= aber.getArea();
+                            if (areaTmp < 0) {
+                                System.out.println("Área negativa");
+                                jpanel2.removeAll();
+                                lim.getListaAberturas().clear();
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                                break;
+                            }
+                        }
+                        for (Camada cam : lim.getListaCamadas()) {
+                            JPanel a = new JPanel(new FlowLayout());
+                            JLabel b = new JLabel(cam.toString());
+                            JButton c = new JButton(icon);
+                            c.setPreferredSize(BTN_TAMANHO);
+                            c.addActionListener(new ActionListener() {
+
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+
+                                    JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
+
+                                    jan.field1.setSelectedItem(lim);
+                                    jan.field1.setEnabled(false);
+                                    jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                    jan.field3.setText(Double.toString(lim.getAltura()));
+                                    jan.field4.setText(Double.toString(lim.getLargura()));
+                                    jan.field6.setText("" + cam.getEspessura());
+
+                                }
+                            });
+
+                            a.add(b);
+                            a.add(c);
+
+                            jpanel3.add(a, posi);
+                            jpanel3.revalidate();
+                            posi++;
+                        }
+                    }
+                    posi = 0;
+                } else {
+                    field1.setText("");
+                    field2.setText("");
+                    field3.setText("");
+                    field4.setText("");
+                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+
+                }
+            }
+            revalidate();
+        } catch (NumberFormatException | HeadlessException ex) {
+            JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }
+
     /**
-     * 
+     *
      * Método para criar a primeira tabbePane (Dimensões do ambiente)
-     * 
-     * @return 
+     *
+     * @return
      */
     protected JPanel panel1() {
         JPanel panel = new JPanel();
@@ -179,129 +280,37 @@ public class JanelaSimu extends JDialog {
         if (dc.getComprimento() != 0) {
             field1.setText("" + dc.getComprimento());
         }
-        
-        field1.addMouseListener(new MouseListener() {
+
+        field1.addActionListener(new ActionListener() {
 
             @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                try {
-                    if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-
-                        if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
-
-                            tecto.setAltura((Double.parseDouble(field1.getText())));
-                            tecto.setLargura((Double.parseDouble(field2.getText())));
-                            tecto.setArea(tecto.getAltura() * tecto.getLargura());
-
-                            paredeNorte.setAltura((Double.parseDouble(field3.getText())));
-                            paredeNorte.setLargura((Double.parseDouble(field2.getText())));
-                            paredeNorte.setArea(paredeNorte.getAltura() * paredeNorte.getLargura());
-
-                            paredeOeste.setAltura((Double.parseDouble(field3.getText())));
-                            paredeOeste.setLargura((Double.parseDouble(field1.getText())));
-                            paredeOeste.setArea(paredeOeste.getAltura() * paredeOeste.getLargura());
-
-                            paredeSul.setAltura((Double.parseDouble(field3.getText())));
-                            paredeSul.setLargura((Double.parseDouble(field2.getText())));
-                            paredeSul.setArea(paredeSul.getAltura() * paredeSul.getLargura());
-
-                            paredeEste.setAltura((Double.parseDouble(field3.getText())));
-                            paredeEste.setLargura((Double.parseDouble(field1.getText())));
-                            paredeEste.setArea(paredeEste.getAltura() * paredeEste.getLargura());
-
-                            chao.setAltura((Double.parseDouble(field1.getText())));
-                            chao.setLargura((Double.parseDouble(field2.getText())));
-                            chao.setArea(chao.getAltura() * chao.getLargura());
-
-                            dc.setAltura((Double.parseDouble(field3.getText())));
-                            dc.setComprimento((Double.parseDouble(field1.getText())));
-                            dc.setLargura((Double.parseDouble(field2.getText())));
-                            dc.setAreaTotal();
-                            field4.setText(Double.toString(dc.getAreaTotal()));
-                            revalidate();
-                            jpanel3.removeAll();
-                            for (Limite lim : dc.getListaLim()) {
-                                double areaTmp = lim.getArea();
-                                for (Abertu aber : lim.getListaAberturas()) {
-                                    areaTmp -= aber.getArea();
-                                    if (areaTmp < 0) {
-                                        System.out.println("Área negativa");
-                                        jpanel2.removeAll();
-                                        lim.getListaAberturas().clear();
-                                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                                        break;
-                                    }
-                                }
-                                for (Camada cam : lim.getListaCamadas()) {
-                                    JPanel a = new JPanel(new FlowLayout());
-                                    JLabel b = new JLabel(cam.toString());
-                                    JButton c = new JButton(icon);
-                                    c.setPreferredSize(BTN_TAMANHO);
-                                    c.addActionListener(new ActionListener() {
-
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-
-                                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
-
-                                            jan.field1.setSelectedItem(lim);
-                                            jan.field1.setEnabled(false);
-                                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                                            jan.field3.setText(Double.toString(lim.getAltura()));
-                                            jan.field4.setText(Double.toString(lim.getLargura()));
-                                            jan.field6.setText("" + cam.getEspessura());
-
-                                        }
-                                    });
-
-                                    a.add(b);
-                                    a.add(c);
-
-                                    jpanel3.add(a, posi);
-                                    jpanel3.revalidate();
-                                    posi++;
-                                }
-                            }
-                            posi = 0;
-                        } else {
-                            field1.setText("");
-                            field2.setText("");
-                            field3.setText("");
-                            field4.setText("");
-                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                    }
-                    revalidate();
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                    field1.setText("");
-                    field2.setText("");
-                    field3.setText("");
-                    field4.setText("");
-                }
+            public void actionPerformed(ActionEvent e) {
+                //nothing
             }
         });
+
+        field1.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+
+                jfield1();
+
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                jfield1();
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+                jfield1();
+            }
+        });
+
         panel1.add(label1);
         panel1.add(field1);
         panel1.add(l1);
@@ -318,126 +327,36 @@ public class JanelaSimu extends JDialog {
         if (dc.getLargura() != 0) {
             field2.setText("" + dc.getLargura());
         }
-        field2.addMouseListener(new MouseListener() {
+
+        field2.addActionListener(new ActionListener() {
 
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
+                //nothing
+            }
+        });
+
+        field2.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+
+                jfield1();
 
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void removeUpdate(DocumentEvent e) {
+
+                jfield1();
 
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void changedUpdate(DocumentEvent e) {
 
-            }
+                jfield1();
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                try {
-                    if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-
-                        if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
-
-                            tecto.setAltura((Double.parseDouble(field1.getText())));
-                            tecto.setLargura((Double.parseDouble(field2.getText())));
-                            tecto.setArea(tecto.getAltura() * tecto.getLargura());
-
-                            paredeNorte.setAltura((Double.parseDouble(field3.getText())));
-                            paredeNorte.setLargura((Double.parseDouble(field2.getText())));
-                            paredeNorte.setArea(paredeNorte.getAltura() * paredeNorte.getLargura());
-
-                            paredeOeste.setAltura((Double.parseDouble(field3.getText())));
-                            paredeOeste.setLargura((Double.parseDouble(field1.getText())));
-                            paredeOeste.setArea(paredeOeste.getAltura() * paredeOeste.getLargura());
-
-                            paredeSul.setAltura((Double.parseDouble(field3.getText())));
-                            paredeSul.setLargura((Double.parseDouble(field2.getText())));
-                            paredeSul.setArea(paredeSul.getAltura() * paredeSul.getLargura());
-
-                            paredeEste.setAltura((Double.parseDouble(field3.getText())));
-                            paredeEste.setLargura((Double.parseDouble(field1.getText())));
-                            paredeEste.setArea(paredeEste.getAltura() * paredeEste.getLargura());
-
-                            chao.setAltura((Double.parseDouble(field1.getText())));
-                            chao.setLargura((Double.parseDouble(field2.getText())));
-                            chao.setArea(chao.getAltura() * chao.getLargura());
-
-                            dc.setAltura((Double.parseDouble(field3.getText())));
-                            dc.setComprimento((Double.parseDouble(field1.getText())));
-                            dc.setLargura((Double.parseDouble(field2.getText())));
-                            dc.setAreaTotal();
-                            field4.setText(Double.toString(dc.getAreaTotal()));
-                            revalidate();
-                            jpanel3.removeAll();
-                            for (Limite lim : dc.getListaLim()) {
-                                double areaTmp = lim.getArea();
-                                for (Abertu aber : lim.getListaAberturas()) {
-                                    areaTmp -= aber.getArea();
-                                    if (areaTmp < 0) {
-                                        System.out.println("Área negativa");
-                                        jpanel2.removeAll();
-                                        lim.getListaAberturas().clear();
-                                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                                        break;
-                                    }
-                                }
-                                for (Camada cam : lim.getListaCamadas()) {
-                                    JPanel a = new JPanel(new FlowLayout());
-                                    JLabel b = new JLabel(cam.toString());
-                                    JButton c = new JButton(icon);
-                                    c.setPreferredSize(BTN_TAMANHO);
-                                    c.addActionListener(new ActionListener() {
-
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-
-                                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
-
-                                            jan.field1.setSelectedItem(lim);
-                                            jan.field1.setEnabled(false);
-                                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                                            jan.field3.setText(Double.toString(lim.getAltura()));
-                                            jan.field4.setText(Double.toString(lim.getLargura()));
-                                            jan.field6.setText("" + cam.getEspessura());
-
-                                        }
-                                    });
-
-                                    a.add(b);
-                                    a.add(c);
-
-                                    jpanel3.add(a, posi);
-                                    jpanel3.revalidate();
-                                    posi++;
-                                }
-                            }
-                            posi = 0;
-                        } else {
-                            field1.setText("");
-                            field2.setText("");
-                            field3.setText("");
-                            field4.setText("");
-                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                    }
-                    revalidate();
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                    field1.setText("");
-                    field2.setText("");
-                    field3.setText("");
-                    field4.setText("");
-                }
             }
         });
 
@@ -457,126 +376,36 @@ public class JanelaSimu extends JDialog {
         if (dc.getAltura() != 0) {
             field3.setText("" + dc.getAltura());
         }
-        field3.addMouseListener(new MouseListener() {
+
+        field3.addActionListener(new ActionListener() {
 
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void actionPerformed(ActionEvent e) {
+                //nothing
+            }
+        });
+
+        field3.getDocument().addDocumentListener(new DocumentListener() {
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+
+                jfield1();
 
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void removeUpdate(DocumentEvent e) {
+
+                jfield1();
 
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void changedUpdate(DocumentEvent e) {
 
-            }
+                jfield1();
 
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                try {
-                    if (!field1.getText().equals("") && !field2.getText().equals("") && !field3.getText().equals("")) {
-
-                        if (Float.parseFloat(field1.getText()) > 0 && Float.parseFloat(field2.getText()) > 0 && Float.parseFloat(field3.getText()) > 0) {
-
-                            tecto.setAltura((Double.parseDouble(field1.getText())));
-                            tecto.setLargura((Double.parseDouble(field2.getText())));
-                            tecto.setArea(tecto.getAltura() * tecto.getLargura());
-
-                            paredeNorte.setAltura((Double.parseDouble(field3.getText())));
-                            paredeNorte.setLargura((Double.parseDouble(field2.getText())));
-                            paredeNorte.setArea(paredeNorte.getAltura() * paredeNorte.getLargura());
-
-                            paredeOeste.setAltura((Double.parseDouble(field3.getText())));
-                            paredeOeste.setLargura((Double.parseDouble(field1.getText())));
-                            paredeOeste.setArea(paredeOeste.getAltura() * paredeOeste.getLargura());
-
-                            paredeSul.setAltura((Double.parseDouble(field3.getText())));
-                            paredeSul.setLargura((Double.parseDouble(field2.getText())));
-                            paredeSul.setArea(paredeSul.getAltura() * paredeSul.getLargura());
-
-                            paredeEste.setAltura((Double.parseDouble(field3.getText())));
-                            paredeEste.setLargura((Double.parseDouble(field1.getText())));
-                            paredeEste.setArea(paredeEste.getAltura() * paredeEste.getLargura());
-
-                            chao.setAltura((Double.parseDouble(field1.getText())));
-                            chao.setLargura((Double.parseDouble(field2.getText())));
-                            chao.setArea(chao.getAltura() * chao.getLargura());
-
-                            dc.setAltura((Double.parseDouble(field3.getText())));
-                            dc.setComprimento((Double.parseDouble(field1.getText())));
-                            dc.setLargura((Double.parseDouble(field2.getText())));
-                            dc.setAreaTotal();
-                            field4.setText(Double.toString(dc.getAreaTotal()));
-                            revalidate();
-                            jpanel3.removeAll();
-                            for (Limite lim : dc.getListaLim()) {
-                                double areaTmp = lim.getArea();
-                                for (Abertu aber : lim.getListaAberturas()) {
-                                    areaTmp -= aber.getArea();
-                                    if (areaTmp < 0) {
-                                        System.out.println("Área negativa");
-                                        jpanel2.removeAll();
-                                        lim.getListaAberturas().clear();
-                                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                                        break;
-                                    }
-                                }
-                                for (Camada cam : lim.getListaCamadas()) {
-                                    JPanel a = new JPanel(new FlowLayout());
-                                    JLabel b = new JLabel(cam.toString());
-                                    JButton c = new JButton(icon);
-                                    c.setPreferredSize(BTN_TAMANHO);
-                                    c.addActionListener(new ActionListener() {
-
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
-
-                                            JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
-
-                                            jan.field1.setSelectedItem(lim);
-                                            jan.field1.setEnabled(false);
-                                            jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                                            jan.field3.setText(Double.toString(lim.getAltura()));
-                                            jan.field4.setText(Double.toString(lim.getLargura()));
-                                            jan.field6.setText("" + cam.getEspessura());
-
-                                        }
-                                    });
-
-                                    a.add(b);
-                                    a.add(c);
-
-                                    jpanel3.add(a, posi);
-                                    jpanel3.revalidate();
-                                    posi++;
-                                }
-                            }
-                            posi = 0;
-                        } else {
-                            field1.setText("");
-                            field2.setText("");
-                            field3.setText("");
-                            field4.setText("");
-                            JOptionPane.showMessageDialog(rootPane, mensagens.getString("parametrosPositivos"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-
-                        }
-                    }
-                    revalidate();
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                    field1.setText("");
-                    field2.setText("");
-                    field3.setText("");
-                    field4.setText("");
-                }
             }
         });
 
@@ -643,10 +472,10 @@ public class JanelaSimu extends JDialog {
     }
 
     /**
-     * 
+     *
      * Método responsável por criar a 3ªTabbedPane (Aberturas da sala)
-     * 
-     * @return 
+     *
+     * @return
      */
     protected JPanel panel2() {
 
@@ -743,10 +572,10 @@ public class JanelaSimu extends JDialog {
     }
 
     /**
-     * 
+     *
      * Método responsável por criar a 4ª tabbedPane (Pessoas na sala)
-     * 
-     * @return 
+     *
+     * @return
      */
     protected JPanel panel3() {
         JPanel panel = new JPanel();
@@ -798,10 +627,10 @@ public class JanelaSimu extends JDialog {
     }
 
     /**
-     * 
-     * Método responsável por criar a 2ª tabbedPane (Camadas da 2ª sala) 
-     * 
-     * @return 
+     *
+     * Método responsável por criar a 2ª tabbedPane (Camadas da 2ª sala)
+     *
+     * @return
      */
     protected JPanel panel5() {
         JPanel panel = new JPanel();
@@ -896,10 +725,10 @@ public class JanelaSimu extends JDialog {
     }
 
     /**
-     * 
+     *
      * Método para criar a 6ª tabbedPane (Número de aparelhos na sala)
-     * 
-     * @return 
+     *
+     * @return
      */
     protected JPanel panel6() {
 
@@ -965,10 +794,11 @@ public class JanelaSimu extends JDialog {
     }
 
     /**
-     * 
-     * Método para criar a 6ª tabbedPane (Temperatura fora da sala e a pretendida )
-     * 
-     * @return 
+     *
+     * Método para criar a 6ª tabbedPane (Temperatura fora da sala e a
+     * pretendida )
+     *
+     * @return
      */
     protected JPanel panel7() {
         JPanel panel = new JPanel();
@@ -1046,10 +876,10 @@ public class JanelaSimu extends JDialog {
     }
 
     /**
-     * 
+     *
      * Método para criar a 8ª tabbedPane (calcular o resultado)
-     * 
-     * @return 
+     *
+     * @return
      */
     protected JPanel panel8() {
         JPanel panel = new JPanel();
