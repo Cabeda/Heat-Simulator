@@ -6,6 +6,7 @@
 package fsiap.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -48,8 +49,7 @@ public class Janela extends JFrame {
     public Janela(SimController d) throws IOException {
 
         super(d.getMensagens().getString("janelaSimuTitulo"));
-        this.dc = d;
-
+        this.dc = d;       
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         menuBar.add(criarMenu());
@@ -71,11 +71,10 @@ public class Janela extends JFrame {
         });
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(585, 400);
-        setResizable(false);
+        setSize(570,165);
+        setResizable(true);
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
 
     /**
@@ -145,9 +144,9 @@ public class Janela extends JFrame {
     private JPanel criarTexto() {
 
         JPanel jp = new JPanel();
-
+        
         JTextArea jt = new JTextArea(dc.getMensagens().getString("texto"));
-        jt.setSize(580, 75);
+        jt.setSize(400, 50);
         jt.setEditable(false);
         jt.setLineWrap(true);
 

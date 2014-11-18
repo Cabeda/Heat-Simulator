@@ -119,7 +119,7 @@ public class JanelaAber extends JFrame {
         JPanel panel1 = new JPanel();
         label1 = new JLabel(mensagens.getString("limite") + ":", JLabel.RIGHT);
         label1.setPreferredSize(LABEL_TAMANHO2);
-        field1 = new JComboBox( dc.getListaLim().toArray());
+        field1 = new JComboBox(dc.getListaLim().toArray());
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
         field1.addMouseListener(new MouseListener() {
@@ -263,7 +263,7 @@ public class JanelaAber extends JFrame {
                     try {
 
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("")) {
-                             if (Double.parseDouble(field3.getText()) <= 0) {
+                            if (Double.parseDouble(field3.getText()) <= 0) {
                                 field3.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (Double.parseDouble(field4.getText()) <= 0) {
@@ -271,11 +271,11 @@ public class JanelaAber extends JFrame {
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (Double.parseDouble(field6.getText()) <= 0) {
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("adicionarCam"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                            } else if (((Limite) field1.getSelectedItem()).getArea() - ((Double.parseDouble(field3.getText())) * (Double.parseDouble(field4.getText()))) <= 0) {
-                                    field1.setSelectedIndex(-1);
-                                    field6.setText("");
-                                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("excessoAber"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                                } else {
+                            } else if (((Limite) field1.getSelectedItem()).getArea() - ((Double.parseDouble(field3.getText())) * (Double.parseDouble(field4.getText()))) < 0) {
+                                field1.setSelectedIndex(-1);
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("excessoAber"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            } else {
 
                                 Limite lim = (Limite) field1.getSelectedItem();
                                 Abertu aber = new Abertu(dc);
@@ -284,39 +284,35 @@ public class JanelaAber extends JFrame {
                                 aber.setEspessura(lim.getEspessura());
                                 aber.setMaterialPeloNome(field2.getSelectedItem().toString());
                                 lim.addAbertura(aber);
-                                aber.setLimite(lim);
+                                aber.setLimite(lim);                                
+                                posi = lim.getListaAberturas().size() - 1;
+                                dispose();
+                                JPanel a = new JPanel(new FlowLayout());
+                                JLabel b = new JLabel(aber.toString());
+                                JButton c = new JButton(js.icon);
+                                c.setPreferredSize(BTN_TAMANHO);
+                                a.add(b);
+                                a.add(c);
+                                js.jpanel2.add(a);
+                                js.jpanel2.revalidate();
 
-                                
-                                    lim.setArea(lim.getArea() - (aber.getAltura() * aber.getLargura()));
+                                c.addActionListener(new ActionListener() {
 
-                                    posi = lim.getListaAberturas().size() - 1;
-                                    dispose();
-                                    JPanel a = new JPanel(new FlowLayout());
-                                    JLabel b = new JLabel(aber.toString());
-                                    JButton c = new JButton(js.icon);
-                                    c.setPreferredSize(BTN_TAMANHO);
-                                    a.add(b);
-                                    a.add(c);
-                                    js.jpanel2.add(a);
-                                    js.jpanel2.revalidate();
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
 
-                                    c.addActionListener(new ActionListener() {
+                                        JanelaAber jan = new JanelaAber(mensagens.getString("dadosaber"), dc, js, false, posi);
+                                        Abertu aber = lim.getListaAberturas().get(posi);
 
-                                        @Override
-                                        public void actionPerformed(ActionEvent e) {
+                                        jan.field1.setSelectedItem(field1.getSelectedItem());
+                                        jan.field1.setEnabled(false);
+                                        jan.field2.setSelectedItem(aber.getMaterial().getNome());
+                                        jan.field3.setText("" + aber.getAltura());
+                                        jan.field4.setText("" + aber.getLargura());
+                                        jan.field6.setText("" + lim.getEspessura());
+                                    }
+                                });
 
-                                            JanelaAber jan = new JanelaAber(mensagens.getString("dadosaber"), dc, js, false, posi);
-                                            Abertu aber = lim.getListaAberturas().get(posi);
-
-                                            jan.field1.setSelectedItem(field1.getSelectedItem());
-                                            jan.field1.setEnabled(false);
-                                            jan.field2.setSelectedItem(aber.getMaterial().getNome());
-                                            jan.field3.setText("" + aber.getAltura());
-                                            jan.field4.setText("" + aber.getLargura());
-                                            jan.field6.setText(""+lim.getEspessura());
-                                        }
-                                    });
-                                
                             }
                         } else {
                             JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
@@ -334,7 +330,9 @@ public class JanelaAber extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-
+                        System.out.println("Área antes:\n" + ((Limite) field1.getSelectedItem()).getArea());
+                        ((Limite) field1.getSelectedItem()).setArea(((Limite) field1.getSelectedItem()).getArea() - (((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getAltura() * ((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getLargura()));
+                        System.out.println("Área depois:\n" + ((Limite) field1.getSelectedItem()).getArea());
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("")) {
                             if (Double.parseDouble(field3.getText()) <= 0) {
                                 field3.setText("");
@@ -344,6 +342,10 @@ public class JanelaAber extends JFrame {
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (Double.parseDouble(field6.getText()) <= 0) {
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("adicionarCam"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            } else if (((Limite) field1.getSelectedItem()).getArea() - ((Double.parseDouble(field3.getText())) * (Double.parseDouble(field4.getText()))) < 0) {
+                                field1.setSelectedIndex(-1);
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("excessoAber"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
                                 Limite lim = (Limite) field1.getSelectedItem();
                                 Abertu aber = lim.getListaAberturas().get(posi);

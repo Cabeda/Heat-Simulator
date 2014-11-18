@@ -6,6 +6,7 @@
 package fsiap.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -60,7 +61,6 @@ public class JanelaSelLing extends JFrame {
                 fechar();
             }
         });
-
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(400, 100);
         setResizable(false);
