@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+TRABALHO DE FÍSICA
+António Pinheiro 1130339
+Cristina Lopes 1130371
+Egídio Santos 1130348
+José Cabeda 1130395
  */
 package fsiap.ui;
 
@@ -13,8 +15,6 @@ import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -34,15 +34,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import trabalhofsiap.Abertu;
 import trabalhofsiap.Camada;
 import trabalhofsiap.Limite;
 import trabalhofsiap.SimController;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
 /**
  *
@@ -51,23 +48,45 @@ import javax.swing.text.Document;
  */
 public class JanelaSimu extends JDialog {
 
-    //Icone 
+    //Icone  para editar Camadas ou Aberturas
     public Icon icon = new ImageIcon("icon_device_settings.gif");
+    //Icone para apagar Camadas ou Aberturas
     public Icon icon2 = new ImageIcon("delete.png");
-    private String fechar = "nao";
+
+    //Variável para guardar posição da ultima Camada adicionada ao jpainel3
     int posi = 0;
-    private String resultado = "";
+    
+    //Caixa de texto para o comprimento
     private JTextField field1;
+    
+    //Caixa de texto para a largura
     private JTextField field2;
+    
+    //Caixa de texto para a altura
     private JTextField field3;
+    
+    //Caixa de texto para a área total
+    private JTextField field4;
+    
+    //Tamanho máximo das Labels
     private Dimension LABEL_TAMANHO2 = new JLabel("Temperatura pretendida na sala ").getPreferredSize();
+    
+    //Tamanho das caixas de texto
     private Dimension CAMPO_TAMANHO = new Dimension(200, 20);
+    
+    //Tamanho das jscrollPane
     private Dimension SCROLL_TAMANHO = new Dimension(200, 100);
-    private Dimension RESULTADO_TAMANHO = new Dimension(300, 70);
+    
+    //tAMANHO dos botões
     private Dimension BTN_TAMANHO = new Dimension(40, 40);
+    
+    //Inicialização do Controller do programa
     private SimController dc;
+    
+    //Inicialização do Resourcebundle para apresentar todas as mensagens
     ResourceBundle mensagens;
 
+    //Inicialização dos limites da sala
     Limite tecto;
     Limite chao;
     Limite paredeNorte;
@@ -75,10 +94,10 @@ public class JanelaSimu extends JDialog {
     Limite paredeSul;
     Limite paredeEste;
 
-    private JTextField field4;
-
+    //Paineis para apresentar as Aberturas e as Camadas respetivamente
     public JPanel jpanel2, jpanel3;
 
+    //Criação do painel principal da interface gráfica da aplicação
     private JTabbedPane jt = new JTabbedPane();
 
     /**
@@ -199,7 +218,6 @@ public class JanelaSimu extends JDialog {
                         for (Abertu aber : lim.getListaAberturas()) {
                             areaTmp -= aber.getArea();
                             if (areaTmp < 0) {
-                                System.out.println("Área negativa");
                                 jpanel2.removeAll();
                                 lim.getListaAberturas().clear();
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
@@ -833,9 +851,6 @@ public class JanelaSimu extends JDialog {
 
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
-        if (dc.getTemperaturaEx() != 0) {
-            field2.setText("" + dc.getTemperaturaEx());
-        }
         field2.setPreferredSize(CAMPO_TAMANHO);
         panel2.add(label2);
         panel2.add(field2);
@@ -847,15 +862,17 @@ public class JanelaSimu extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     if (!field1.getText().equals("") && !field2.getText().equals("")) {
-                        dc.setTemperaturaPre(Integer.valueOf(field1.getText()));
-                        dc.setTemperaturaEx(Integer.valueOf(field2.getText()));
+                        dc.setTemperaturaPre(Float.valueOf(field1.getText()));
+                        dc.setTemperaturaEx(Float.valueOf(field2.getText()));
                         jt.setSelectedIndex(6);
                         jt.setEnabledAt(6, true);
-                    } else {
+                    } else
+                    {
                         JOptionPane.showMessageDialog(null, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
-                } catch (Exception erro) {
+                } catch (NumberFormatException erro) {
 
                     JOptionPane.showMessageDialog(null, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
@@ -970,7 +987,6 @@ public class JanelaSimu extends JDialog {
             dispose();
 
         }
-        fechar = "sim";
     }
 
 }

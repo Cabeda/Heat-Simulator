@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ TRABALHO DE FÍSICA
+ António Pinheiro 1130339
+ Cristina Lopes 1130371
+ Egídio Santos 1130348
+ José Cabeda 1130395
  */
 package fsiap.ui;
 
@@ -14,12 +16,24 @@ import trabalhofsiap.SimController;
 
 /**
  *
- * @author Antonio Pinheiro
+ * Classe para importar ficheiro binário criado anteriormente
+ * 
  */
 public class ImportarFicheiro {
 
+    //Inicialização do controller do programa
     private SimController dc;
+    
+    //Inicialização das mensagens do programa
     ResourceBundle mensagens;
+    
+    /**
+     * 
+     * Método para importar ficheiro binário 
+     * 
+     * @param pai
+     * @param d 
+     */
     public ImportarFicheiro(JFrame pai,SimController d) {
         
         try {

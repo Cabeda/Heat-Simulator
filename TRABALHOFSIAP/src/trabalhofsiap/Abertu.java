@@ -7,14 +7,31 @@ José Cabeda 1130395
  */
 package trabalhofsiap;
 
+/**
+ * 
+ * Classe para criar objeto abertura
+ * 
+ */
 public class Abertu implements java.io.Serializable {
 
+    //Inicialização da classe pai material
     private Material material;
+    
+    //Inicialização da classe limite
     private Limite limite;
+    
+    //Inicialização das variáveis das dimensões da abertura
     private double altura, largura, espessura;
 
+    //Inicialização do controller do programa
     private SimController dc;
 
+    /**
+     * 
+     * Construtor vazio 
+     * 
+     * @param d 
+     */
     public Abertu(SimController d) {
         this.altura = 0;
         this.largura = 0;
@@ -23,34 +40,92 @@ public class Abertu implements java.io.Serializable {
         this.dc = d;
     }
 
-    public void setLargura(double la) {
-        this.largura = la;
-    }
-
-    public void setAltura(double al) {
-        this.altura = al;
-    }
-
     /**
+     * 
+     * Retorna o material da abertura
+     * 
      * @return the material
      */
     public Material getMaterial() {
         return material;
     }
 
+    
+    /**
+     * 
+     * Retorna a altura
+     * 
+     * @return the altura
+     */
+    public double getAltura() {
+        return altura;
+    }
+
+    /**
+     * 
+     * Retorna a largura
+     * 
+     * @return the largura
+     */
+    public double getLargura() {
+        return largura;
+    }
+    
+    /**
+     * 
+     * Retorna a espessura
+     * 
+     * @return 
+     */
     public double getEspessura() {
         return espessura;
     }
 
     /**
-     * Multiplica a altura pela largura
+     * Multiplica a altura pela largura e retorna a área
      *
      * @return area da abertura
      */
     public double getArea() {
         return altura * largura;
     }
+    
+    /**
+     * 
+     * Retorna o limite onde se encontra a abertura
+     * 
+     * @return the l
+     */
+    public Limite getLimite() {
+        return limite;
+    }
+    
+    /**
+     * 
+     * Define a largura da abertura
+     * 
+     * @param la 
+     */
+    public void setLargura(double la) {
+        this.largura = la;
+    }
 
+    /**
+     * 
+     * Define a altura da abertura
+     * 
+     * @param al 
+     */
+    public void setAltura(double al) {
+        this.altura = al;
+    }
+
+    /**
+     * 
+     * Define a espessura
+     * 
+     * @param espessura 
+     */
     public void setEspessura(double espessura) {
         this.espessura = espessura;
     }
@@ -67,19 +142,11 @@ public class Abertu implements java.io.Serializable {
     }
 
     /**
-     * @return the altura
+     * 
+     * Retorna string com os dados da abertura
+     * 
+     * @return 
      */
-    public double getAltura() {
-        return altura;
-    }
-
-    /**
-     * @return the largura
-     */
-    public double getLargura() {
-        return largura;
-    }
-
     @Override
     public String toString() {
 
@@ -87,13 +154,9 @@ public class Abertu implements java.io.Serializable {
     }
 
     /**
-     * @return the l
-     */
-    public Limite getLimite() {
-        return limite;
-    }
-
-    /**
+     * 
+     * Define o limite onde se encontra a abertura
+     * 
      * @param limite the l to set
      */
     public void setLimite(Limite limite) {

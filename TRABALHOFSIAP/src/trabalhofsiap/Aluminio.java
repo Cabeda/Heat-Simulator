@@ -10,13 +10,31 @@ package trabalhofsiap;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
+/**
+ * 
+ * Objeto alumínio
+ * 
+ * @author Jecabeda
+ */
 public class Aluminio extends Material implements Serializable{
 
-    //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
+    /**
+     * 
+     * Retorna a condutividade térmica
+     * [K] = W·m-1·K-1 (J·s-1·m-1·K-1)
+     * 
+     * @param mens 
+     */
     public Aluminio(ResourceBundle mens) {
         super(237, mens.getString("aluminio"),mens);
     }
     
+    /**
+     * 
+     * Retorna o nome do material
+     * 
+     * @return 
+     */
      public String getNome() {
          return mensagens.getString("aluminio");
     }

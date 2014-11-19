@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ TRABALHO DE FÍSICA
+ António Pinheiro 1130339
+ Cristina Lopes 1130371
+ Egídio Santos 1130348
+ José Cabeda 1130395
  */
 package fsiap.ui;
 
@@ -22,7 +24,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import trabalhofsiap.Abertu;
 import trabalhofsiap.Aluminio;
 import trabalhofsiap.Ar;
 import trabalhofsiap.Betao;
@@ -36,25 +37,43 @@ import trabalhofsiap.Vidro;
 
 /**
  *
- * @author Jecabeda
+ * Classe para apresentação de uma jframe para inserção/alteração dos dados de uma camada
+ * 
  */
 public class JanelaCamada extends JFrame {
 
-    private String fechar = "nao";
-
+    //Tamanho das labels
     private Dimension LABEL_TAMANHO2 = new JLabel("Dimensões do ambiente ").getPreferredSize();
+    //Tamanho de uma caixa de texto
     private Dimension Campo2_TAMANHO = new Dimension(250, 20);
+    //Tamanho de uma caixa de texto
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
+    
+    //Tamanho de uma jscrollPane
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
+    
+    //Tamanho dos botões
     private Dimension BTN_TAMANHO = new Dimension(40, 40);
+    
+    //Inicialização das caixas de texto
     public JTextField field4, field3, field6;
+    
+    //Flag para uma abertura já criada ou por criar
     private boolean flag;
+    
+    //Inicialização de uma jcombobox
     public JComboBox field1, field2;
+    
+    //Inicialização do controller do controller
     private SimController dc;
-    private int posi;
+    
+    //Inicialização da janela pai
     private JanelaSimu js;
-    ResourceBundle mensagens;
+    
+    //Inicialização da variável com a posiçao da ultima abertura criada ou da abertura para alterar
+    private int posi;
 
+    //Iniciaização dos materiais
     private Aluminio al;
     private Madeira ma;
     private Betao be;
@@ -62,8 +81,20 @@ public class JanelaCamada extends JFrame {
     private Ar a;
     private Tijolo ti;
     private Cimento ci;
-    private Abertu alt;
+    
+    //Inicialização das mensagens do programa
+    ResourceBundle mensagens;
 
+    /**
+     * 
+     * Construtor da Janela Camada com todos os dados
+     * 
+     * @param titulo
+     * @param d
+     * @param js
+     * @param f
+     * @param po 
+     */
     public JanelaCamada(String titulo, SimController d, JanelaSimu js, boolean f, int po) {
         super(titulo);
 
@@ -103,6 +134,12 @@ public class JanelaCamada extends JFrame {
 
     }
 
+    /**
+     * 
+     * Método para criar o painel1 (local de inserção de dados e confirmação dos mesmos)
+     * 
+     * @return panel
+     */
     protected JPanel panel1() {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();

@@ -1,12 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ TRABALHO DE FÍSICA
+ António Pinheiro 1130339
+ Cristina Lopes 1130371
+ Egídio Santos 1130348
+ José Cabeda 1130395
  */
 package fsiap.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -30,13 +31,18 @@ import trabalhofsiap.SimController;
 
 /**
  *
- * @author i130348
+ * Classe para apresentar janela com introdução ao objetivo do programa e a opção de importação de dados de um ficheiro binário
+ * 
  */
 public class Janela extends JFrame {
 
-    private String fechar = "nao";
+    //Tamanho da área de texto
     private Dimension TXT_TAMANHO = new Dimension(585, 400);
+    
+    //Inicialização do controller do programa
     private SimController dc;
+    
+    //Inicialização das variáveis d
     String pais, lingua;
     Locale currentLocale;
 
@@ -128,6 +134,12 @@ public class Janela extends JFrame {
         return item;
     }
 
+    /**
+     * 
+     * Criar item para importação de um ficheiro
+     * 
+     * @return 
+     */
     private JMenuItem importFich() {
         JMenuItem item = new JMenuItem(dc.getMensagens().getString("importarFich"), KeyEvent.VK_F);
         item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
@@ -141,6 +153,12 @@ public class Janela extends JFrame {
         return item;
     }
 
+    /**
+     * 
+     * Cria painel com a área de texto
+     * 
+     * @return 
+     */
     private JPanel criarTexto() {
 
         JPanel jp = new JPanel();
@@ -155,6 +173,12 @@ public class Janela extends JFrame {
         return jp;
     }
 
+    /**
+     * 
+     * Cria botão para inicializar o simulador
+     * 
+     * @return 
+     */
     private JPanel criarButtonComecar() {
 
         JPanel jp2 = new JPanel();
@@ -192,7 +216,6 @@ public class Janela extends JFrame {
         if (resposta == SIM) {
             dispose();
         }
-        fechar = dc.getMensagens().getString("sim");
     }
 
 }

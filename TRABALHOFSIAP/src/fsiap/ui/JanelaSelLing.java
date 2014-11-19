@@ -6,7 +6,6 @@
 package fsiap.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -27,7 +26,8 @@ import trabalhofsiap.SimController;
 
 /**
  *
- * @author egidio
+ * Classe para apresentar janela para selecção da lingua a escolher
+ * 
  */
 public class JanelaSelLing extends JFrame {
 
@@ -38,7 +38,7 @@ public class JanelaSelLing extends JFrame {
     Locale currentLocale;
 
     /**
-     * Cria a Janela com o menu.
+     * Cria a Janela com as linguas disponiveis do programa
      *
      * @throws IOException
      */
@@ -69,6 +69,12 @@ public class JanelaSelLing extends JFrame {
 
     }
 
+    /**
+     * 
+     * Método para criar botão selecionar Inglês
+     * 
+     * @return 
+     */
     private JPanel criarButtonEN() {
 
         JPanel jp2 = new JPanel();
@@ -97,6 +103,12 @@ public class JanelaSelLing extends JFrame {
         return jp2;
     }
 
+    /**
+     * 
+     * Método para criar botão para selecionar Português
+     * 
+     * @return 
+     */
     private JPanel criarButtonPT() {
 
         JPanel jp2 = new JPanel();

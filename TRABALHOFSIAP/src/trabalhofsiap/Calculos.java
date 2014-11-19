@@ -47,15 +47,12 @@ public double calcularResistenciaTermica(List<Limite> listaLim){
 
 /**
  * Este método irá retornar o fluxo de calor que as pessoas e os aparelhos emitem
- * @param numPessoas numero de pessoas existentes no ambiente
- * @param numAparelhos numero de aparelhos existentes no ambiente
  * 175,8 W - Potencia das pessoas
  * 250 W - Potencia dos aparelhos eletronicos
  * @return fluxo de calor
  */
 public double FluxoCalor1 (){
-    System.out.println("Num pessoas: "+dc.numPessoas*175.8+"+"+dc.numAparelhos*250);
-    return (dc.numPessoas)*175.8 +(dc.numAparelhos)*250;
+    return (dc.getNumPessoas())*175.8 +(dc.getNumAparelhos())*250;
 }
 
 /**
@@ -63,7 +60,6 @@ public double FluxoCalor1 (){
  * @return fluxo de calor com a temperatura pretendida
  */
 public double FluxoCalor2(){
-    System.out.println("Temperaturas: "+dc.getTemperaturaPre()+"-"+dc.getTemperaturaEx()+"/"+calcularResistenciaTermica(dc.getListaLim()));
     return (dc.getTemperaturaPre()-dc.getTemperaturaEx())/calcularResistenciaTermica(dc.getListaLim());
 }
 

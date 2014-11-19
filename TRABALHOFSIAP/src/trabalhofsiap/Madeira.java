@@ -10,15 +10,32 @@ package trabalhofsiap;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
+/**
+ * 
+ * Objeto madeira 
+ * 
+ */
 public class Madeira extends Material implements Serializable{
 
 
-    //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
+    /**
+     *
+     * Retorna a condutividade térmica [K] = W·m-1·K-1 (J·s-1·m-1·K-1)
+     *
+     * @param mens
+     */
     public Madeira(ResourceBundle mens) {
         super(0.13,mens.getString("madeira"),mens);
         this.mensagens=mens;
     }
 
+    /**
+     *
+     * Retorna o nome do material
+     *
+     * @return
+     */
+    @Override
     public String getNome() {
          return mensagens.getString("madeira");
 

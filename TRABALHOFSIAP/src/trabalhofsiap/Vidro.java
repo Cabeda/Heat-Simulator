@@ -10,16 +10,33 @@ package trabalhofsiap;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
+/**
+ * 
+ * Objeto vidro
+ * 
+ */
 public class Vidro extends Material implements Serializable{
 
 
     
-    //[K] = W·m-1·K-1 (J·s-1·m-1·K-1)
+    /**
+     *
+     * Retorna a condutividade térmica [K] = W·m-1·K-1 (J·s-1·m-1·K-1)
+     *
+     * @param mens
+     */
     public Vidro(ResourceBundle mens) {
         super(0.79,mens.getString("vidro"),mens);
         this.mensagens=mens;
     }
         
+    /**
+     * 
+     * Devolve o nome do material
+     * 
+     * @return 
+     */
+    @Override
      public String getNome() {
         return mensagens.getString("vidro");
 
