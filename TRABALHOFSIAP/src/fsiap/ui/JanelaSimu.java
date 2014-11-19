@@ -1,9 +1,9 @@
 /*
-TRABALHO DE FÍSICA
-António Pinheiro 1130339
-Cristina Lopes 1130371
-Egídio Santos 1130348
-José Cabeda 1130395
+ TRABALHO DE FÍSICA
+ António Pinheiro 1130339
+ Cristina Lopes 1130371
+ Egídio Santos 1130348
+ José Cabeda 1130395
  */
 package fsiap.ui;
 
@@ -34,6 +34,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import trabalhofsiap.Abertu;
@@ -55,34 +56,34 @@ public class JanelaSimu extends JDialog {
 
     //Variável para guardar posição da ultima Camada adicionada ao jpainel3
     int posi = 0;
-    
+
     //Caixa de texto para o comprimento
     private JTextField field1;
-    
+
     //Caixa de texto para a largura
     private JTextField field2;
-    
+
     //Caixa de texto para a altura
     private JTextField field3;
-    
+
     //Caixa de texto para a área total
     private JTextField field4;
-    
+
     //Tamanho máximo das Labels
     private Dimension LABEL_TAMANHO2 = new JLabel("Temperatura pretendida na sala ").getPreferredSize();
-    
+
     //Tamanho das caixas de texto
     private Dimension CAMPO_TAMANHO = new Dimension(200, 20);
-    
+
     //Tamanho das jscrollPane
     private Dimension SCROLL_TAMANHO = new Dimension(200, 100);
-    
+
     //tAMANHO dos botões
     private Dimension BTN_TAMANHO = new Dimension(40, 40);
-    
+
     //Inicialização do Controller do programa
     private SimController dc;
-    
+
     //Inicialização do Resourcebundle para apresentar todas as mensagens
     ResourceBundle mensagens;
 
@@ -266,6 +267,7 @@ public class JanelaSimu extends JDialog {
             }
             revalidate();
         } catch (NumberFormatException | HeadlessException ex) {
+
             JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
 
         }
@@ -610,12 +612,11 @@ public class JanelaSimu extends JDialog {
 
         panel1 = new JPanel();
         label1 = new JLabel(mensagens.getString("numPessoas"), JLabel.RIGHT);
-        String vec[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12",
-            "13", "14", "15", "16", "17", "18", "19", "20", "21"};
         label1.setPreferredSize(LABEL_TAMANHO2);
-        JComboBox<String> field1 = new JComboBox<String>(vec);
+        JTextField field1 = new JTextField();
+        field1.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getNumPessoas() != 0) {
-            field1.setSelectedIndex(dc.getNumPessoas());
+            field1.setText("" + dc.getNumPessoas());
         }
         field1.setPreferredSize(CAMPO_TAMANHO);
         panel1.add(label1);
@@ -626,7 +627,7 @@ public class JanelaSimu extends JDialog {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dc.setNumPessoas(Integer.valueOf((String) field1.getSelectedItem()));
+                dc.setNumPessoas(Integer.valueOf((String) field1.getText()));
                 jt.setSelectedIndex(4);
                 jt.setEnabledAt(4, true);
             }
@@ -868,8 +869,7 @@ public class JanelaSimu extends JDialog {
                         dc.setTemperaturaEx(Float.valueOf(field2.getText()));
                         jt.setSelectedIndex(6);
                         jt.setEnabledAt(6, true);
-                    } else
-                    {
+                    } else {
                         JOptionPane.showMessageDialog(null, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
                 } catch (NumberFormatException erro) {
