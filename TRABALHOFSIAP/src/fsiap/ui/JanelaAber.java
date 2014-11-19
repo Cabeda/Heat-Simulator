@@ -142,7 +142,6 @@ public class JanelaAber extends JFrame {
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
-        String opcoes[] = new String[2];
         JLabel label1;
         JPanel panel1 = new JPanel();
         label1 = new JLabel(mensagens.getString("limite") + ":", JLabel.RIGHT);
@@ -150,43 +149,7 @@ public class JanelaAber extends JFrame {
         field1 = new JComboBox(dc.getListaLim().toArray());
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
-        field1.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                try {
-                    if (-1 != field1.getSelectedIndex()) {
-                        Limite lim = (Limite) field1.getSelectedItem();
-                        field6.setText(Double.toString(lim.getEspessura()));
-
-                    }
-                    revalidate();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-
-                }
-            }
-        });
+       
 
         panel1.add(label1);
         panel1.add(field1);
@@ -199,42 +162,6 @@ public class JanelaAber extends JFrame {
         field2 = new JComboBox<String>(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
         field2.setSelectedIndex(-1);
-        field2.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                try {
-                    if (-1 != field1.getSelectedIndex()) {
-                        Limite lim = (Limite) field1.getSelectedItem();
-                        field6.setText(Double.toString(lim.getEspessura()));
-
-                    }
-                    revalidate();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), "FSIAP", JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        });
 
         panel2.add(label2);
         panel2.add(field2);
@@ -270,7 +197,6 @@ public class JanelaAber extends JFrame {
         label6.setPreferredSize(LABEL_TAMANHO2);
         field6 = new JTextField();
         field6.setPreferredSize(Campo2_TAMANHO);
-        field6.setEditable(false);
 
         panel6.add(label6);
         panel6.add(field6);
@@ -290,18 +216,19 @@ public class JanelaAber extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     try {
 
-                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("")) {
+                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("")&& !field6.getText().equals("")) {
                             if (Double.parseDouble(field3.getText()) <= 0) {
                                 field3.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                                
                             } else if (Double.parseDouble(field4.getText()) <= 0) {
                                 field4.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                            } else if (Double.parseDouble(field6.getText()) <= 0) {
-                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("adicionarCam"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                            }else if (Double.parseDouble(field6.getText()) <= 0) {
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (((Limite) field1.getSelectedItem()).getArea() - ((Double.parseDouble(field3.getText())) * (Double.parseDouble(field4.getText()))) < 0) {
                                 field1.setSelectedIndex(-1);
-                                field6.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("excessoAber"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
 
@@ -309,7 +236,7 @@ public class JanelaAber extends JFrame {
                                 Abertu aber = new Abertu(dc);
                                 aber.setAltura(Double.parseDouble(field3.getText()));
                                 aber.setLargura(Double.parseDouble(field4.getText()));
-                                aber.setEspessura(lim.getEspessura());
+                                aber.setEspessura(Double.parseDouble(field6.getText()));
                                 aber.setMaterialPeloNome(field2.getSelectedItem().toString());
                                 lim.addAbertura(aber);
                                 aber.setLimite(lim);                                
@@ -337,7 +264,7 @@ public class JanelaAber extends JFrame {
                                         jan.field2.setSelectedItem(aber.getMaterial().getNome());
                                         jan.field3.setText("" + aber.getAltura());
                                         jan.field4.setText("" + aber.getLargura());
-                                        jan.field6.setText("" + lim.getEspessura());
+                                        jan.field6.setText("" + aber.getEspessura());
                                     }
                                 });
 
@@ -368,10 +295,10 @@ public class JanelaAber extends JFrame {
                                 field4.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (Double.parseDouble(field6.getText()) <= 0) {
-                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("adicionarCam"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                                field6.setText("");
+                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (((Limite) field1.getSelectedItem()).getArea() - ((Double.parseDouble(field3.getText())) * (Double.parseDouble(field4.getText()))) < 0) {
                                 field1.setSelectedIndex(-1);
-                                field6.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("excessoAber"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
                                 Limite lim = (Limite) field1.getSelectedItem();
@@ -406,7 +333,7 @@ public class JanelaAber extends JFrame {
                                         jan.field2.setSelectedItem(aber.getMaterial().getNome());
                                         jan.field3.setText("" + aber.getAltura());
                                         jan.field4.setText("" + aber.getLargura());
-                                        jan.field6.setText(Double.toString(lim.getEspessura()));
+                                        jan.field6.setText(Double.toString(aber.getEspessura()));
 
                                     }
                                 });
