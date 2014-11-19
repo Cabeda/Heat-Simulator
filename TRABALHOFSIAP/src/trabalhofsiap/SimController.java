@@ -57,7 +57,7 @@ public class SimController implements Serializable {
 
     /**
      * 
-     * Construtor do controllador com todos os dados
+     * Construtor do controlador com todos os dados
      * 
      * @param comprimento
      * @param largura
@@ -160,6 +160,17 @@ public class SimController implements Serializable {
     public float getTemperaturaEx() {
         return temperaturaEx;
     }
+
+    /**
+     * 
+     * Devolve lista de material 
+     * 
+     */
+    public Map<String, Material> getListaMaterial() {
+        return listaMaterial;
+    }
+    
+    
 
     /**
      * 
@@ -409,22 +420,6 @@ public class SimController implements Serializable {
 
     /**
      * 
-     * Método para escrever a toString da classe
-     * 
-     * @return 
-     */
-    @Override
-    public String toString() {
-
-        return mensagens.getString("comprimento") + ":" + comprimento + ", " + mensagens.getString("largura") + ":" + largura + ", " + mensagens.getString("altura") + ":"
-                + altura + ", " + mensagens.getString("areaTotal") + ":" + areaTotal + ", " + mensagens.getString("potenciaMedia") + ":"
-                + ", " + mensagens.getString("numPessoas") + ":" + getNumPessoas() + ", " + mensagens.getString("temperatura") + ":"
-                + temperaturaEx + ", " + mensagens.getString("numAparelhos") + ":" + getNumAparelhos();
-    }
-
-
-    /**
-     * 
      * Método para criar ficheiro HTML com os dados introduzidos e respetivo resultado 
      * 
      * @param f
@@ -665,4 +660,19 @@ public class SimController implements Serializable {
         listaMaterial.put(mensagens.getString("vidro"), new Vidro(this.getMensagens()));
     }
 
+    
+    /**
+     * 
+     * Método para escrever a toString da classe
+     * 
+     * @return 
+     */
+    @Override
+    public String toString() {
+
+        return mensagens.getString("comprimento") + ":" + comprimento + ", " + mensagens.getString("largura") + ":" + largura + ", " + mensagens.getString("altura") + ":"
+                + altura + ", " + mensagens.getString("areaTotal") + ":" + areaTotal + ", " + mensagens.getString("potenciaMedia") + ":"
+                + ", " + mensagens.getString("numPessoas") + ":" + getNumPessoas() + ", " + mensagens.getString("temperatura") + ":"
+                + temperaturaEx + ", " + mensagens.getString("numAparelhos") + ":" + getNumAparelhos();
+    }
 }

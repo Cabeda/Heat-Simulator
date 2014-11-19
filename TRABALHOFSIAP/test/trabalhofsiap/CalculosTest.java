@@ -5,6 +5,7 @@
  */
 package trabalhofsiap;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,13 +45,12 @@ public class CalculosTest {
     @Test
     public void testCalcularResistenciaTermica() {
         System.out.println("calcularResistenciaTermica");
-        List<Limite> listaLim = null;
-        Calculos instance = null;
+        SimController dc = new SimController();
+        List<Limite> listaLim = new ArrayList<>();
+        Calculos instance = new Calculos(dc);
         double expResult = 0.0;
         double result = instance.calcularResistenciaTermica(listaLim);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -59,12 +59,11 @@ public class CalculosTest {
     @Test
     public void testFluxoCalor1() {
         System.out.println("FluxoCalor1");
-        Calculos instance = null;
+        SimController dc = new SimController();
+        Calculos instance = new Calculos(dc);
         double expResult = 0.0;
         double result = instance.FluxoCalor1();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -73,12 +72,20 @@ public class CalculosTest {
     @Test
     public void testFluxoCalor2() {
         System.out.println("FluxoCalor2");
-        Calculos instance = null;
+                
+        double espessura = 1;
+        double Area = 1;
+        double condutividadeMaterial = 0.03;
+        
+        SimController dc = new SimController();
+        dc.setTemperaturaEx(1);
+        dc.setTemperaturaPre(1);
+        dc.addLim(new Limite("teste", null));
+        Calculos instance = new Calculos(dc);
+        instance.Resistencia(espessura, Area, condutividadeMaterial);
         double expResult = 0.0;
         double result = instance.FluxoCalor2();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 0.0);        
     }
 
     /**
@@ -87,12 +94,20 @@ public class CalculosTest {
     @Test
     public void testPotenciaFinal() {
         System.out.println("PotenciaFinal");
-        Calculos instance = null;
+        
+        double espessura = 1;
+        double Area = 1;
+        double condutividadeMaterial = 0.03;
+        
+        SimController dc = new SimController();
+        dc.setTemperaturaEx(1);
+        dc.setTemperaturaPre(1);
+        dc.addLim(new Limite("teste", null));
+        Calculos instance = new Calculos(dc);
+        instance.Resistencia(espessura, Area, condutividadeMaterial);
         double expResult = 0.0;
         double result = instance.PotenciaFinal();
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -101,14 +116,24 @@ public class CalculosTest {
     @Test
     public void testCalculosIntermedios() {
         System.out.println("calculosIntermedios");
-        List<Abertu> la = null;
-        List<Camada> lc = null;
-        Calculos instance = null;
-        double expResult = 0.0;
+        List<Abertu> la = new ArrayList<>();
+        List<Camada> lc = new ArrayList<>();
+        SimController dc = new SimController();
+        Calculos instance = new Calculos(dc);
+        double soma = 0;
+    
+        for (int i = 0; i < la.size(); i++){
+        soma += instance.Resistencia (la.get(i).getEspessura(), la.get(i).getArea(), la.get(i).getMaterial().getCondutibilidadeTermica());
+        }
+    
+        for (int i = 0; i < lc.size(); i++){
+        soma += instance.Resistencia (lc.get(i).getEspessura(), lc.get(i).getArea(), lc.get(i).getMaterial().getCondutibilidadeTermica());
+        }
+        
+
+        double expResult = 1/soma;
         double result = instance.calculosIntermedios(la, lc);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -117,15 +142,14 @@ public class CalculosTest {
     @Test
     public void testResistencia() {
         System.out.println("Resistencia");
-        double espessura = 0.0;
-        double Area = 0.0;
-        double condutividadeMaterial = 0.0;
-        Calculos instance = null;
-        double expResult = 0.0;
+        double espessura = 1;
+        double Area = 1;
+        double condutividadeMaterial = 0.03;
+        SimController dc = new SimController();
+        Calculos instance = new Calculos(dc);
+        double expResult = 0.03;
         double result = instance.Resistencia(espessura, Area, condutividadeMaterial);
         assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
