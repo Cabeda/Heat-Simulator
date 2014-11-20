@@ -45,7 +45,7 @@ public class JanelaCamada extends JFrame {
     //Tamanho das labels
     private Dimension LABEL_TAMANHO2 = new JLabel("Dimensões do ambiente ").getPreferredSize();
     //Tamanho de uma caixa de texto
-    private Dimension Campo2_TAMANHO = new Dimension(250, 20);
+    private Dimension Campo2_TAMANHO = new Dimension(250, 30);
     //Tamanho de uma caixa de texto
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
     
@@ -97,7 +97,7 @@ public class JanelaCamada extends JFrame {
      */
     public JanelaCamada(String titulo, SimController d, JanelaSimu js, boolean f, int po) {
         super(titulo);
-
+        setAlwaysOnTop(true);
         mensagens = d.getMensagens();
 
         this.js = js;
@@ -127,7 +127,7 @@ public class JanelaCamada extends JFrame {
         });
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(670, 270);
+        setSize(500, 325);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);

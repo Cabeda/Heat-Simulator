@@ -12,8 +12,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
@@ -45,7 +43,7 @@ public class JanelaAber extends JFrame {
     //Tamanho das labels
     private Dimension LABEL_TAMANHO2 = new JLabel("Dimensões do ambiente ").getPreferredSize();
     //Tamanho de uma caixa de texto
-    private Dimension Campo2_TAMANHO = new Dimension(250, 20);
+    private Dimension Campo2_TAMANHO = new Dimension(250, 30);
     //Tamanho de uma caixa de texto
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
     
@@ -97,6 +95,7 @@ public class JanelaAber extends JFrame {
      */
     public JanelaAber(String titulo, SimController d, JanelaSimu js, boolean f, int po) {
         super(titulo);
+        setAlwaysOnTop(true);
         mensagens = d.getMensagens();
         this.dc = d;
         this.js = js;
@@ -125,7 +124,7 @@ public class JanelaAber extends JFrame {
         });
 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(670, 270);
+        setSize(500, 325);
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);

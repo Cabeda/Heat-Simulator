@@ -71,7 +71,7 @@ public class JanelaSimu extends JDialog {
     private Dimension LABEL_TAMANHO2 = new JLabel("Temperatura pretendida na sala ").getPreferredSize();
 
     //Tamanho das caixas de texto
-    private Dimension CAMPO_TAMANHO = new Dimension(200, 20);
+    private Dimension CAMPO_TAMANHO = new Dimension(200, 30);
 
     //Tamanho das jscrollPane
     private Dimension SCROLL_TAMANHO = new Dimension(200, 100);

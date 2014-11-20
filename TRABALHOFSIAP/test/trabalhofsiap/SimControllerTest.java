@@ -6,7 +6,8 @@
 package trabalhofsiap;
 
 import java.io.File;
-import java.util.List;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import org.junit.After;
@@ -21,26 +22,27 @@ import static org.junit.Assert.*;
  * @author Jecabeda
  */
 public class SimControllerTest {
-    
+
+    private transient ResourceBundle mensagens;
+
     public SimControllerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
-
 
     /**
      * Test of addLim method, of class SimController.
@@ -48,13 +50,19 @@ public class SimControllerTest {
     @Test
     public void testAddLim() {
         System.out.println("addLim");
-        Limite listaLim = null;
+        boolean flag = false;
+        Locale lo = new Locale("pt", "PT");
+        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
+        Limite lim = new Limite("teste", mensagens);
         SimController instance = new SimController();
-        instance.addLim(listaLim);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.addLim(lim);
+        for (Limite l : instance.getListaLim()) {
+            if (lim == l) {
+                flag = true;
+            }
+        }
+        assertTrue(flag);
     }
-
 
     /**
      * Test of altLim method, of class SimController.
@@ -62,11 +70,20 @@ public class SimControllerTest {
     @Test
     public void testAltLim() {
         System.out.println("altLim");
-        Limite listaLim2 = null;
+        Locale lo = new Locale("pt", "PT");
+        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
+        boolean flag = false;
+        Limite lim = new Limite("tecto", mensagens);
         SimController instance = new SimController();
-        instance.altLim(listaLim2);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.addLim(lim);
+        lim.setArea(2);
+        instance.altLim(lim);
+        for (Limite l : instance.getListaLim()) {
+            if (l == lim) {
+                flag = true;
+            }
+        }
+        assertTrue(flag);
     }
 
     /**
@@ -75,37 +92,41 @@ public class SimControllerTest {
     @Test
     public void testCriarFicheiroHTML() throws Exception {
         System.out.println("criarFicheiroHTML");
-        String f = "";
+        String f = "teste";
+        Locale lo = new Locale("pt", "PT");
+        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
         SimController instance = new SimController();
+        instance.setMensagens(lo);
         instance.criarFicheiroHTML(f);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(new File(f + "\\" + mensagens.getString("resultados") + ".html").isFile());
     }
 
     /**
      * Test of guardarDados method, of class SimController.
      */
     @Test
-    public void testGuardarDados() {
+    public void testGuardarDados() throws IOException {
         System.out.println("guardarDados");
-        String f = "";
+        String f = "teste";
+        Locale lo = new Locale("pt", "PT");
+        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
         SimController instance = new SimController();
+        instance.setMensagens(lo);
         instance.guardarDados(f);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
      * Test of introduzirDados method, of class SimController.
      */
     @Test
-    public void testIntroduzirDados() {
+    public void testIntroduzirDados() throws IOException {
         System.out.println("introduzirDados");
-        File f = null;
+        File f = File.createTempFile("some-prefix", "some-ext");
+        f.deleteOnExit();
         SimController instance = new SimController();
         instance.introduzirDados(f);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(f.exists());
     }
 
     /**
@@ -114,10 +135,12 @@ public class SimControllerTest {
     @Test
     public void testCriarListaMaterial() {
         System.out.println("criarListaMaterial");
+        Locale lo = new Locale("pt", "PT");
+        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
         SimController instance = new SimController();
+        instance.setMensagens(lo);
         instance.criarListaMaterial();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue(!instance.getListaMaterial().isEmpty());
     }
-    
+
 }

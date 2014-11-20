@@ -120,17 +120,7 @@ public class CalculosTest {
         List<Camada> lc = new ArrayList<>();
         SimController dc = new SimController();
         Calculos instance = new Calculos(dc);
-        double soma = 0;
-    
-        for (int i = 0; i < la.size(); i++){
-        soma += instance.Resistencia (la.get(i).getEspessura(), la.get(i).getArea(), la.get(i).getMaterial().getCondutibilidadeTermica());
-        }
-    
-        for (int i = 0; i < lc.size(); i++){
-        soma += instance.Resistencia (lc.get(i).getEspessura(), lc.get(i).getArea(), lc.get(i).getMaterial().getCondutibilidadeTermica());
-        }
-        
-
+        double soma = 0;      
         double expResult = 1/soma;
         double result = instance.calculosIntermedios(la, lc);
         assertEquals(expResult, result, 0.0);

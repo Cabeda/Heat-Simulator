@@ -65,7 +65,6 @@ public class ImportarFicheiro {
                 }
             } while (!selectedFile.exists() || !selectedFile.getName().contains(".bin"));
         } catch (NullPointerException p) {
-            System.out.println("Saiu JFileChooser");
         }
     }
 }
