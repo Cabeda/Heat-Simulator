@@ -312,6 +312,7 @@ public class JanelaCamada extends JFrame {
         JLabel l3 = new JLabel("m", JLabel.LEFT);
         label6.setPreferredSize(LABEL_TAMANHO2);
         field6 = new JTextField();
+        field6.setToolTipText(mensagens.getString("espessuraTip"));
         field6.setPreferredSize(Campo2_TAMANHO);
 
         panel6.add(label6);

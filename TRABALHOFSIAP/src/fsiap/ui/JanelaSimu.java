@@ -45,7 +45,7 @@ import trabalhofsiap.SimController;
  * Classe responsável por criar a Janela principal do Simulador
  *
  */
-public class JanelaSimu extends JDialog {
+public class JanelaSimu extends JFrame {
 
     //Icone  para editar Camadas ou Aberturas
     public Icon icon = new ImageIcon("icon_device_settings.gif");
@@ -104,12 +104,11 @@ public class JanelaSimu extends JDialog {
      * Método responsável por criar e apresentar a janela principal
      *
      * @param titulo
-     * @param pai
      * @param d
      */
-    public JanelaSimu(String titulo, JFrame pai, SimController d) {
+    public JanelaSimu(String titulo, SimController d) {
 
-        super(pai, titulo);
+        super(titulo);
 
         mensagens = d.getMensagens();
 
@@ -294,18 +293,12 @@ public class JanelaSimu extends JDialog {
         l1 = new JLabel("m", JLabel.LEFT);
         label1.setPreferredSize(LABEL_TAMANHO2);
         field1 = new JTextField();
+        field1.setToolTipText(mensagens.getString("comprimentoTip"));
         field1.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getComprimento() != 0) {
             field1.setText("" + dc.getComprimento());
         }
-
-        field1.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //nothing
-            }
-        });
+        
 
         field1.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -341,6 +334,7 @@ public class JanelaSimu extends JDialog {
         label2.setPreferredSize(LABEL_TAMANHO2);
 
         field2 = new JTextField();
+        field2.setToolTipText(mensagens.getString("larguraTip"));
         field2.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getLargura() != 0) {
             field2.setText("" + dc.getLargura());
@@ -390,6 +384,7 @@ public class JanelaSimu extends JDialog {
         label3.setPreferredSize(LABEL_TAMANHO2);
 
         field3 = new JTextField();
+        field3.setToolTipText(mensagens.getString("alturaTip"));
         field3.setPreferredSize(CAMPO_TAMANHO);
         if (dc.getAltura() != 0) {
             field3.setText("" + dc.getAltura());

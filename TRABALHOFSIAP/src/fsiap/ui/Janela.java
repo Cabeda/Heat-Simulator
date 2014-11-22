@@ -190,7 +190,7 @@ public class Janela extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dc.criarListaMaterial();
-                JanelaSimu jd = new JanelaSimu(dc.getMensagens().getString("janelaSimuTitulo"), null, dc);
+                JanelaSimu jd = new JanelaSimu(dc.getMensagens().getString("janelaSimuTitulo"), dc);
                 Janela.this.dispose();
             }
         });
