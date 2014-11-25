@@ -720,8 +720,22 @@ public class JanelaSimu extends JFrame {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean flag = true;
+                for(Limite lim:dc.getListaLim()){
+                    if( lim.getListaCamadas().isEmpty()){
+                        flag=false;
+                        
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("inserCam"));
+                        break;
+                    }
+                    
+                    }
+                
+                
+                if(flag){
                 jt.setEnabledAt(2, true);
                 jt.setSelectedIndex(2);
+                }
             }
         }
         );
