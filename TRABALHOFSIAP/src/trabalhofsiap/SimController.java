@@ -375,7 +375,7 @@ public class SimController implements Serializable {
      * 
      */
     public void setMensagens(Locale currentLocale) {
-        this.mensagens = ResourceBundle.getBundle("MensagensBundle", currentLocale);
+        this.mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", currentLocale);
 
     }
     
