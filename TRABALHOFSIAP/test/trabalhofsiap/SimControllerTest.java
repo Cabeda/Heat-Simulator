@@ -52,7 +52,7 @@ public class SimControllerTest {
         System.out.println("addLim");
         boolean flag = false;
         Locale lo = new Locale("pt", "PT");
-        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
+        mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", lo);
         Limite lim = new Limite("teste", mensagens);
         SimController instance = new SimController();
         instance.addLim(lim);
@@ -71,7 +71,7 @@ public class SimControllerTest {
     public void testAltLim() {
         System.out.println("altLim");
         Locale lo = new Locale("pt", "PT");
-        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
+        mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", lo);
         boolean flag = false;
         Limite lim = new Limite("tecto", mensagens);
         SimController instance = new SimController();
@@ -94,7 +94,7 @@ public class SimControllerTest {
         System.out.println("criarFicheiroHTML");
         String f = "teste";
         Locale lo = new Locale("pt", "PT");
-        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
+        mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", lo);
         SimController instance = new SimController();
         instance.setMensagens(lo);
         instance.criarFicheiroHTML(f);
@@ -109,7 +109,7 @@ public class SimControllerTest {
         System.out.println("guardarDados");
         String f = "teste";
         Locale lo = new Locale("pt", "PT");
-        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
+        mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", lo);
         SimController instance = new SimController();
         instance.setMensagens(lo);
         instance.guardarDados(f);
@@ -136,7 +136,7 @@ public class SimControllerTest {
     public void testCriarListaMaterial() {
         System.out.println("criarListaMaterial");
         Locale lo = new Locale("pt", "PT");
-        mensagens = ResourceBundle.getBundle("mensagensBundle", lo);
+        mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", lo);
         SimController instance = new SimController();
         instance.setMensagens(lo);
         instance.criarListaMaterial();

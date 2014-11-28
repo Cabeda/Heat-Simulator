@@ -211,15 +211,18 @@ public class JanelaSimu extends JFrame {
                     field4.setText(Double.toString(dc.getAreaTotal()));
                     revalidate();
                     jpanel3.removeAll();
+
                     for (Limite lim : dc.getListaLim()) {
                         double areaTmp = lim.getArea();
                         for (Abertu aber : lim.getListaAberturas()) {
                             areaTmp -= aber.getArea();
-                            if (areaTmp < 0) {
-                                jpanel2.removeAll();
-                                lim.getListaAberturas().clear();
-                                JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                                break;
+                            if (dc.getNumPessoas() == 0) {
+                                if (areaTmp < 0) {
+                                    jpanel2.removeAll();
+                                    lim.getListaAberturas().clear();
+                                    JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+                                    break;
+                                }
                             }
                         }
                         for (Camada cam : lim.getListaCamadas()) {
@@ -277,6 +280,7 @@ public class JanelaSimu extends JFrame {
      * @return
      */
     protected JPanel panel1() {
+
         JPanel panel = new JPanel();
         JPanel grid = new JPanel();
         panel.setLayout(new BorderLayout(10, 10));
@@ -298,7 +302,6 @@ public class JanelaSimu extends JFrame {
         if (dc.getComprimento() != 0) {
             field1.setText("" + dc.getComprimento());
         }
-        
 
         field1.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -436,7 +439,9 @@ public class JanelaSimu extends JFrame {
         field4.setPreferredSize(CAMPO_TAMANHO);
 
         field4.setEditable(false);
-
+        if (dc.getAreaTotal() != 0) {
+            field4.setText(dc.getAreaTotal() + "");
+        }
         panel4.add(label4);
         panel4.add(field4);
         panel4.add(l4);
@@ -720,8 +725,22 @@ public class JanelaSimu extends JFrame {
         btnMoveRight1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean flag = true;
+                for(Limite lim:dc.getListaLim()){
+                    if( lim.getListaCamadas().isEmpty()){
+                        flag=false;
+                        
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("inserCam"));
+                        break;
+                    }
+                    
+                    }
+                
+                
+                if(flag){
                 jt.setEnabledAt(2, true);
                 jt.setSelectedIndex(2);
+                }
             }
         }
         );
@@ -825,7 +844,7 @@ public class JanelaSimu extends JFrame {
         panel0.add(label0);
 
         panel1 = new JPanel();
-        label1 = new JLabel(mensagens.getString("temperaturadesej") + ": ", JLabel.RIGHT);
+        label1 = new JLabel(mensagens.getString("temperaturadesej"), JLabel.RIGHT);
         JLabel l1 = new JLabel("ºC", JLabel.LEFT);
 
         label1.setPreferredSize(LABEL_TAMANHO2);
@@ -845,6 +864,9 @@ public class JanelaSimu extends JFrame {
 
         label2.setPreferredSize(LABEL_TAMANHO2);
         JTextField field2 = new JTextField();
+        if (dc.getTemperaturaEx() != 0) {
+            field2.setText("" + dc.getTemperaturaEx());
+        }
         field2.setPreferredSize(CAMPO_TAMANHO);
         panel2.add(label2);
         panel2.add(field2);
