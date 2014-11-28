@@ -1,9 +1,9 @@
 /*
-TRABALHO DE FÍSICA
-António Pinheiro 1130339
-Cristina Lopes 1130371
-Egídio Santos 1130348
-José Cabeda 1130395
+ TRABALHO DE FÍSICA
+ António Pinheiro 1130339
+ Cristina Lopes 1130371
+ Egídio Santos 1130348
+ José Cabeda 1130395
  */
 package trabalhofsiap;
 
@@ -25,40 +25,43 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- * 
- * Controller do programa 
- * Os dados necessários ao funcionamento da aplicação são armazenados nesta classe
- * 
+ *
+ * Controller do programa Os dados necessários ao funcionamento da aplicação são
+ * armazenados nesta classe
+ *
  */
 public class SimController implements Serializable {
 
     //Medidas da sala
     private double comprimento, largura, altura, areaTotal;
-    
+
     //Numero de pessoas e de aparelhos na sala respetivamente
     private int numPessoas;
     //Numero de pessoas e de aparelhos na sala respetivamente
     private int numAparelhos;
-    
+
     //Temeperatura no exterior e a pretendida na sala respetivamente
     float temperaturaEx, temperaturaPre;
-    
+
     //Lista dos limites da sala
     private List<Limite> listaLim;
-    
+
     //Mapa da lista de materiais
     private Map<String, Material> listaMaterial;
-    
+
     //ResourceBundle com todas as mensagens apresentadas no programa
     private transient ResourceBundle mensagens;
-    
+
     //Inicialização da classe de cálculos
     private Calculos calc;
 
+    //Estado do Programa
+    private boolean status;
+
     /**
-     * 
+     *
      * Construtor do controlador com todos os dados
-     * 
+     *
      * @param comprimento
      * @param largura
      * @param altura
@@ -68,7 +71,7 @@ public class SimController implements Serializable {
      * @param temperaturaInt
      * @param temperaturaPre
      * @param numAparelhos
-     * @param listaLim 
+     * @param listaLim
      */
     public SimController(float comprimento, double largura, double altura, double volume, int numPessoas, int temperaturaEx, int temperaturaInt, int temperaturaPre, int numAparelhos, List<Limite> listaLim) {
         this.comprimento = comprimento;
@@ -82,12 +85,13 @@ public class SimController implements Serializable {
         this.listaLim = listaLim;
         listaMaterial = new HashMap<String, Material>();
         this.calc = new Calculos(this);
+        this.status = false;
     }
 
     /**
-     * 
+     *
      * Construtor vazio
-     * 
+     *
      */
     public SimController() {
         this.comprimento = 0;
@@ -100,13 +104,14 @@ public class SimController implements Serializable {
         this.listaLim = new ArrayList();
         listaMaterial = new HashMap<String, Material>();
         this.calc = new Calculos(this);
+        this.status = false;
     }
 
     /**
-     * 
+     *
      * Construtor cópia
-     * 
-     * @param dc 
+     *
+     * @param dc
      */
     public SimController(SimController dc) {
         this.comprimento = dc.comprimento;
@@ -119,74 +124,73 @@ public class SimController implements Serializable {
         this.numAparelhos = dc.numAparelhos;
         listaMaterial = new HashMap<String, Material>();
         this.calc = new Calculos(this);
+        this.status = dc.getStatus();
     }
 
     /**
-     * 
+     *
      * Get do comprimento
-     * 
-     * @return 
+     *
+     * @return
      */
     public double getComprimento() {
         return comprimento;
     }
 
     /**
-     * 
+     *
      * Get da largura
-     * 
-     * @return 
+     *
+     * @return
      */
     public double getLargura() {
         return largura;
     }
 
     /**
-     * 
+     *
      * Get da altura
-     * 
-     * @return 
+     *
+     * @return
      */
     public double getAltura() {
         return altura;
     }
 
     /**
-     * 
+     *
      * Get da temperatura exterior
-     * 
-     * @return 
+     *
+     * @return
      */
     public float getTemperaturaEx() {
         return temperaturaEx;
     }
 
     /**
-     * 
-     * Devolve lista de material 
-     * 
+     *
+     * Devolve lista de material
+     *
      */
     public Map<String, Material> getListaMaterial() {
         return listaMaterial;
     }
-    
-    
 
     /**
-     * 
+     *
      * Get da temperatura pretendida
-     * 
-     * @return 
+     *
+     * @return
      */
     public float getTemperaturaPre() {
         return temperaturaPre;
     }
 
     /**
-     * 
+     *
      * Get da área total
-     * 
-     * @return 
+     *
+     * @return
      */
     public double getAreaTotal() {
 
@@ -194,40 +198,40 @@ public class SimController implements Serializable {
     }
 
     /**
-     * 
+     *
      * Get do numero de pessoas na sala
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getNumPessoas() {
         return numPessoas;
     }
 
     /**
-     * 
+     *
      * Get do numero de aparelhos na sala
-     * 
-     * @return 
+     *
+     * @return
      */
     public int getNumAparelhos() {
         return numAparelhos;
     }
 
     /**
-     * 
+     *
      * Get da lista de limites
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<Limite> getListaLim() {
         return listaLim;
     }
-    
+
     /**
-     * 
+     *
      * Get da lista de aberturas de todos os limites
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<Abertu> getListaAberturas() {
         List<Abertu> temp = new ArrayList();
@@ -240,10 +244,10 @@ public class SimController implements Serializable {
     }
 
     /**
-     * 
+     *
      * Get da lista de Camadas de todos os limites
-     * 
-     * @return 
+     *
+     * @return
      */
     public List<Camada> getListaCamadas() {
         List<Camada> temp = new ArrayList();
@@ -254,65 +258,61 @@ public class SimController implements Serializable {
         }
         return temp;
     }
-    
-    
+
     /**
-     * 
+     *
      * Get das mensagens do resourcebundle
-     * 
+     *
      * @return the mensagens
      */
     public ResourceBundle getMensagens() {
         return mensagens;
     }
 
-
-
     /**
-     * 
+     *
      * Get do material pelo nome
-     * 
+     *
      * @return the listaMaterial
      */
     public Material getMaterialpeloNome(String tipo) {
         return listaMaterial.get(tipo);
     }
 
-
     /**
-     * 
+     *
      * Set de comprimento
-     * 
-     * @param comprimento 
+     *
+     * @param comprimento
      */
     public void setComprimento(double comprimento) {
         this.comprimento = comprimento;
     }
 
     /**
-     * 
+     *
      * Set da largura
-     * 
-     * @param largura 
+     *
+     * @param largura
      */
     public void setLargura(double largura) {
         this.largura = largura;
     }
 
     /**
-     * 
+     *
      * Set da altura
-     * 
-     * @param altura 
+     *
+     * @param altura
      */
     public void setAltura(double altura) {
         this.altura = altura;
     }
 
     /**
-     * 
+     *
      * Set da área total
-     * 
+     *
      */
     public void setAreaTotal() {
         areaTotal = 2 * ((comprimento * largura) + (comprimento * altura) + (altura * largura));
@@ -320,93 +320,91 @@ public class SimController implements Serializable {
     }
 
     /**
-     * 
+     *
      * Set da área total
-     * 
-     * @param area 
+     *
+     * @param area
      */
     public void setAreaTotal(double area) {
         this.areaTotal = area;
     }
 
     /**
-     * 
+     *
      * Set do numero de pessoas na sala
-     * 
-     * @param numPessoas 
+     *
+     * @param numPessoas
      */
     public void setNumPessoas(int numPessoas) {
         this.numPessoas = numPessoas;
     }
 
     /**
-     * 
+     *
      * Set da temperatura Exterior
-     * 
-     * @param temperatura 
+     *
+     * @param temperatura
      */
     public void setTemperaturaEx(float temperatura) {
         this.temperaturaEx = temperatura;
     }
 
     /**
-     * 
+     *
      * Set da temperatura Pretendida na sala
-     * 
-     * @param temperaturaPre 
+     *
+     * @param temperaturaPre
      */
     public void setTemperaturaPre(float temperaturaPre) {
         this.temperaturaPre = temperaturaPre;
     }
 
     /**
-     * 
+     *
      * Sett do número de aparelhos na sala
-     * 
-     * @param numAparelhos 
+     *
+     * @param numAparelhos
      */
     public void setNumAparelhos(int numAparelhos) {
         this.numAparelhos = numAparelhos;
     }
-    
-        /**
-     * 
+
+    /**
+     *
      * Método para definir linguagem
-     * 
+     *
      */
     public void setMensagens(Locale currentLocale) {
         this.mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", currentLocale);
 
     }
-    
-    
+
     /**
-     * 
+     *
      * Set da lista de materiais
-     * 
+     *
      * @param listaLim the listaLim to set
      */
     public void setListaLim(List<Limite> listaLim) {
         this.listaLim = listaLim;
     }
-    
-    
+
     /**
-     * 
-     * Método para adicionar limite 
-     * 
-     * @param listaLim 
+     *
+     * Método para adicionar limite
+     *
+     * @param listaLim
      */
     public void addLim(Limite listaLim) {
 
         (this.listaLim).add(listaLim);
     }
-    
+
     /**
-     * 
+     *
      * Método para alterar os dados de um limite
-     * 
-     * @param listaLim2 
+     *
+     * @param listaLim2
      */
     public void altLim(Limite listaLim2) {
         for (Limite listaLim1 : listaLim) {
@@ -419,11 +417,31 @@ public class SimController implements Serializable {
     }
 
     /**
-     * 
-     * Método para criar ficheiro HTML com os dados introduzidos e respetivo resultado 
-     * 
+     * Método para mudar o estado de iniciação do programa (Importado ou não)
+     *
+     * @param status - o estado do programa
+     */
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    /**
+     * Set do estado
+     *
+     * @return status
+     */
+    public boolean getStatus() {
+
+        return status;
+    }
+
+    /**
+     *
+     * Método para criar ficheiro HTML com os dados introduzidos e respetivo
+     * resultado
+     *
      * @param f
-     * @throws IOException 
+     * @throws IOException
      */
     public void criarFicheiroHTML(String f) throws IOException {
 
@@ -438,9 +456,13 @@ public class SimController implements Serializable {
                     + "</div>\n" + "<hr>\n" + "<h2>" + mensagens.getString("parametros") + ":" + "</h2>\n");
             out.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
             out.write("<h1>" + mensagens.getString("resultados") + ":" + "</h1>\n");
-            out.write("<h4>" + mensagens.getString("fluxoCalor1") + " : " + calc.FluxoCalor1() + " W/m&sup2</h4>\n");
-            out.write("<h4>" + mensagens.getString("fluxoCalor2") + " : " + calc.FluxoCalor2() +  " W/m&sup2</h4>\n");
-            out.write("<h4>" + mensagens.getString("potenciaRecomendada") + " : " + calc.PotenciaFinal() + " W</h4>\n");
+            if (calc.FluxoCalor2() == 0) {
+                out.write("<h4>" + mensagens.getString("temperaturaAdequada") + " </h4>\n");
+            } else {
+                out.write("<h4>" + mensagens.getString("fluxoCalor1") + " : " + calc.FluxoCalor1() + " W/m&sup2</h4>\n");
+                out.write("<h4>" + mensagens.getString("fluxoCalor2") + " : " + calc.FluxoCalor2() + " W/m&sup2</h4>\n");
+                out.write("<h4>" + mensagens.getString("potenciaRecomendada") + " : " + calc.PotenciaFinal() + " W</h4>\n");
+            }
             out.write("<hr>\n</body></html>");
             out.close();
 
@@ -534,17 +556,17 @@ public class SimController implements Serializable {
     }
 
     /**
-     * 
+     *
      * Método para guardar os resultados num ficheiro binário
-     * 
-     * @param f 
+     *
+     * @param f
      */
     public void guardarDados(String f) {
         try {
             FileOutputStream fileOut = new FileOutputStream(f + "\\" + f + ".bin");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
-
+            out.writeObject(true);
             out.writeObject(getAltura());
             out.writeObject(getLargura());
             out.writeObject(getComprimento());
@@ -569,23 +591,23 @@ public class SimController implements Serializable {
     }
 
     /**
-     * 
-     * Método para ler um ficheiro binário com os dados introduzidos anteriormente
-     * 
-     * @param f 
+     *
+     * Método para ler um ficheiro binário com os dados introduzidos
+     * anteriormente
+     *
+     * @param f
      */
     public void introduzirDados(File f) {
         try {
             FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-
-
+            boolean d = (boolean) in.readObject();
+            System.out.println(d);
+            setStatus(d);
             setAltura((double) in.readObject());
             setLargura((double) in.readObject());
             setComprimento((double) in.readObject());
             setAreaTotal((double) in.readObject());
-            
-            
 
             List<Limite> lsl = new ArrayList<>();
             int cont = (int) in.readObject();
@@ -601,42 +623,39 @@ public class SimController implements Serializable {
 
             in.close();
             fileIn.close();
-        
-        Aluminio al = (Aluminio) getMaterialpeloNome(mensagens.getString("aluminio"));
-        al.setMensagens(mensagens);
-        listaMaterial.replace(mensagens.getString("aluminio"),al);
-        Madeira ma = (Madeira) getMaterialpeloNome(mensagens.getString("madeira"));
-        ma.setMensagens(mensagens);
-        listaMaterial.replace(mensagens.getString("madeira"),ma);
-        Vidro vi = (Vidro) getMaterialpeloNome(mensagens.getString("vidro"));
-        vi.setMensagens(mensagens);
-        listaMaterial.replace(mensagens.getString("vidro"),vi);
-        Ar ar = (Ar) getMaterialpeloNome(mensagens.getString("ar"));
-        ar.setMensagens(mensagens);
-        listaMaterial.replace(mensagens.getString("ar"),ar);
-        Betao be  = (Betao)getMaterialpeloNome(mensagens.getString("betao"));
-        be.setMensagens(mensagens);
-        listaMaterial.replace(mensagens.getString("betao"),be);
-        Cimento ci  = (Cimento)getMaterialpeloNome(mensagens.getString("cimento"));
-        ci.setMensagens(mensagens);
-        listaMaterial.replace(mensagens.getString("cimento"),ci);
-        Tijolo ti  = (Tijolo) getMaterialpeloNome(mensagens.getString("tijolo"));
-        ti.setMensagens(mensagens);
-        listaMaterial.replace(mensagens.getString("tijolo"),ti);
-        
-        for (Limite l : listaLim)
-        {
-            l.setMensagens(mensagens);
-            for(Camada c : l.getListaCamadas())
-            {
-                c.getMaterial().setMensagens(mensagens);
+
+            Aluminio al = (Aluminio) getMaterialpeloNome(mensagens.getString("aluminio"));
+            al.setMensagens(mensagens);
+            listaMaterial.replace(mensagens.getString("aluminio"), al);
+            Madeira ma = (Madeira) getMaterialpeloNome(mensagens.getString("madeira"));
+            ma.setMensagens(mensagens);
+            listaMaterial.replace(mensagens.getString("madeira"), ma);
+            Vidro vi = (Vidro) getMaterialpeloNome(mensagens.getString("vidro"));
+            vi.setMensagens(mensagens);
+            listaMaterial.replace(mensagens.getString("vidro"), vi);
+            Ar ar = (Ar) getMaterialpeloNome(mensagens.getString("ar"));
+            ar.setMensagens(mensagens);
+            listaMaterial.replace(mensagens.getString("ar"), ar);
+            Betao be = (Betao) getMaterialpeloNome(mensagens.getString("betao"));
+            be.setMensagens(mensagens);
+            listaMaterial.replace(mensagens.getString("betao"), be);
+            Cimento ci = (Cimento) getMaterialpeloNome(mensagens.getString("cimento"));
+            ci.setMensagens(mensagens);
+            listaMaterial.replace(mensagens.getString("cimento"), ci);
+            Tijolo ti = (Tijolo) getMaterialpeloNome(mensagens.getString("tijolo"));
+            ti.setMensagens(mensagens);
+            listaMaterial.replace(mensagens.getString("tijolo"), ti);
+
+            for (Limite l : listaLim) {
+                l.setMensagens(mensagens);
+                for (Camada c : l.getListaCamadas()) {
+                    c.getMaterial().setMensagens(mensagens);
+                }
+                for (Abertu a : l.getListaAberturas()) {
+                    a.getMaterial().setMensagens(mensagens);
+                }
             }
-            for(Abertu a: l.getListaAberturas())
-            {
-                a.getMaterial().setMensagens(mensagens);
-            }
-        }
-        
+
         } catch (IOException i) {
             System.out.println("IOException");
         } catch (ClassNotFoundException c) {
@@ -646,9 +665,9 @@ public class SimController implements Serializable {
     }
 
     /**
-     * 
+     *
      * Método para criar lista de materiais
-     * 
+     *
      */
     public void criarListaMaterial() {
         listaMaterial.put(mensagens.getString("aluminio"), new Aluminio(this.getMensagens()));
@@ -660,12 +679,11 @@ public class SimController implements Serializable {
         listaMaterial.put(mensagens.getString("vidro"), new Vidro(this.getMensagens()));
     }
 
-    
     /**
-     * 
+     *
      * Método para escrever a toString da classe
-     * 
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
@@ -675,4 +693,5 @@ public class SimController implements Serializable {
                 + ", " + mensagens.getString("numPessoas") + ":" + getNumPessoas() + ", " + mensagens.getString("temperatura") + ":"
                 + temperaturaEx + ", " + mensagens.getString("numAparelhos") + ":" + getNumAparelhos();
     }
+
 }

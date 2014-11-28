@@ -25,7 +25,6 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -211,49 +210,62 @@ public class JanelaSimu extends JFrame {
                     field4.setText(Double.toString(dc.getAreaTotal()));
                     revalidate();
                     jpanel3.removeAll();
+                    if (!dc.getStatus()) {
+                        for (Limite lim : dc.getListaLim()) {
+                            double areaTmp = lim.getArea();
+                            for (Abertu aber : lim.getListaAberturas()) {
+                                areaTmp -= aber.getArea();
 
-                    for (Limite lim : dc.getListaLim()) {
-                        double areaTmp = lim.getArea();
-                        for (Abertu aber : lim.getListaAberturas()) {
-                            areaTmp -= aber.getArea();
-                       
                                 if (areaTmp < 0) {
+
                                     jpanel2.removeAll();
+                                    jpanel2.revalidate();
                                     lim.getListaAberturas().clear();
                                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                                     break;
                                 }
-                            
+                            }
+                            for (Camada cam : lim.getListaCamadas()) {
+                                JPanel a = new JPanel(new FlowLayout());
+                                JLabel b = new JLabel(cam.toString());
+                                JButton c = new JButton(icon);
+                                c.setPreferredSize(BTN_TAMANHO);
+                                c.addActionListener(new ActionListener() {
+
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+
+                                        JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
+
+                                        jan.field1.setSelectedItem(lim);
+                                        jan.field1.setEnabled(false);
+                                        jan.field2.setSelectedItem(cam.getMaterial().getNome());
+                                        jan.field3.setText(Double.toString(lim.getAltura()));
+                                        jan.field4.setText(Double.toString(lim.getLargura()));
+                                        jan.field6.setText("" + cam.getEspessura());
+
+                                    }
+                                });
+
+                                a.add(b);
+                                a.add(c);
+
+                                jpanel3.add(a, posi);
+                                jpanel3.revalidate();
+                                posi++;
+                            }
                         }
-                        for (Camada cam : lim.getListaCamadas()) {
-                            JPanel a = new JPanel(new FlowLayout());
-                            JLabel b = new JLabel(cam.toString());
-                            JButton c = new JButton(icon);
-                            c.setPreferredSize(BTN_TAMANHO);
-                            c.addActionListener(new ActionListener() {
 
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-
-                                    JanelaCamada jan = new JanelaCamada(dc.getMensagens().getString("dadosCamad"), dc, JanelaSimu.this, false, posi);
-
-                                    jan.field1.setSelectedItem(lim);
-                                    jan.field1.setEnabled(false);
-                                    jan.field2.setSelectedItem(cam.getMaterial().getNome());
-                                    jan.field3.setText(Double.toString(lim.getAltura()));
-                                    jan.field4.setText(Double.toString(lim.getLargura()));
-                                    jan.field6.setText("" + cam.getEspessura());
-
-                                }
-                            });
-
-                            a.add(b);
-                            a.add(c);
-
-                            jpanel3.add(a, posi);
-                            jpanel3.revalidate();
-                            posi++;
-                        }
+                    } else {
+                        dc.getListaAberturas().clear();
+                        dc.getListaCamadas().clear();
+                        dc.getListaLim().clear();
+                        jpanel3.removeAll();
+                        jpanel3.revalidate();
+                        jpanel3.repaint();
+                        jpanel2.removeAll();
+                        jpanel2.revalidate();
+                        jpanel2.repaint();
                     }
                     posi = 0;
                 } else {
@@ -726,22 +738,21 @@ public class JanelaSimu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 boolean flag = true;
-                for(Limite lim:dc.getListaLim()){
-                    if( lim.getListaCamadas().isEmpty()){
-                        flag=false;
-                        
+                for (Limite lim : dc.getListaLim()) {
+                    if (lim.getListaCamadas().isEmpty()) {
+                        flag = false;
+
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("inserCam"));
                         break;
                     }
                     jpanel2.revalidate();
                     jpanel2.repaint();
-                    
-                    }
-                
-                
-                if(flag){
-                jt.setEnabledAt(2, true);
-                jt.setSelectedIndex(2);
+
+                }
+
+                if (flag) {
+                    jt.setEnabledAt(2, true);
+                    jt.setSelectedIndex(2);
                 }
             }
         }
