@@ -216,14 +216,14 @@ public class JanelaSimu extends JFrame {
                         double areaTmp = lim.getArea();
                         for (Abertu aber : lim.getListaAberturas()) {
                             areaTmp -= aber.getArea();
-                            if (dc.getNumPessoas() == 0) {
+                       
                                 if (areaTmp < 0) {
                                     jpanel2.removeAll();
                                     lim.getListaAberturas().clear();
                                     JOptionPane.showMessageDialog(rootPane, mensagens.getString("dimReduzidas"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                                     break;
                                 }
-                            }
+                            
                         }
                         for (Camada cam : lim.getListaCamadas()) {
                             JPanel a = new JPanel(new FlowLayout());
@@ -733,6 +733,8 @@ public class JanelaSimu extends JFrame {
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("inserCam"));
                         break;
                     }
+                    jpanel2.revalidate();
+                    jpanel2.repaint();
                     
                     }
                 

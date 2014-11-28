@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import trabalhofsiap.Abertu;
 import trabalhofsiap.Aluminio;
 import trabalhofsiap.Ar;
 import trabalhofsiap.Betao;
@@ -37,8 +38,9 @@ import trabalhofsiap.Vidro;
 
 /**
  *
- * Classe para apresentação de uma jframe para inserção/alteração dos dados de uma camada
- * 
+ * Classe para apresentação de uma jframe para inserção/alteração dos dados de
+ * uma camada
+ *
  */
 public class JanelaCamada extends JFrame {
 
@@ -48,28 +50,28 @@ public class JanelaCamada extends JFrame {
     private Dimension Campo2_TAMANHO = new Dimension(250, 30);
     //Tamanho de uma caixa de texto
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
-    
+
     //Tamanho de uma jscrollPane
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
-    
+
     //Tamanho dos botões
     private Dimension BTN_TAMANHO = new Dimension(40, 40);
-    
+
     //Inicialização das caixas de texto
     public JTextField field4, field3, field6;
-    
+
     //Flag para uma abertura já criada ou por criar
     private boolean flag;
-    
+
     //Inicialização de uma jcombobox
     public JComboBox field1, field2;
-    
+
     //Inicialização do controller do controller
     private SimController dc;
-    
+
     //Inicialização da janela pai
     private JanelaSimu js;
-    
+
     //Inicialização da variável com a posiçao da ultima abertura criada ou da abertura para alterar
     private int posi;
 
@@ -81,19 +83,19 @@ public class JanelaCamada extends JFrame {
     private Ar a;
     private Tijolo ti;
     private Cimento ci;
-    
+
     //Inicialização das mensagens do programa
     ResourceBundle mensagens;
 
     /**
-     * 
+     *
      * Construtor da Janela Camada com todos os dados
-     * 
+     *
      * @param titulo
      * @param d
      * @param js
      * @param f
-     * @param po 
+     * @param po
      */
     public JanelaCamada(String titulo, SimController d, JanelaSimu js, boolean f, int po) {
         super(titulo);
@@ -110,8 +112,8 @@ public class JanelaCamada extends JFrame {
         vi = (Vidro) d.getMaterialpeloNome(mensagens.getString("vidro"));
         a = (Ar) d.getMaterialpeloNome(mensagens.getString("ar"));
         be = (Betao) d.getMaterialpeloNome(mensagens.getString("betao"));
-        ti  = (Tijolo) d.getMaterialpeloNome(mensagens.getString("tijolo"));
-        ci  = (Cimento)d.getMaterialpeloNome(mensagens.getString("cimento"));
+        ti = (Tijolo) d.getMaterialpeloNome(mensagens.getString("tijolo"));
+        ci = (Cimento) d.getMaterialpeloNome(mensagens.getString("cimento"));
 
         BorderLayout gl = new BorderLayout();
         setLayout(gl);
@@ -135,9 +137,10 @@ public class JanelaCamada extends JFrame {
     }
 
     /**
-     * 
-     * Método para criar o painel1 (local de inserção de dados e confirmação dos mesmos)
-     * 
+     *
+     * Método para criar o painel1 (local de inserção de dados e confirmação dos
+     * mesmos)
+     *
      * @return panel
      */
     protected JPanel panel1() {
@@ -197,7 +200,7 @@ public class JanelaCamada extends JFrame {
         JPanel panel2 = new JPanel();
         JLabel label2 = new JLabel(mensagens.getString("material"), JLabel.RIGHT);
         label2.setPreferredSize(LABEL_TAMANHO2);
-        String opcoes2[] = {ma.getNome(), vi.getNome(), al.getNome(), be.getNome(),ci.getNome(),ti.getNome(),a.getNome()};
+        String opcoes2[] = {ma.getNome(), vi.getNome(), al.getNome(), be.getNome(), ci.getNome(), ti.getNome(), a.getNome()};
         field2 = new JComboBox(opcoes2);
         field2.setPreferredSize(Campo2_TAMANHO);
         field2.setSelectedIndex(-1);
@@ -372,7 +375,7 @@ public class JanelaCamada extends JFrame {
                                         jan.field2.setSelectedItem(cam.getMaterial().getNome());
                                         jan.field3.setText(Double.toString(lim.getAltura()));
                                         jan.field4.setText(Double.toString(lim.getLargura()));
-                                        jan.field6.setText(""+(cam.getEspessura()));
+                                        jan.field6.setText("" + (cam.getEspessura()));
                                     }
                                 });
                             }
@@ -399,8 +402,14 @@ public class JanelaCamada extends JFrame {
                                 field6.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
+                                
                                 Limite lim = (Limite) field1.getSelectedItem();
                                 Camada cam = lim.getListaCamadas().get(posi);
+                                 for (Abertu aber : lim.getListaAberturas()) {
+                                    if(cam.getEspessura()!=aber.getEspessura()){
+                                        aber.setEspessura(cam.getEspessura());
+                                    }
+                                }
                                 cam.setEspessura(Double.parseDouble(field6.getText()));
                                 cam.setMaterialPeloNome(field2.getSelectedItem().toString());
 

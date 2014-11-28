@@ -34,9 +34,10 @@ import trabalhofsiap.Tijolo;
 import trabalhofsiap.Vidro;
 
 /**
- * 
- * Classe para apresentação de uma jframe para inserção/alteração dos dados de uma abertura
- * 
+ *
+ * Classe para apresentação de uma jframe para inserção/alteração dos dados de
+ * uma abertura
+ *
  */
 public class JanelaAber extends JFrame {
 
@@ -46,28 +47,28 @@ public class JanelaAber extends JFrame {
     private Dimension Campo2_TAMANHO = new Dimension(250, 30);
     //Tamanho de uma caixa de texto
     private Dimension Campo3_TAMANHO = new Dimension(250, 40);
-    
+
     //Tamanho de uma jscrollPane
     private Dimension Scroll_TAMANHO = new Dimension(250, 90);
-    
+
     //Tamanho dos botões
     private Dimension BTN_TAMANHO = new Dimension(40, 40);
-    
+
     //Inicialização das caixas de texto
     public JTextField field4, field3, field6;
-    
+
     //Flag para uma abertura já criada ou por criar
     private boolean flag;
-    
+
     //Inicialização de uma jcombobox
     public JComboBox field1, field2;
-    
+
     //Inicialização do controller do controller
     private SimController dc;
-    
+
     //Inicialização da janela pai
     private JanelaSimu js;
-    
+
     //Inicialização da variável com a posiçao da ultima abertura criada ou da abertura para alterar
     private int posi;
 
@@ -79,19 +80,19 @@ public class JanelaAber extends JFrame {
     private Ar a;
     private Tijolo ti;
     private Cimento ci;
-    
+
     //Inicialização das mensagens do programa
     ResourceBundle mensagens;
 
     /**
-     * 
+     *
      * Construtor da Janela Abertura com todos os dados
-     * 
+     *
      * @param titulo
      * @param d
      * @param js
      * @param f
-     * @param po 
+     * @param po
      */
     public JanelaAber(String titulo, SimController d, JanelaSimu js, boolean f, int po) {
         super(titulo);
@@ -132,10 +133,11 @@ public class JanelaAber extends JFrame {
     }
 
     /**
-     * 
-     * Método para criar o painel1 (local de inserção de dados e confirmação dos mesmos)
-     * 
-     * @return 
+     *
+     * Método para criar o painel1 (local de inserção de dados e confirmação dos
+     * mesmos)
+     *
+     * @return
      */
     protected JPanel panel1() {
         JPanel panel = new JPanel();
@@ -148,7 +150,16 @@ public class JanelaAber extends JFrame {
         field1 = new JComboBox(dc.getListaLim().toArray());
         field1.setPreferredSize(Campo2_TAMANHO);
         field1.setSelectedIndex(-1);
-       
+        field1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (field1.getSelectedIndex() != -1) {
+                    Limite lim = (Limite) field1.getSelectedItem();
+                    field6.setText(lim.getEspessura() + "");
+                }
+            }
+        });
 
         panel1.add(label1);
         panel1.add(field1);
@@ -195,6 +206,7 @@ public class JanelaAber extends JFrame {
         JLabel l3 = new JLabel("m", JLabel.LEFT);
         label6.setPreferredSize(LABEL_TAMANHO2);
         field6 = new JTextField();
+        field6.setEditable(false);
         field6.setToolTipText(mensagens.getString("espessuraTip"));
         field6.setPreferredSize(Campo2_TAMANHO);
 
@@ -216,19 +228,23 @@ public class JanelaAber extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     try {
 
-                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("")&& !field6.getText().equals("")) {
+                        if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("") && !field6.getText().equals("")) {
                             if (Double.parseDouble(field3.getText()) <= 0) {
                                 field3.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                                
+
                             } else if (Double.parseDouble(field4.getText()) <= 0) {
                                 field4.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
-                            }else if (Double.parseDouble(field6.getText()) <= 0) {
+                            } else if (Double.parseDouble(field6.getText()) <= 0) {
                                 field6.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (((Limite) field1.getSelectedItem()).getArea() - ((Double.parseDouble(field3.getText())) * (Double.parseDouble(field4.getText()))) < 0) {
                                 field1.setSelectedIndex(-1);
+                                field1.setEditable(true);
+                                field1.setEnabled(true);
+                                field6.setText("");
+                                field4.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("excessoAber"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
 
@@ -239,7 +255,7 @@ public class JanelaAber extends JFrame {
                                 aber.setEspessura(Double.parseDouble(field6.getText()));
                                 aber.setMaterialPeloNome(field2.getSelectedItem().toString());
                                 lim.addAbertura(aber);
-                                aber.setLimite(lim);                                
+                                aber.setLimite(lim);
                                 posi = lim.getListaAberturas().size() - 1;
                                 dispose();
                                 JPanel a = new JPanel(new FlowLayout());
@@ -285,8 +301,7 @@ public class JanelaAber extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                  
-                        ((Limite) field1.getSelectedItem()).setArea(((Limite) field1.getSelectedItem()).getArea() + (((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getAltura() * ((Limite) field1.getSelectedItem()).getListaAberturas().get(posi).getLargura()));
+                      
                         if (field1.getSelectedIndex() != -1 && field2.getSelectedIndex() != -1 && !field3.getText().equals("") && !field4.getText().equals("")) {
                             if (Double.parseDouble(field3.getText()) <= 0) {
                                 field3.setText("");
@@ -299,6 +314,10 @@ public class JanelaAber extends JFrame {
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else if (((Limite) field1.getSelectedItem()).getArea() - ((Double.parseDouble(field3.getText())) * (Double.parseDouble(field4.getText()))) < 0) {
                                 field1.setSelectedIndex(-1);
+                                field1.setEditable(true);
+                                field1.setEnabled(true);
+                                field6.setText("");
+                                field4.setText("");
                                 JOptionPane.showMessageDialog(rootPane, mensagens.getString("excessoAber"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                             } else {
                                 Limite lim = (Limite) field1.getSelectedItem();
@@ -308,7 +327,7 @@ public class JanelaAber extends JFrame {
                                 aber.setLargura(Double.parseDouble(field4.getText()));
                                 aber.setEspessura(Double.parseDouble(field6.getText()));
                                 aber.setMaterialPeloNome(field2.getSelectedItem().toString());
-                                lim.setArea(lim.getArea()-(aber.getAltura()*aber.getLargura()));
+                                lim.setArea(lim.getArea() - (aber.getAltura() * aber.getLargura()));
 
                                 lim.getListaAberturas().set(posi, aber);
 
@@ -347,7 +366,7 @@ public class JanelaAber extends JFrame {
                         } else {
                             JOptionPane.showMessageDialog(rootPane, mensagens.getString("preenchaTudo"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                         }
-                    } catch (NumberFormatException erro) {
+                    } catch (Exception erro) {
                         JOptionPane.showMessageDialog(rootPane, mensagens.getString("dadosInv"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
                     }
 
