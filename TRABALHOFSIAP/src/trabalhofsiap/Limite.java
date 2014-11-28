@@ -134,7 +134,12 @@ public class Limite implements java.io.Serializable {
     * @return 
     */
     public double getArea() {
-        return area;
+        double soma=0;
+        for(Abertu a : listaAberturas)
+        {
+            soma +=a.getArea();
+        }
+        return area-soma;
     }
 
     /**
@@ -204,7 +209,6 @@ public class Limite implements java.io.Serializable {
      */
     public void addAbertura(Abertu a) {
         listaAberturas.add(a);
-        setArea(this.area - a.getArea());
     }
 
     /**

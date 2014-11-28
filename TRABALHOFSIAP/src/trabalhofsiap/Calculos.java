@@ -42,7 +42,7 @@ public double calcularResistenciaTermica(List<Limite> listaLim){
         List<Camada> lc = listaLim.get(i).getListaCamadas();
         resistencia += calculosIntermedios(la, lc);
     }
-        return resistencia;
+        return 1/resistencia;
 }
 
 /**
@@ -68,7 +68,7 @@ public double FluxoCalor2(){
  * @return potenciaFinal
  */
 public double PotenciaFinal(){
-    return Math.abs(FluxoCalor1()-FluxoCalor2());
+    return FluxoCalor1()-FluxoCalor2();
 }
 
 /**
@@ -83,14 +83,14 @@ public double calculosIntermedios(List<Abertu> la, List<Camada> lc){
     double soma = 0;
     
     for (int i = 0; i < la.size(); i++){
-        soma += Resistencia (la.get(i).getEspessura(), la.get(i).getArea(), la.get(i).getMaterial().getCondutibilidadeTermica());
+        soma += 1/Resistencia (la.get(i).getEspessura(), la.get(i).getArea(), la.get(i).getMaterial().getCondutibilidadeTermica());
     }
     
     for (int i = 0; i < lc.size(); i++){
-        soma += Resistencia (lc.get(i).getEspessura(), lc.get(i).getArea(), lc.get(i).getMaterial().getCondutibilidadeTermica());
+        soma += 1/Resistencia (lc.get(i).getEspessura(), lc.get(i).getArea(), lc.get(i).getMaterial().getCondutibilidadeTermica());
     }
     
-    return 1/soma;
+    return soma;
 }
 
 /**
@@ -101,8 +101,7 @@ public double calculosIntermedios(List<Abertu> la, List<Camada> lc){
  * @return Resistencia
  */
 public double Resistencia(double espessura, double Area, double condutividadeMaterial){
-    
-    return 1/(espessura / (condutividadeMaterial*Area));
+    return  (espessura / (condutividadeMaterial*Area));
 }
 
 }
