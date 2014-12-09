@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ResourceBundle;
+import javax.print.event.PrintJobEvent;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -243,6 +244,8 @@ public class JanelaSimu extends JFrame {
                                         jan.field3.setText(Double.toString(lim.getAltura()));
                                         jan.field4.setText(Double.toString(lim.getLargura()));
                                         jan.field6.setText("" + cam.getEspessura());
+                                        jan.revalidate();
+                                        jan.repaint();
 
                                     }
                                 });
@@ -521,13 +524,23 @@ public class JanelaSimu extends JFrame {
         jpanel2 = new JPanel();
         if (dc.getListaAberturas() != null) {
             List<Abertu> d = dc.getListaAberturas();
-            for (Abertu listaAber1 : d) {
+            for (Abertu ab : d) {
                 JPanel a = new JPanel(new FlowLayout());
-                JLabel b = new JLabel(listaAber1.toString());
+                JLabel b = new JLabel(ab.toString());
                 JButton c = new JButton(this.icon);
                 a.add(b);
                 a.add(c);
                 c.setPreferredSize(new Dimension(40, 40));
+                c.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("naoEditar"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+                });
+
                 jpanel2.add(a);
                 jpanel2.revalidate();
                 panel1.revalidate();
@@ -567,9 +580,16 @@ public class JanelaSimu extends JFrame {
                 for (Limite l : dc.getListaLim()) {
                     l.getListaAberturas().clear();
                 }
+                
+                jt.setEnabledAt(3, false);
+                jt.setEnabledAt(4, false);
+                jt.setEnabledAt(5, false);
+                jt.setEnabledAt(6, false);
+                
                 jpanel2.removeAll();
                 jpanel2.revalidate();
                 jpanel2.repaint();
+
             }
 
         });
@@ -682,6 +702,16 @@ public class JanelaSimu extends JFrame {
                 a.add(b);
                 a.add(c);
                 c.setPreferredSize(new Dimension(40, 40));
+                c.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        JOptionPane.showMessageDialog(rootPane, mensagens.getString("naoEditar"), mensagens.getString("erro"), JOptionPane.INFORMATION_MESSAGE);
+
+                    }
+                });
+
                 jpanel3.add(a);
                 jpanel3.revalidate();
                 panel1.revalidate();
@@ -722,6 +752,13 @@ public class JanelaSimu extends JFrame {
                 for (Limite l : dc.getListaLim()) {
                     l.getListaCamadas().clear();
                 }
+
+                jt.setEnabledAt(2, false);
+                jt.setEnabledAt(3, false);
+                jt.setEnabledAt(4, false);
+                jt.setEnabledAt(5, false);
+                jt.setEnabledAt(6, false);
+                
                 jpanel3.removeAll();
                 jpanel3.revalidate();
                 jpanel3.repaint();
