@@ -492,7 +492,7 @@ public class SimController implements Serializable {
             out3.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             int i = 1;
-            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m)</td>\n</tr>");
+            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)</td>\n<td>" + mensagens.getString("largura") + " (m)</td>\n<td>" + mensagens.getString("espessura") + " (m) + </td>\n<td>" + "Fluxo de Calor" + "</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Camada ls : temp.getListaCamadas()) {
@@ -566,7 +566,7 @@ public class SimController implements Serializable {
             FileOutputStream fileOut = new FileOutputStream(f + "\\" + f + ".bin");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
 
-            out.writeObject(true);
+            out.writeBoolean(true);
             out.writeObject(getAltura());
             out.writeObject(getLargura());
             out.writeObject(getComprimento());
@@ -601,8 +601,7 @@ public class SimController implements Serializable {
         try {
             FileInputStream fileIn = new FileInputStream(f);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            boolean d = (boolean) in.readObject();
-            System.out.println(d);
+            boolean d = in.readBoolean();
             setStatus(d);
             setAltura((double) in.readObject());
             setLargura((double) in.readObject());
