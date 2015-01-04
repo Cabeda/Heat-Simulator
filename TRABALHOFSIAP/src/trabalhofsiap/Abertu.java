@@ -25,6 +25,9 @@ public class Abertu implements java.io.Serializable {
 
     //Inicialização do controller do programa
     private SimController dc;
+    
+    //Fluxo de calor na camada
+    private double FluxoCalor;
 
     /**
      * 
@@ -161,6 +164,20 @@ public class Abertu implements java.io.Serializable {
      */
     public void setLimite(Limite limite) {
         this.limite = limite;
+    }
+
+    /**
+     * @return the FluxoCalor
+     */
+    public double getFluxoCalor() {
+        return FluxoCalor;
+    }
+
+    /**
+     * @param FluxoCalor the FluxoCalor to set
+     */
+    public void setFluxoCalor(double FluxoCalor) {
+        this.FluxoCalor = FluxoCalor;
     }
 
 }

@@ -26,6 +26,9 @@ public class Camada implements java.io.Serializable {
     //Inicialização do controller do programa
     private SimController dc;
 
+    //Fluxo de calor na camada
+    private double FluxoCalor;
+            
     /**
      *
      * Construtor vazio
@@ -146,6 +149,20 @@ public class Camada implements java.io.Serializable {
     @Override
     public String toString() {
         return limite.getTipo() + " | " + material.getNome() + " | " + limite.getAltura() + " | " + limite.getLargura() + " | " + espessura;
+    }
+
+    /**
+     * @return the FluxoCalor
+     */
+    public double getFluxoCalor() {
+        return FluxoCalor;
+    }
+
+    /**
+     * @param FluxoCalor the FluxoCalor to set
+     */
+    public void setFluxoCalor(double FluxoCalor) {
+        this.FluxoCalor = FluxoCalor;
     }
 
 }

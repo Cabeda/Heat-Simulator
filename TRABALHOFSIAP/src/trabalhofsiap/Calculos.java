@@ -8,7 +8,9 @@ José Cabeda 1130395
 package trabalhofsiap;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * CLASSE CÁLCULOS
@@ -81,13 +83,21 @@ public double PotenciaFinal(){
 public double calculosIntermedios(List<Abertu> la, List<Camada> lc){
     
     double soma = 0;
+    double tmp = 0;
+    double res;
     
     for (int i = 0; i < la.size(); i++){
-        soma += 1/Resistencia (la.get(i).getEspessura(), la.get(i).getArea(), la.get(i).getMaterial().getCondutibilidadeTermica());
+        res = Resistencia (la.get(i).getEspessura(), la.get(i).getArea(), la.get(i).getMaterial().getCondutibilidadeTermica());
+        soma += 1/res;
+        la.get(i).setFluxoCalor(res);
+        
+        
     }
     
     for (int i = 0; i < lc.size(); i++){
-        soma += 1/Resistencia (lc.get(i).getEspessura(), lc.get(i).getArea(), lc.get(i).getMaterial().getCondutibilidadeTermica());
+        res = Resistencia (lc.get(i).getEspessura(), lc.get(i).getArea(), lc.get(i).getMaterial().getCondutibilidadeTermica());
+        soma += 1/res;
+        lc.get(i).setFluxoCalor(res);
     }
     
     return soma;
