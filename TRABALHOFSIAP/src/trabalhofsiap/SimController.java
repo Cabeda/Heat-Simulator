@@ -11,6 +11,7 @@ import java.awt.Desktop;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -587,7 +588,7 @@ public class SimController implements Serializable {
             out.close();
             fileOut.close();
 
-        } catch (IOException i) {
+        } catch (IOException i)  {
             i.printStackTrace();
         }
     }
@@ -658,10 +659,10 @@ public class SimController implements Serializable {
             }
 
         } catch (IOException i) {
-            System.out.println("IOException");
+            
         } catch (ClassNotFoundException c) {
 
-            System.out.println("Class Not Found Exception");
+            c.printStackTrace();
         }
     }
 

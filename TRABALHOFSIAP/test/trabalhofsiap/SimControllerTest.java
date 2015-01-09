@@ -85,37 +85,7 @@ public class SimControllerTest {
         }
         assertTrue(flag);
     }
-
-    /**
-     * Test of criarFicheiroHTML method, of class SimController.
-     */
-    @Test
-    public void testCriarFicheiroHTML() throws Exception {
-        System.out.println("criarFicheiroHTML");
-        String f = "teste";
-        Locale lo = new Locale("pt", "PT");
-        mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", lo);
-        SimController instance = new SimController();
-        instance.setMensagens(lo);
-        instance.criarFicheiroHTML(f);
-        assertTrue(new File(f + "\\" + mensagens.getString("resultados") + ".html").isFile());
-    }
-
-    /**
-     * Test of guardarDados method, of class SimController.
-     */
-    @Test
-    public void testGuardarDados() throws IOException {
-        System.out.println("guardarDados");
-        String f = "teste";
-        Locale lo = new Locale("pt", "PT");
-        mensagens = ResourceBundle.getBundle("MensagensBundle/MensagensBundle", lo);
-        SimController instance = new SimController();
-        instance.setMensagens(lo);
-        instance.guardarDados(f);
-
-    }
-
+    
     /**
      * Test of introduzirDados method, of class SimController.
      */

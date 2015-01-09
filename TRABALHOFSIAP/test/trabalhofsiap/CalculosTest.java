@@ -7,6 +7,8 @@ package trabalhofsiap;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,22 +21,24 @@ import static org.junit.Assert.*;
  * @author Jecabeda
  */
 public class CalculosTest {
-    
+
+    private transient ResourceBundle mensagens;
+
     public CalculosTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -72,11 +76,11 @@ public class CalculosTest {
     @Test
     public void testFluxoCalor2() {
         System.out.println("FluxoCalor2");
-                
+
         double espessura = 1;
         double Area = 1;
         double condutividadeMaterial = 0.03;
-        
+
         SimController dc = new SimController();
         dc.setTemperaturaEx(1);
         dc.setTemperaturaPre(1);
@@ -85,7 +89,7 @@ public class CalculosTest {
         instance.Resistencia(espessura, Area, condutividadeMaterial);
         double expResult = 0.0;
         double result = instance.FluxoCalor2();
-        assertEquals(expResult, result, 0.0);        
+        assertEquals(expResult, result, 0.0);
     }
 
     /**
@@ -94,11 +98,11 @@ public class CalculosTest {
     @Test
     public void testPotenciaFinal() {
         System.out.println("PotenciaFinal");
-        
+
         double espessura = 1;
         double Area = 1;
         double condutividadeMaterial = 0.03;
-        
+
         SimController dc = new SimController();
         dc.setTemperaturaEx(1);
         dc.setTemperaturaPre(1);
@@ -120,8 +124,7 @@ public class CalculosTest {
         List<Camada> lc = new ArrayList<>();
         SimController dc = new SimController();
         Calculos instance = new Calculos(dc);
-        double soma = 0;      
-        double expResult = 1/soma;
+        double expResult = 0;
         double result = instance.calculosIntermedios(la, lc);
         assertEquals(expResult, result, 0.0);
     }
@@ -137,9 +140,9 @@ public class CalculosTest {
         double condutividadeMaterial = 0.03;
         SimController dc = new SimController();
         Calculos instance = new Calculos(dc);
-        double expResult = 0.03;
+        double expResult = 33.333333333333333336;
         double result = instance.Resistencia(espessura, Area, condutividadeMaterial);
         assertEquals(expResult, result, 0.0);
     }
-    
+
 }
