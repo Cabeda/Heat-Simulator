@@ -91,7 +91,7 @@ public class Calculos implements Serializable {
      */
     public double calculosIntermedios(List<Abertu> la, List<Camada> lc) {
 
-        if (la.isEmpty() || lc.isEmpty()) {
+        if (la.isEmpty() && lc.isEmpty()) {
             return 0;
         } else {
             double soma = 0;

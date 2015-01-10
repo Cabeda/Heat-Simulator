@@ -494,7 +494,7 @@ public class SimController implements Serializable {
             out3.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("aberturas") + ".html\">" + mensagens.getString("aberturas") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             int i = 1;
-            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)" + "</td>\n<td>" + mensagens.getString("largura") + " (m)" + "</td>\n<td>" + mensagens.getString("espessura") + " (m)" + "</td>\n<td>" + "Fluxo de Calor" + "</td>\n</tr>");
+            out3.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)" + "</td>\n<td>" + mensagens.getString("largura") + " (m)" + "</td>\n<td>" + mensagens.getString("espessura") + " (m)" + "</td>\n<td>" + mensagens.getString("fluxoCalor")+ " (W/m&sup2)" + "</td>\n</tr>");
 
             DecimalFormat df = new DecimalFormat("#,###.00");
             for (Limite temp : listaLim) {
@@ -520,7 +520,7 @@ public class SimController implements Serializable {
             out4.write("<ul>\n" + "  <li><a href=\"" + mensagens.getString("resultados") + ".html\">" + mensagens.getString("home") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("dimTitulo") + ".html\">" + mensagens.getString("dimTitulo") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("limites") + ".html\">" + mensagens.getString("limites") + "</a></li>\n" + "  <li><a href=\"" + mensagens.getString("outros") + ".html\">" + mensagens.getString("outros") + "</a></li>\n" + "</ul>");
 
             i = 1;
-            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)" + "</td>\n<td>" + mensagens.getString("largura") + " (m)" + "</td>\n<td>" + mensagens.getString("espessura") + " (m) " + "</td>\n<td>" + "Fluxo de Calor" + "</td>\n</tr>");
+            out4.write("<table border=\"2\" style=\"width:50%\">\n<tr><td>" + mensagens.getString("numero") + "</td>\n<td>" + mensagens.getString("limite") + "</td>\n<td>" + mensagens.getString("material") + "</td>\n<td>" + mensagens.getString("altura") + " (m)" + "</td>\n<td>" + mensagens.getString("largura") + " (m)" + "</td>\n<td>" + mensagens.getString("espessura") + " (m) " + "</td>\n<td>" + mensagens.getString("fluxoCalor")+ " (W/m&sup2)" + "</td>\n</tr>");
 
             for (Limite temp : listaLim) {
                 for (Abertu ls : temp.getListaAberturas()) {
